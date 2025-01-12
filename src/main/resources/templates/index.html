@@ -1,9 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Yo programo en Java</title>
+	<title th:text=${title}></title>
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>Yo programo en Java</h1>
+<header id="main-title">
+	<h1 th:text=${title}></h1>
+</header>
+<nav>
+- Art&iacute;culos - Temas - Noticias - Acerca de
+</nav>
+<section>
+	<header>
+		<h2>&Uacute;ltimos art&iacute;culos:</h2>
+	</header>
+	<article>
+		<h3>Art&iacute;culo n&uacute;mero uno</h3>
+		<p>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		<br><br>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		</p>
+	</article>
+		<article>
+		<h3>Art&iacute;culo n&uacute;mero dos</h3>
+		<p>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		<br><br>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		</p>
+	</article>
+		<article>
+		<h3>Art&iacute;culo n&uacute;mero tres</h3>
+		<p>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		<br><br>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		</p>
+	</article>
+		<article>
+		<h3>Art&iacute;culo n&uacute;mero cuatro</h3>
+		<p>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		<br><br>
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.
+		Este es un texto de ejemplo. Este es un texto de ejemplo. Este es un texto de ejemplo.<br>
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.Este es un texto de ejemplo.
+		</p>
+	</article>
+</section>
 </body>
 </html>
