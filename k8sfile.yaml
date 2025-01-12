@@ -35,6 +35,12 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3500
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: password
 ---
 apiVersion: apps/v1
 kind: StatefulSet
