@@ -28,7 +28,7 @@ h3 {
 	padding-left: 15px;
 	padding-right: 15px;
 	margin-top: 0px;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 	margin-left: 0px;
 	margin-right: 0px;
 }
@@ -42,9 +42,13 @@ h3 {
 
 #main-menu {
 	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	padding-left: 20px;
 	padding-right: 20px;
+	margin-top: 0px;
 	font-size: 25px;
+	border: 1px solid #3498db
 }
 
 #main-menu ul {
@@ -55,5 +59,66 @@ h3 {
 
 #main-menu li {
 	display: inline-block;
-	margin-right: 15px;
+	margin-right: 40px;
+}
+
+#main-menu li a:link {
+	text-decoration: none;
+	color: #3498db
+}
+
+#main-menu li a:hover {
+	text-decoration: underline;
+	color: #3498db
+}
+
+#main-menu li a:active {
+	text-decoration: none;
+	color: #3498db
+}
+
+#main-menu li a:visited {
+	text-decoration: none;
+	color: #3498db
+}
+
+#main-menu button {
+  display: none;
+  background-color: white;
+  color: #3498db;
+  border: none;
+  padding: 10px 15px;
+  font-size: 50px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+#main-menu ul {
+	flex-direction: column;
+	display: none;
+}
+
+@media only screen and (max-width: 600px) {
+	
+	#main-title {
+		text-align: center;
+	}
+
+	#main-title h1 {
+		font-size: 35px;
+	}
+	
+	#main-menu button {
+		display: block;
+	}
+
+	#main-menu ul.show {
+		display: flex;
+	}
+
+	#main-menu ul {
+		display: none;
+		flex-direction: column;
+	}
 }
