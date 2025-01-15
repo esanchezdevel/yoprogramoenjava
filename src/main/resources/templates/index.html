@@ -6,12 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<script type="text/javascript">
-	  document.getElementById('menu-toggle').addEventListener('click', function () {
-	    const menu = document.querySelector('#main-menu ul');
-	    menu.classList.toggle('show');
-	  });
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
 	</script>
 </head>
 <body>
@@ -19,13 +25,13 @@
 	<h1 th:text=${title}></h1>
 </header>
 <nav id="main-menu">
-	<button id="menu-toggle">☰</button>
-	<ul>
-		<li><a href="#">Art&iacute;culos</a></li>
-		<li><a href="#">Temas</a></li>
-		<li><a href="#">Noticias</a></li>
-		<li><a href="#">Acerca de</a></li>
-	</ul>
+	<div class="topnav" id="myTopnav">
+		<a href="#articles">Art&iacute;culos</a>
+		<a href="#topics">Temas</a>
+		<a href="#news">Noticias</a>
+		<a href="#about">Acerca de</a> 
+		<a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="fa fa-bars"></i></a>
+	</div>
 </nav>
 <section>
 	<header>
