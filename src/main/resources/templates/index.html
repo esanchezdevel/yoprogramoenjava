@@ -17,6 +17,16 @@
 			} else {
 				x.className = "topnav";
 			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
 		}
 	</script>
 </head>
@@ -25,13 +35,13 @@
 	<h1 th:text=${title}></h1>
 </header>
 <nav id="main-menu">
-	<div class="topnav" id="myTopnav">
-		<a href="#articles">Art&iacute;culos</a>
-		<a href="#topics">Temas</a>
-		<a href="#news">Noticias</a>
-		<a href="#about">Acerca de</a> 
-		<a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="fa fa-bars"></i></a>
-	</div>
+	<ul class="topnav" id="myTopnav">
+		<li><a href="#articles">Art&iacute;culos</a></li>
+		<li><a href="#topics">Temas</a></li>
+		<li><a href="#news">Noticias</a></li>
+		<li><a href="#about">Acerca de</a></li>
+		<li><a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="fa fa-bars"></i></a></li>
+	</ul>
 </nav>
 <section>
 	<header>
