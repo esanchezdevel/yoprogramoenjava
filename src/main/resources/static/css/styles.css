@@ -14,11 +14,29 @@ h1 {
 h2 {
 	font-size: 40px;
 	color: #3498db;
+	text-shadow: 2px 2px 2px grey;
 }
 
 h3 {
 	font-size: 30px;
 	color: #3498db;
+}
+
+p {
+	font-size: 20px;
+	letter-spacing: 1px;
+	color: black;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+hr {
+	color: #3498db;
+}
+
+/* to simulate a tabulation */
+.tab {
+	margin: 40px;
 }
 
 #main-title {
@@ -78,6 +96,22 @@ h3 {
 	display: none;
 	color: #3498db;
 	font-size: 40px;
+}
+
+.main-section {
+	width: 100%;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 40px;
+}
+
+#introduction {
+	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 3px solid #3498db;
+	box-shadow: 10px 10px 10px grey;
 }
 
 @media only screen and (max-width: 600px) {
