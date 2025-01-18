@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${title}"></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<h1 th:text="${title}"></h1>
+</header>
+<nav id="main-menu">
+	<ul class="topnav" id="myTopnav">
+		<li><a href="#articles">Nuevo Art&iacute;culo</a></li>
+		<li><a href="#news">Nueva Noticia</a></li>
+		<li><a href="#news">Nuevo Meme</a></li>
+		<li><a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="fa fa-bars"></i></a></li>
+	</ul>
+</nav>
+<section class="main-section">
+	<article id="admin-panel">
+		<h2>Admin Panel</h2>
+		<hr>
+		<p>
+		Bienvenido al panel de administraci&oacute;n de yoprogramoenjava.com, donde podr&aacute;s crear nuevo 
+		contenido para la p&aacute;gina.
+		</p>
+		<p>
+		¡Act&uacute;a con cuidado!
+		</p>
+	</article>
+</section>
+<footer>
+	<p>yoprogramoenjava.com &copy;2025</p>
+</footer>
+</body>
+</html>
