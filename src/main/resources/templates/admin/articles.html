@@ -7,6 +7,7 @@
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
@@ -44,16 +45,31 @@
 	</ul>
 </nav>
 <section class="main-section">
-	<article id="admin-panel">
-		<h2>Admin Panel</h2>
+	<article id="admin-articles">
+		<h2>Admin Art&iacute;culos</h2>
 		<hr>
-		<p>
-		Bienvenido al panel de administraci&oacute;n de yoprogramoenjava.com, donde podr&aacute;s crear nuevo 
-		contenido para la p&aacute;gina.
-		</p>
-		<p>
-		¡Act&uacute;a con cuidado!
-		</p>
+		<a class="custom-button" href="/admin/articles/new">Nuevo Art&iacute;culo</a>
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th>Art&iacute;culo</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Mi Primer Art&iacute;culo</td>
+					<td><i class="fas fa-edit"></i></td>
+					<td><i class="fas fa-trash"></i></td>
+				</tr>
+				<tr>
+					<td>Mi Segundo Art&iacute;culo</td>
+					<td><i class="fas fa-edit"></i></td>
+					<td><i class="fas fa-trash"></i></td>
+				</tr>
+			</tbody>
+		</table>
 	</article>
 </section>
 <footer>

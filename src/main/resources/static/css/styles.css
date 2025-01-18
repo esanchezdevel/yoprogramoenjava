@@ -52,6 +52,26 @@ footer p {
 	margin-left: 40px;
 }
 
+.custom-button {
+	display: inline-block;
+	background: #3498db;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: none;
+	box-shadow: 5px 5px 5px grey;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.custom-button:active {
+	box-shadow: none;
+}
+
 #main-title {
 	background: #3498db;
 	padding-top: 5px;
@@ -127,6 +147,49 @@ footer p {
 	box-shadow: 10px 10px 10px grey;
 }
 
+#admin-panel {
+	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 3px solid #3498db;
+	box-shadow: 10px 10px 10px grey;
+}
+
+#admin-articles {
+	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 3px solid #3498db;
+	box-shadow: 10px 10px 10px grey;
+}
+
+.table-list {
+	width: 80%;
+/* 	border: 2px solid #3498db; */
+	border-collapse: collapse;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.table-list th, td {
+	border: 2px solid #3498db;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.table-list th {
+	background: #a6dbff;
+	color: #3498db;
+	font-weight: bold;
+}
+
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
@@ -156,6 +219,32 @@ footer p {
 	}
 	
 	#introduction h2, p {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	#admin-panel {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+		border: 0px;
+		box-shadow: 0px 0px 0px;
+	}
+	
+	#admin-panel h2, p {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	#admin-articles {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+		border: 0px;
+		box-shadow: 0px 0px 0px;
+	}
+	
+	#admin-articles h2, p {
 		padding-left: 5px;
 		padding-right: 5px;
 	}
