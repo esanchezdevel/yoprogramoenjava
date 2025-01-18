@@ -25,6 +25,7 @@ h3 {
 p {
 	font-size: 20px;
 	letter-spacing: 1px;
+	line-height: 30px;
 	color: black;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -36,7 +37,7 @@ hr {
 
 /* to simulate a tabulation */
 .tab {
-	margin: 40px;
+	margin-left: 40px;
 }
 
 #main-title {
@@ -116,12 +117,35 @@ hr {
 
 @media only screen and (max-width: 600px) {
 	
+	.tab {
+		margin-left: 20px;
+	}
+	
 	#main-title {
 		text-align: center;
 	}
 
 	#main-title h1 {
 		font-size: 35px;
+	}
+	
+	.main-section {
+		padding-top: 0px;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	
+	#introduction {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+		border: 0px;
+		box-shadow: 0px 0px 0px;
+	}
+	
+	#introduction h2, p {
+		padding-left: 5px;
+		padding-right: 5px;
 	}
 }
 
