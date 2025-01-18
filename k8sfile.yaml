@@ -55,6 +55,11 @@ spec:
                 secretKeyRef:
                   name: postgres-password
                   key: password
+            - name: SPRING_SECURITY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: admin-password
+                  key: password
 ---
 apiVersion: apps/v1
 kind: StatefulSet

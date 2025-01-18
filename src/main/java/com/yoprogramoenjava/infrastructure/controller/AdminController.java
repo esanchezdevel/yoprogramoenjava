@@ -11,6 +11,6 @@ public class AdminController {
 
 	@GetMapping() 
 	public String getAdminPanel(Model model) {
-		return "/admin/index";
+		return "admin/index";
 	}
 }
