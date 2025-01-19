@@ -23,7 +23,7 @@ public class Article {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	private String title;
 	
@@ -44,14 +44,14 @@ public class Article {
 	private LocalDateTime dateLastUpdate;
 	
 	@ManyToOne
-    @JoinColumn(name = "topic_id", nullable = false)
+    @JoinColumn(name = "topic_id", nullable = true)
 	private Topic topic;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

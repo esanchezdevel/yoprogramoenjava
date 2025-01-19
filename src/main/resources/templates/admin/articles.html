@@ -58,15 +58,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td class="table-title">Mi Primer Art&iacute;culo</td>
-					<td class="table-action"><i class="fas fa-edit"></i></td>
-					<td class="table-action"><i class="fas fa-trash"></i></td>
-				</tr>
-				<tr>
-					<td class="table-title">Mi Segundo Art&iacute;culo</td>
-					<td class="table-action"><i class="fas fa-edit"></i></td>
-					<td class="table-action"><i class="fas fa-trash"></i></td>
+				<tr th:each="article : ${articles}">
+					<td class="table-title" th:text="${article.title}"></td>
+					<td class="table-action"><a th:href="'/admin/articles/edit/' + ${article.id}"><i class="fas fa-edit"></i></a></td>
+					<td class="table-action"><a th:href="'/admin/articles/delete/' + ${article.id}"><i class="fas fa-trash"></i></a></td>
 				</tr>
 			</tbody>
 		</table>
