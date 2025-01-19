@@ -167,7 +167,6 @@ footer p {
 
 .table-list {
 	width: 80%;
-/* 	border: 2px solid #3498db; */
 	border-collapse: collapse;
 	margin: 0 auto;
 	margin-top: 20px;
@@ -189,6 +188,15 @@ footer p {
 	font-weight: bold;
 }
 
+.table-title {
+	width: 80%;
+	text-align: left;
+}
+
+.table-action {
+	width: 10%;
+	text-align: center;
+}
 
 @media only screen and (max-width: 600px) {
 	
