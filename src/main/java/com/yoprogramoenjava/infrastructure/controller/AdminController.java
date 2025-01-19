@@ -31,4 +31,11 @@ public class AdminController {
 		
 		return "admin/articles";
 	}
+	
+	@GetMapping("/articles/create")
+	public String createArticleForm(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "admin/article_form";
+	}
 }

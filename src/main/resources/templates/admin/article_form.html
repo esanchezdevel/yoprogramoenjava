@@ -46,25 +46,25 @@
 </nav>
 <section class="main-section">
 	<article id="admin-articles">
-		<h2>Admin Art&iacute;culos</h2>
+		<h2>Admin Nuevo Art&iacute;culo</h2>
 		<hr>
-		<a class="custom-button" href="/admin/articles/create">Nuevo Art&iacute;culo</a>
-		<table class="table-list">
-			<thead>
-				<tr>
-					<th class="table-title">Art&iacute;culo</th>
-					<th class="table-action">Editar</th>
-					<th class="table-action">Eliminar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="article : ${articles}">
-					<td class="table-title" th:text="${article.title}"></td>
-					<td class="table-action"><a th:href="'/admin/articles/edit/' + ${article.id}"><i class="fas fa-edit"></i></a></td>
-					<td class="table-action"><a th:href="'/admin/articles/delete/' + ${article.id}"><i class="fas fa-trash"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
+		<form action="/admin/articles/create" method="POST">
+			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" required>
+			<br>
+			<select id="tema" name="tema" class="form-element" required>
+				<option value="" disabled selected>Selecciona un Tema</option>
+				<option value="Base de datos">Base de datos</option>
+				<option value="Spring Boot">Spring Boot</option>
+				<option value="Jakarta EE">Jakarta EE</option>
+			</select>
+			<br>
+			<textarea id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"  class="form-element" required></textarea>
+			<br>
+			<textarea id="contenido" name="contenido" rows="5" placeholder="Introduce el contenido del artículo" class="form-element" required></textarea>
+			<br>
+			<button type="submit" class="custom-button">Crear</button>
+			<br>
+		</form>
 	</article>
 </section>
 <footer>
