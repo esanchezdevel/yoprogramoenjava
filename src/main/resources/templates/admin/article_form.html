@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	
+	<script th:src="@{/js/form.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -58,9 +59,11 @@
 				<option value="Jakarta EE">Jakarta EE</option>
 			</select>
 			<br>
-			<textarea id="descripcion" name="descripcion" rows="3" placeholder="Descripci&oacute;n"  class="form-element" required></textarea>
+			<textarea id="description" name="descripcion" rows="5" placeholder="Descripci&oacute;n"  class="form-element" required></textarea>
 			<br>
-			<textarea id="contenido" name="contenido" rows="5" placeholder="Introduce el contenido del artículo" class="form-element" required></textarea>
+			<button class="custom-button" id="button-bold" type="button">Bold</button><button class="custom-button">Italic</button><button class="custom-button">Image</button><button class="custom-button">Youtube Video</button><button class="custom-button">Tweet</button>
+			<br>
+			<textarea id="content" name="contenido" rows="25" placeholder="Introduce el contenido del art&iacute;culo" class="form-element" required></textarea>
 			<br>
 			<button type="submit" class="custom-button">Crear</button>
 			<br>
