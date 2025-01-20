@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const button_image = document.getElementById('button-image');
 	const button_youtube = document.getElementById('button-youtube');
 	const button_tweet = document.getElementById('button-tweet');
+	const button_code = document.getElementById('button-code');
 	
 	button_bold.addEventListener('click', (event) => {
 		event.preventDefault();
@@ -30,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		event.preventDefault();
 		add_tags(content, 'tweet')
 	});
+	
+	button_code.addEventListener('click', (event) => {
+		event.preventDefault();
+		add_tags(content, 'code')
+	});
 				
 	function add_tags(content, tag) {
 		const start = content.selectionStart;
@@ -51,7 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			} else {
 				content.value = text.substring(0, start) + `[` + tag + `][/` + tag + `]` + text.substring(start);
 				// Move the tags to the center between both tags
-				content.selectionStart = content.selectionEnd = start + 3;	
+				if (tag === 'code') {
+					content.selectionStart = content.selectionEnd = start + 6;
+				} else {
+					content.selectionStart = content.selectionEnd = start + 3;	
+				}	
 			}		    
 		}
 
