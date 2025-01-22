@@ -17,9 +17,8 @@ echo "Pushing image to registry..."
 docker push esanchezdevel/yoprogramoenjava:$VERSION
 
 echo
-echo "Creating K8s namespace..."
-kubectl delete namespace $NAMESPACE
-kubectl create namespace $NAMESPACE
+echo "Cleaning K8s namespace..."
+kubectl delete all,configmaps,secrets --all -n $NAMESPACE
 
 echo
 echo "Creating secrets in K8s..."
