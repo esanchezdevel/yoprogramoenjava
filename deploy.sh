@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 NAMESPACE=yoprogramoenjava
 VERSION=v0.0.1-SNAPSHOT
 PG_PASSWORD=$1
