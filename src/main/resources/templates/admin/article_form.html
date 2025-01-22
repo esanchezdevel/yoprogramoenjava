@@ -50,6 +50,7 @@
 		<h2>Admin Nuevo Art&iacute;culo</h2>
 		<hr>
 		<form action="/admin/articles/create" method="POST">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" required>
 			<br>
 			<select id="tema" name="tema" class="form-element" required>
