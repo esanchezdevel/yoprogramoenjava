@@ -1,4 +1,4 @@
-package com.yoprogramoenjava.infrastructure.controller;
+package com.yoprogramoenjava.presentation.controller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.service.ArticlesService;
+import com.yoprogramoenjava.presentation.dto.ArticleDTO;
 
 @Controller
 @RequestMapping("/admin")
@@ -45,8 +47,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/articles/create")
-	public String postCreateArticle(Model model) {
-		logger.info("Processing new article");
+	public String postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
+		logger.info("Processing new article: {}", articleDTO);
 		return "admin/index";
 	}
 	
