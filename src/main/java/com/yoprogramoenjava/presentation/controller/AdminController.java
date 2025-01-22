@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
+import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
 
 @Controller
 @RequestMapping("/admin")
@@ -49,6 +50,9 @@ public class AdminController {
 	@PostMapping("/articles/create")
 	public String postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Processing new article: {}", articleDTO);
+		
+		articlesService.store(ArticleMapping.parseToEntity(articleDTO));
+		
 		return "admin/index";
 	}
 	

@@ -12,4 +12,11 @@ public interface ArticlesService {
 	 * @return List of Articles
 	 */
 	public List<Article> getAll();
+	
+	/**
+	 * Store one Article in database
+	 * 
+	 * @param article The article to be saved
+	 */
+	public void store(Article article);
 }

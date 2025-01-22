@@ -19,4 +19,9 @@ public class ArticlesServiceImpl implements ArticlesService {
 	public List<Article> getAll() {
 		return articlesRepository.findAll();
 	}
+	
+	@Override
+	public void store(Article article) {
+		articlesRepository.save(article);	
+	}
 }
