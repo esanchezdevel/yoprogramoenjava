@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	
+	<script th:src="@{/js/form.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -41,25 +42,17 @@
 </nav>
 <section class="main-section">
 	<article id="admin-list-article">
-		<h2>Admin - Temas</h2>
+		<h2>Admin - Nuevo Tema</h2>
 		<hr>
-		<a class="custom-button" href="/admin/topics/create">Nuevo Tema</a>
-		<table class="table-list">
-			<thead>
-				<tr>
-					<th class="table-title">Tema</th>
-					<th class="table-action">Editar</th>
-					<th class="table-action">Eliminar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="topic : ${topics}">
-					<td class="table-title" th:text="${topic.title}"></td>
-					<td class="table-action"><a th:href="'/admin/topics/edit/' + ${topic.id}"><i class="fas fa-edit"></i></a></td>
-					<td class="table-action"><a th:href="'/admin/topics/delete/' + ${topic.id}"><i class="fas fa-trash"></i></a></td>
-				</tr>
-			</tbody>
-		</table>
+		<form action="/admin/topics/create" method="POST">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" required>
+			<br>
+			<input type="text" id="description" name="description" placeholder="Descripción" class="form-element" required>
+			<br>
+			<button type="submit" class="custom-button">Crear</button>
+			<br>
+		</form>
 	</article>
 </section>
 <footer>

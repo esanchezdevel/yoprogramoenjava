@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.service.ArticlesService;
+import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
+import com.yoprogramoenjava.presentation.dto.TopicDTO;
 import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
+import com.yoprogramoenjava.presentation.dto.mapping.TopicMapping;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,6 +26,9 @@ public class AdminController {
 	
 	@Autowired
 	private ArticlesService articlesService;
+
+	@Autowired
+	private TopicsService topicsService;
 	
 	@GetMapping() 
 	public String getAdminPanel(Model model) {
@@ -60,6 +66,24 @@ public class AdminController {
 	public String getTopics(Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, topicsService.getAll());
+
 		return "admin/topics";
+	}
+
+	@GetMapping("/topics/create")
+	public String getCreateTopic(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		return "admin/topic_form";
+	}
+
+	@PostMapping("/topics/create")
+	public String postCreateTopic(@ModelAttribute TopicDTO topicDTO, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		topicsService.store(TopicMapping.parseToEntity(topicDTO));
+
+		return "admin/index";
 	}
 }
