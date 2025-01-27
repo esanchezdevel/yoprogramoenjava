@@ -41,22 +41,22 @@
 </nav>
 <section class="main-section">
 	<article id="admin-list-article">
-		<h2>Admin - Art&iacute;culos</h2>
+		<h2>Admin - Temas</h2>
 		<hr>
-		<a class="custom-button" href="/admin/articles/create">Nuevo Art&iacute;culo</a>
+		<a class="custom-button" href="/admin/topics/create">Nuevo Tema</a>
 		<table class="table-list">
 			<thead>
 				<tr>
-					<th class="table-title">Art&iacute;culo</th>
+					<th class="table-title">Tema</th>
 					<th class="table-action">Editar</th>
 					<th class="table-action">Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="article : ${articles}">
-					<td class="table-title" th:text="${article.title}"></td>
-					<td class="table-action"><a th:href="'/admin/articles/edit/' + ${article.id}"><i class="fas fa-edit"></i></a></td>
-					<td class="table-action"><a th:href="'/admin/articles/delete/' + ${article.id}"><i class="fas fa-trash"></i></a></td>
+				<tr th:each="topic : ${topics}">
+					<td class="table-title" th:text="${topic.name}"></td>
+					<td class="table-action"><a th:href="'/admin/topics/edit/' + ${topic.id}"><i class="fas fa-edit"></i></a></td>
+					<td class="table-action"><a th:href="'/admin/topics/delete/' + ${topic.id}"><i class="fas fa-trash"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

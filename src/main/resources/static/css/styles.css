@@ -153,24 +153,6 @@ footer p {
 	box-shadow: 10px 10px 10px grey;
 }
 
-#admin-panel {
-	width: 75%;
-	margin: 0 auto;
-	padding-left: 20px;
-	padding-right: 20px;
-	border: 3px solid #3498db;
-	box-shadow: 10px 10px 10px grey;
-}
-
-#admin-articles {
-	width: 75%;
-	margin: 0 auto;
-	padding-left: 20px;
-	padding-right: 20px;
-	border: 3px solid #3498db;
-	box-shadow: 10px 10px 10px grey;
-}
-
 .table-list {
 	width: 80%;
 	border-collapse: collapse;

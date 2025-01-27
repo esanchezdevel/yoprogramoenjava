@@ -56,5 +56,10 @@ public class AdminController {
 		return "admin/index";
 	}
 	
-	
+	@GetMapping("/topics")
+	public String getTopics(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		return "admin/topics";
+	}
 }
