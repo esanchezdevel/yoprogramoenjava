@@ -50,6 +50,8 @@ public class AdminController {
 	public String createArticleForm(Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, topicsService.getAll());
+
 		return "admin/article_form";
 	}
 	
@@ -57,7 +59,7 @@ public class AdminController {
 	public String postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Processing new article: {}", articleDTO);
 		
-		articlesService.store(ArticleMapping.parseToEntity(articleDTO));
+		articlesService.store(ArticleMapping.parseToEntity(articleDTO, topicsService));
 		
 		return "admin/index";
 	}

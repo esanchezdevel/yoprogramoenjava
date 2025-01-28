@@ -49,9 +49,7 @@
 			<br>
 			<select id="tema" name="topic" class="form-element" required>
 				<option value="" disabled selected>Selecciona un Tema</option>
-				<option value="Base de datos">Base de datos</option>
-				<option value="Spring Boot">Spring Boot</option>
-				<option value="Jakarta EE">Jakarta EE</option>
+				<option th:each="topic : ${topics}" th:value="${topic.title}" th:text="${topic.title}"></option>
 			</select>
 			<br>
 			<textarea id="description" name="description" rows="5" placeholder="Descripci&oacute;n"  class="form-element" required></textarea>

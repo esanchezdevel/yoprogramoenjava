@@ -1,6 +1,7 @@
 package com.yoprogramoenjava.domain.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,21 @@ public class TopicsServiceImpl implements TopicsService {
 	@Autowired
 	private TopicsRepository topicsRepository;
 
-	@Override
-	public void store(Topic topic) {
-		topicsRepository.save(topic);
-	}
 
 	@Override
 	public List<Topic> getAll() {
 		return topicsRepository.findAll();
+	}
+
+
+	@Override
+	public Optional<Topic> getByTitle(String title) {
+		return topicsRepository.findByTitle(title);
+	}
+
+
+	@Override
+	public void store(Topic topic) {
+		topicsRepository.save(topic);
 	}
 }
