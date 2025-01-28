@@ -35,14 +35,7 @@
 	<h1 th:text="${title}"></h1>
 </header>
 <nav id="main-menu">
-	<ul class="topnav" id="myTopnav">
-		<li><a href="#articles">Art&iacute;culos</a></li>
-		<li><a href="#topics">Temas</a></li>
-		<li><a href="#news">Noticias</a></li>
-		<li><a href="#news">Memes</a></li>
-		<li><a href="#about">Acerca de</a></li>
-		<li><a href="javascript:void(0);" class="icon" onclick="toggleMenu()"><i class="fa fa-bars"></i></a></li>
-	</ul>
+	<div th:replace="fragments/menu :: menu"></div>
 </nav>
 <section class="main-section">
 	<article id="introduction">
@@ -80,7 +73,7 @@
 	</article>
 </section>
 <footer>
-	<p>yoprogramoenjava.com &copy;2025</p>
+	<div th:replace="fragments/footer :: footer"></div>
 </footer>
 </body>
 </html>
