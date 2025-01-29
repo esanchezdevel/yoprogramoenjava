@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.service.ArticlesService;
@@ -56,12 +57,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/articles/create")
-	public String postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
+	public RedirectView postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Processing new article: {}", articleDTO);
 		
 		articlesService.store(ArticleMapping.parseToEntity(articleDTO, topicsService));
 		
-		return "admin/index";
+		return new RedirectView("/admin");
 	}
 	
 	@GetMapping("/topics")
@@ -81,11 +82,11 @@ public class AdminController {
 	}
 
 	@PostMapping("/topics/create")
-	public String postCreateTopic(@ModelAttribute TopicDTO topicDTO, Model model) {
+	public RedirectView postCreateTopic(@ModelAttribute TopicDTO topicDTO, Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
 		topicsService.store(TopicMapping.parseToEntity(topicDTO));
 
-		return "admin/index";
+		return new RedirectView("/admin");
 	}
 }
