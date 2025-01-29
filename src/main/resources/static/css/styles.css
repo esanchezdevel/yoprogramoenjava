@@ -197,6 +197,47 @@ footer p {
 	width: 90%
 }
 
+#list-articles {
+	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 3px solid #3498db;
+	box-shadow: 10px 10px 10px grey;
+}
+
+#list-articles ul {
+	list-style-type: none;
+	font-size: 20px;
+	letter-spacing: 1px;
+}
+
+#list-articles ul li {
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: 1px solid #3498db;
+}
+
+#list-articles ul li a:link {
+	color: black;
+	text-decoration: none;
+}
+
+#list-articles ul li a:active {
+	color: black;
+	text-decoration: none;
+}
+
+#list-articles ul li a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+#list-articles ul li a:hover {
+	color: #3498db;
+	text-decoration: none;
+}
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
@@ -229,7 +270,27 @@ footer p {
 		padding-left: 5px;
 		padding-right: 5px;
 	}
+
+	#list-articles {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+		border: 0px;
+		box-shadow: 0px 0px 0px;
+	}
 	
+	#list-articles h2, p {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	#list-articles ul {
+		margin-left: 5px;
+		margin-right: 5px;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
 	#admin-panel {
 		width: 100%;
 		padding-left: 0px;

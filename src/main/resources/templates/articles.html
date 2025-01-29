@@ -38,11 +38,11 @@
 	<div th:replace="fragments/menu :: menu"></div>
 </nav>
 <section class="main-section">
-	<article id="list-article">
+	<article id="list-articles">
 		<h2>Art&iacute;culos</h2>
 		<hr>
-		<ul th:each="article : ${articles}">
-			<li><a th:text="${article.title}" th:href="'/article/' + ${article.id}"></a></li>
+		<ul>
+			<li th:each="article : ${articles}"><a th:text="${article.title}" th:href="'/articles/' + ${article.id}"></a></li>
 		</ul>
 	</article>
 </section>
