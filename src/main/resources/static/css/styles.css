@@ -248,6 +248,30 @@ footer p {
 	text-decoration: none;
 }
 
+#list-articles ul li h3 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 25px;
+	background-color: #d6eaf8;
+	box-shadow: 2px 2px 2px black;
+}
+
+#list-articles ul li p {
+	margin-top: 5px;
+	margin-left: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 18px;
+	background-color: #eaeded;
+	box-shadow: 2px 2px 2px black;
+}
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
