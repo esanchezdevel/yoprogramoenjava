@@ -153,6 +153,15 @@ footer p {
 	box-shadow: 10px 10px 10px grey;
 }
 
+#article-content {
+	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 3px solid #3498db;
+	box-shadow: 10px 10px 10px grey;
+}
+
 .table-list {
 	width: 80%;
 	border-collapse: collapse;
@@ -268,6 +277,19 @@ footer p {
 	}
 	
 	#introduction h2, p {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+
+	#article-content {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+		border: 0px;
+		box-shadow: 0px 0px 0px;
+	}
+	
+	#article-content h2, p {
 		padding-left: 5px;
 		padding-right: 5px;
 	}
