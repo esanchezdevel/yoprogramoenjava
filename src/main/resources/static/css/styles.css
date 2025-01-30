@@ -210,6 +210,7 @@ footer p {
 	list-style-type: none;
 	font-size: 20px;
 	letter-spacing: 1px;
+	padding-right: 60px;
 }
 
 #list-articles ul li {
