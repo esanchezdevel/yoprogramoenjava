@@ -90,6 +90,10 @@ footer p {
 	margin-right: 0px;
 }
 
+#main-title a {
+	text-decoration: none;
+}
+
 #main-title h1 {
 	color: white;
 	text-shadow: 3px 3px 3px grey;
