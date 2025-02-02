@@ -1,5 +1,6 @@
 package com.yoprogramoenjava.domain.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.yoprogramoenjava.domain.model.Article;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.HtmlParserService;
+import com.yoprogramoenjava.infrastructure.db.dto.ArticleDTO;
 import com.yoprogramoenjava.infrastructure.db.repository.ArticlesRepository;
 
 @Service
@@ -26,7 +28,20 @@ public class ArticlesServiceImpl implements ArticlesService {
 	
 	@Override
 	public List<Article> getAll() {
-		return articlesRepository.findAll();
+
+		List<ArticleDTO> articlesDTOs = articlesRepository.findAllArticles();
+		
+		List<Article> articles = new ArrayList<>();
+		articlesDTOs.forEach(dto -> {
+			Article article = new Article();
+			article.setId(dto.id());
+			article.setTitle(dto.title());
+			article.setDescription(dto.description());
+			article.setDateCreation(dto.dateCreation());
+
+			articles.add(article);
+		});
+		return articles;
 	}
 
 	@Override
