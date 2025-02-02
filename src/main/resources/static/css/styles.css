@@ -166,6 +166,19 @@ footer p {
 	box-shadow: 10px 10px 10px grey;
 }
 
+.code-block {
+	background-color: white;
+	border: 0.1px solid #031752;
+	color: #102562;
+	font-size: 15px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	border-radius: 10px;
+	box-shadow: 10px 10px 10px #031752;
+}
+
 .table-list {
 	width: 80%;
 	border-collapse: collapse;
