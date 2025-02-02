@@ -179,6 +179,19 @@ footer p {
 	box-shadow: 10px 10px 10px #031752;
 }
 
+/* Style for access modifiers */
+.accessModifiers {
+	color: #ff6347; /* Tomato */
+	font-weight: bold;
+}
+
+/* Style for data types */
+.dataTypes {
+	color: #4682b4; /* SteelBlue */
+	font-style: italic;
+}
+
+
 .table-list {
 	width: 80%;
 	border-collapse: collapse;
