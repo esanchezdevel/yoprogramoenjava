@@ -28,4 +28,12 @@ public interface ArticlesService {
 	 * @param article The article to be saved
 	 */
 	void store(Article article);
+
+	/**
+	 * Update one article in database
+	 * 
+	 * @param id The article id
+	 * @param article The article to be updated
+	 */
+	void update(Long id, Article article);
 }

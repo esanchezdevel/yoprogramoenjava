@@ -15,6 +15,8 @@ import com.yoprogramoenjava.domain.service.HtmlParserService;
 import com.yoprogramoenjava.infrastructure.db.dto.ArticleDTO;
 import com.yoprogramoenjava.infrastructure.db.repository.ArticlesRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ArticlesServiceImpl implements ArticlesService {
 
@@ -60,8 +62,24 @@ public class ArticlesServiceImpl implements ArticlesService {
 		return article;
 	}
 	
+
 	@Override
 	public void store(Article article) {
 		articlesRepository.save(article);	
+	}
+
+
+	@Override
+	@Transactional
+	public void update(Long id, Article article) {
+		
+		Optional<Article> articleDb = articlesRepository.findById(id);
+
+		if (articleDb.isPresent()) {
+			articleDb.get().setTitle(article.getTitle());
+			articleDb.get().setDescription(article.getDescription());
+			articleDb.get().setContent(article.getContent());
+			articleDb.get().setTopic(article.getTopic());
+		}
 	}
 }

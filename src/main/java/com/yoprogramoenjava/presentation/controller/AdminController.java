@@ -88,8 +88,18 @@ public class AdminController {
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLE, ArticleMapping.parseToDTO(article.get()));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, topicsService.getAll());
-		
+
 		return "admin/article_edit_form";
+	}
+
+	@PostMapping("/articles/edit/{id}")
+	public RedirectView editArticle(@PathVariable String id, @ModelAttribute ArticleDTO articleDTO, Model model) {
+		logger.info("Edit article with id: {}", id);
+
+		articlesService.update(Long.valueOf(id), ArticleMapping.parseToEntity(articleDTO, topicsService));
+
+		logger.info("Article modified");
+		return new RedirectView("/admin");
 	}
 	
 	@GetMapping("/topics")
