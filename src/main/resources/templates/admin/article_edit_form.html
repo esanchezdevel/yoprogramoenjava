@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${title}"></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	
+	<script th:src="@{/js/form.js}"></script>
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<h1 th:text="${title}"></h1>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{admin/fragments/admin_menu :: admin_menu}"></div>
+</nav>
+<section class="main-section">
+	<article id="admin-articles">
+		<h2>Admin Nuevo Art&iacute;culo</h2>
+		<hr>
+		<form th:action="'/admin/articles/edit/' + ${article.id}" method="PUT">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" th:value="${article.title}" required>
+			<br>
+			<select id="tema" name="topic" class="form-element" required>
+				<option value="" disabled selected>Selecciona un Tema</option>
+				<option th:each="topic : ${topics}" th:value="${topic.title}" th:text="${topic.title}"></option>
+			</select>
+			<br>
+			<textarea id="description" name="description" rows="5" placeholder="Descripci&oacute;n. Max 255 caracteres"  class="form-element" maxlength="255" th:text="${article.description}" required></textarea>
+			<br>
+			<button class="custom-button" id="button-bold" type="button">Bold</button>
+			<button class="custom-button" id="button-italic" type="button">Italic</button>
+			<button class="custom-button" id="button-image" type="button">Image</button>
+			<button class="custom-button" id="button-youtube" type="button">Youtube Video</button>
+			<button class="custom-button" id="button-tweet" type="button">Tweet</button>
+			<button class="custom-button" id="button-code" type="button">Code</button>
+			<br>
+			<textarea id="content" name="content" rows="25" placeholder="Introduce el contenido del art&iacute;culo" class="form-element" th:text="${article.content}" required></textarea>
+			<br>
+			<button type="submit" class="custom-button">Editar</button>
+			<br>
+		</form>
+	</article>
+</section>
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>

@@ -1,17 +1,22 @@
 package com.yoprogramoenjava.presentation.controller;
 
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.yoprogramoenjava.application.utils.Constants;
+import com.yoprogramoenjava.domain.model.Article;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
@@ -63,6 +68,28 @@ public class AdminController {
 		articlesService.store(ArticleMapping.parseToEntity(articleDTO, topicsService));
 		
 		return new RedirectView("/admin");
+	}
+
+	@GetMapping("/articles/edit/{id}")
+	public String editArticleForm(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return "error";
+		}
+
+		Optional<Article> article = articlesService.getById(Long.valueOf(id));
+
+		if (article.isEmpty()) {
+			logger.error("Error. Article with id '{}' not found", id);
+			return "error";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLE, ArticleMapping.parseToDTO(article.get()));
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, topicsService.getAll());
+		
+		return "admin/article_edit_form";
 	}
 	
 	@GetMapping("/topics")
