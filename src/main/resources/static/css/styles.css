@@ -181,13 +181,13 @@ footer p {
 
 /* Style for access modifiers */
 .accessModifiers {
-	color: #ff6347; /* Tomato */
+	color: #922b21;
 	font-weight: bold;
 }
 
 /* Style for data types */
 .dataTypes {
-	color: #4682b4; /* SteelBlue */
+	color: #4682b4;
 	font-style: italic;
 }
 
