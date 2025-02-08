@@ -56,7 +56,7 @@
 				<tr th:each="topic : ${topics}">
 					<td class="table-title" th:text="${topic.title}"></td>
 					<td class="table-action"><a th:href="'/admin/topics/edit/' + ${topic.id}"><i class="fas fa-edit"></i></a></td>
-					<td class="table-action"><a th:href="'/admin/topics/delete/' + ${topic.id}"><i class="fas fa-trash"></i></a></td>
+					<td class="table-action"><a th:href="'/admin/topics/delete/' + ${topic.id}"  onclick="return confirm('Est&aacute;s seguro de que quieres eliminar este tema?');"><i class="fas fa-trash"></i></a></td>
 				</tr>
 			</tbody>
 		</table>

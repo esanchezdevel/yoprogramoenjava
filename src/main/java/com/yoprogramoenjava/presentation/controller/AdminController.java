@@ -173,4 +173,19 @@ public class AdminController {
 
 		return "admin/topic_edit_form";
 	}
+
+	@GetMapping("/topics/delete/{id}")
+	public RedirectView deleteTopic(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return new RedirectView("/error");
+		}
+
+		topicsService.delete(Long.valueOf(id));
+		logger.info("Topic with id '{}' deleted", id);
+
+		return new RedirectView("/admin/topics");
+	}
 }

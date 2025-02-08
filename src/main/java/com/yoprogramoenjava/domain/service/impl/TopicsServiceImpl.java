@@ -53,4 +53,10 @@ public class TopicsServiceImpl implements TopicsService {
 			topicDb.get().setDescription(topic.getDescription());
 		}
 	}
+
+
+	@Override
+	public void delete(Long id) {
+		topicsRepository.deleteById(id);	
+	}
 }

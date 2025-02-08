@@ -48,4 +48,11 @@ public interface TopicsService {
 	 * @param topic The topic to be updated
 	 */
 	void update(Long id, Topic topic);
+
+	/**
+	 * Delete one Topic in base of the id
+	 * 
+	 * @param id The identifier of the Topic to be deleted
+	 */
+	void delete(Long id);
 }
