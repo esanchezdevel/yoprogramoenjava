@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.model.Article;
+import com.yoprogramoenjava.domain.model.Topic;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
@@ -150,5 +151,26 @@ public class AdminController {
 
 		logger.info("Topic modified");
 		return new RedirectView("/admin/topics");
+	}
+
+	@GetMapping("/topics/edit/{id}")
+	public String editTopicsForm(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return "error";
+		}
+
+		Optional<Topic> topic = topicsService.getById(Long.valueOf(id));
+
+		if (topic.isEmpty()) {
+			logger.error("Error. Topic with id '{}' not found", id);
+			return "error";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPIC, TopicMapping.parseToDTO(topic.get()));
+
+		return "admin/topic_edit_form";
 	}
 }

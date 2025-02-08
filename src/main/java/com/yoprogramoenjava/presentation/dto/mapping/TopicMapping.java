@@ -12,4 +12,9 @@ public class TopicMapping {
 		
 		return entity;
 	}
+
+	public static TopicDTO parseToDTO(Topic entity) {
+		return new TopicDTO(String.valueOf(entity.getId()), entity.getTitle(), entity.getDescription());
+	}
+
 }

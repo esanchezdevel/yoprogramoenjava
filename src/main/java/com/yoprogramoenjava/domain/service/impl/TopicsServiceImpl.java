@@ -26,6 +26,12 @@ public class TopicsServiceImpl implements TopicsService {
 
 
 	@Override
+	public Optional<Topic> getById(Long id) {
+		return topicsRepository.findById(id);
+	}
+
+
+	@Override
 	public Optional<Topic> getByTitle(String title) {
 		return topicsRepository.findByTitle(title);
 	}
@@ -44,6 +50,7 @@ public class TopicsServiceImpl implements TopicsService {
 
 		if (topicDb.isPresent()) {
 			topicDb.get().setTitle(topic.getTitle());
+			topicDb.get().setDescription(topic.getDescription());
 		}
 	}
 }

@@ -12,8 +12,16 @@ public interface TopicsService {
 	 * 
 	 * @return List of Topics
 	 */
-	public List<Topic> getAll();
+	List<Topic> getAll();
 
+
+	/**
+	 * Get a Topic looking by the id
+	 * 
+	 * @param id The id of the topic to be retrieved
+	 * @return Optional of the Topic found on database
+	 */
+	Optional<Topic> getById(Long id);
 	
 	/**
 	 * Get an specific topic from database looking by
@@ -22,7 +30,7 @@ public interface TopicsService {
 	 * @param title The title of the topic
 	 * @return Optional of Topic. Empty if the topic is not found
 	 */
-	public Optional<Topic> getByTitle(String title);
+	Optional<Topic> getByTitle(String title);
 
 
 	/**
@@ -30,7 +38,7 @@ public interface TopicsService {
 	 * 
 	 * @param topic The topic to be stored
 	 */
-	public void store(Topic topic);
+	void store(Topic topic);
 	
 
 	/**
