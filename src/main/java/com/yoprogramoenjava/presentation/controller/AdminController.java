@@ -92,6 +92,21 @@ public class AdminController {
 		return "admin/article_edit_form";
 	}
 
+	@GetMapping("/articles/delete/{id}")
+	public RedirectView deleteArticle(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return new RedirectView("/error");
+		}
+
+		articlesService.delete(Long.valueOf(id));
+		logger.info("Article with id '{}' deleted", id);
+
+		return new RedirectView("/admin/articles");
+	}
+
 	@PostMapping("/articles/edit/{id}")
 	public RedirectView editArticle(@PathVariable String id, @ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Edit article with id: {}", id);

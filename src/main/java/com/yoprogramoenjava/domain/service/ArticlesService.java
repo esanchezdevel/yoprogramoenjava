@@ -36,4 +36,11 @@ public interface ArticlesService {
 	 * @param article The article to be updated
 	 */
 	void update(Long id, Article article);
+
+	/**
+	 * Delete one Article in base of the id
+	 * 
+	 * @param id The identifier of the Article to be deleted
+	 */
+	void delete(Long id);
 }

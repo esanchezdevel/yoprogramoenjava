@@ -82,4 +82,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 			articleDb.get().setTopic(article.getTopic());
 		}
 	}
+
+
+	@Override
+	public void delete(Long id) {
+		articlesRepository.deleteById(id);
+	}
 }
