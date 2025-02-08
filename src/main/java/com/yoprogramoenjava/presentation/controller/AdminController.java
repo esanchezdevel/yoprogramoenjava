@@ -141,4 +141,14 @@ public class AdminController {
 
 		return new RedirectView("/admin");
 	}
+
+	@PostMapping("/topics/edit/{id}")
+	public RedirectView editTopic(@PathVariable String id, @ModelAttribute TopicDTO topicDTO, Model model) {
+		logger.info("Edit topic with id: {}", id);
+
+		topicsService.update(Long.valueOf(id), TopicMapping.parseToEntity(topicDTO));
+
+		logger.info("Topic modified");
+		return new RedirectView("/admin/topics");
+	}
 }

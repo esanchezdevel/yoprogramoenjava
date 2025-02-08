@@ -31,4 +31,13 @@ public interface TopicsService {
 	 * @param topic The topic to be stored
 	 */
 	public void store(Topic topic);
+	
+
+	/**
+	 * Update one topic in database
+	 * 
+	 * @param id The topic id
+	 * @param topic The topic to be updated
+	 */
+	void update(Long id, Topic topic);
 }

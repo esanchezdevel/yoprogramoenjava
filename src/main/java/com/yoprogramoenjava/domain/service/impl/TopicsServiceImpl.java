@@ -10,6 +10,8 @@ import com.yoprogramoenjava.domain.model.Topic;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.infrastructure.db.repository.TopicsRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class TopicsServiceImpl implements TopicsService {
 
@@ -32,5 +34,16 @@ public class TopicsServiceImpl implements TopicsService {
 	@Override
 	public void store(Topic topic) {
 		topicsRepository.save(topic);
+	}
+
+
+	@Override
+	@Transactional
+	public void update(Long id, Topic topic) {
+		Optional<Topic> topicDb = topicsRepository.findById(id);
+
+		if (topicDb.isPresent()) {
+			topicDb.get().setTitle(topic.getTitle());
+		}
 	}
 }
