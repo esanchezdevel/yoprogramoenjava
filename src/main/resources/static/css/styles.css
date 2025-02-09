@@ -225,6 +225,22 @@ footer p {
 	text-align: center;
 }
 
+.table-action a:link {
+	color:#3498db;
+}
+
+.table-action a:visited {
+	color:#3498db;
+}
+
+.table-action a:active {
+	color:#3498db;
+}
+
+.table-action a:hover {
+	color:#031752;
+}
+
 .form-element {
 	margin-top: 10px;
 	margin-bottom: 10px;
