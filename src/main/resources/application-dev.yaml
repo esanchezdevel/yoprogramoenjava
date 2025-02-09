@@ -16,6 +16,3 @@ spring:
 
 server:
   port: 3500
-
-admin:
-  password: ${SPRING_SECURITY_PASSWORD}
