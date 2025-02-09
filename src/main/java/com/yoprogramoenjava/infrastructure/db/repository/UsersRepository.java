@@ -8,5 +8,5 @@ import com.yoprogramoenjava.domain.model.User;
 
 public interface UsersRepository extends JpaRepository<User, Long> {
 	
-	Optional<User> findByUsernameAndPassword(String username, String password);
+	Optional<User> findByUsername(String username);
 }

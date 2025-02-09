@@ -31,22 +31,22 @@ public class UsersServiceImpl implements UsersService {
 
 		Optional<User> user = null;
 		try {
-			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
-			String encryptedPassword = encoder.encode(password);
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	
-			user = usersRepository.findByUsernameAndPassword(username, encryptedPassword);
+			user = usersRepository.findByUsername(username);
 
-			if (user.isPresent())
+			if (user.isPresent() && encoder.matches(password, user.get().getPassword())) {
 				logger.info("User '{}' authenticated");
-			else
+				return user;
+			} else {
 				logger.info("User '{}' not authenticated");
+				return Optional.empty();
+			}
 		} catch (Exception e) {
 			String errorMsg = new StringBuilder("Error. Something goes wrong during user authentication. username: '")
 							.append(username).append("': ").append(e.getMessage()).toString();
 			logger.error(errorMsg, e);
 			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
 		}
-
-		return user;
 	}
 }
