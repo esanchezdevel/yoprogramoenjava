@@ -41,7 +41,7 @@
 	<div th:replace="~{admin/fragments/admin_menu :: admin_menu}"></div>
 </nav>
 <section class="main-section">
-	<article id="admin-list-item">
+	<article id="admin-main-article">
 		<h2>Admin Nuevo Art&iacute;culo</h2>
 		<hr>
 		<form th:action="'/admin/articles/edit/' + ${article.id}" method="POST">
