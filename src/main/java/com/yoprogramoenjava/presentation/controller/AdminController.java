@@ -208,4 +208,11 @@ public class AdminController {
 		}
 		return "admin/external_news.html";
 	}
+
+	@GetMapping("/news/create")
+	public String createExternalNewsForm(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		return "admin/external_news_form";
+	}
 }
