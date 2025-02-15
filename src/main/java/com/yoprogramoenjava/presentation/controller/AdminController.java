@@ -25,8 +25,10 @@ import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.ExternalNewsService;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
+import com.yoprogramoenjava.presentation.dto.ExternalNewDTO;
 import com.yoprogramoenjava.presentation.dto.TopicDTO;
 import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
+import com.yoprogramoenjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.yoprogramoenjava.presentation.dto.mapping.TopicMapping;
 
 @Controller
@@ -214,5 +216,20 @@ public class AdminController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
 		return "admin/external_news_form";
+	}
+
+	@PostMapping("/news/create")
+	public RedirectView postCreateExternalNews(@ModelAttribute ExternalNewDTO externalNewDTO, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (externalNewDTO == null || !StringUtils.hasLength(externalNewDTO.title()) ||
+			!StringUtils.hasLength(externalNewDTO.source()) || !StringUtils.hasLength(externalNewDTO.link())) {
+			logger.error("Error. Mandatory parameters are empty in dto: {}", externalNewDTO);
+			return new RedirectView("/error");
+		}
+
+		externalNewsService.store(ExternalNewsMapping.parseToEntity(externalNewDTO));
+
+		return new RedirectView("/admin");
 	}
 }
