@@ -1,5 +1,6 @@
 package com.yoprogramoenjava.presentation.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.yoprogramoenjava.application.exception.AppException;
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.model.Article;
+import com.yoprogramoenjava.domain.model.ExternalNew;
 import com.yoprogramoenjava.domain.model.Topic;
 import com.yoprogramoenjava.domain.service.ArticlesService;
+import com.yoprogramoenjava.domain.service.ExternalNewsService;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.ArticleDTO;
 import com.yoprogramoenjava.presentation.dto.TopicDTO;
@@ -36,6 +40,9 @@ public class AdminController {
 
 	@Autowired
 	private TopicsService topicsService;
+
+	@Autowired
+	private ExternalNewsService externalNewsService;
 	
 	@GetMapping() 
 	public String getAdminPanel(Model model) {
@@ -187,5 +194,18 @@ public class AdminController {
 		logger.info("Topic with id '{}' deleted", id);
 
 		return new RedirectView("/admin/topics");
+	}
+
+	@GetMapping("/news")
+	public String getExternalNews(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		try {
+			List<ExternalNew> externalNews = externalNewsService.getAll();
+			model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, externalNews);
+		} catch (AppException e) {
+			logger.error("Error getting ExternalNews from Database", e);
+			return "error";
+		}
+		return "admin/external_news.html";
 	}
 }

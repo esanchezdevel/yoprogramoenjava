@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.yoprogramoenjava.application.exception.AppException;
@@ -16,6 +17,7 @@ import com.yoprogramoenjava.infrastructure.db.repository.ExternalNewsRepository;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class ExternalNewsServiceImpl implements ExternalNewsService {
 
 	private static final Logger logger = LogManager.getLogger(ExternalNewsServiceImpl.class);
