@@ -80,7 +80,7 @@ public class ExternalNewsServiceImpl implements ExternalNewsService {
 				String errorMsg = new StringBuilder("Error. Unexpected error happens getting ExternalNew with id '")
 														.append(id).append("' from Database").toString();
 				logger.error(errorMsg);
-				throw new AppException(HttpStatus.NOT_FOUND.value(), errorMsg);
+				throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
 			}
 		}
 
@@ -100,8 +100,14 @@ public class ExternalNewsServiceImpl implements ExternalNewsService {
 
 	@Override
 	public void delete(Long id) throws AppException {
-		// TODO Auto-generated method stub
-		
+		try {
+			externalNewsRepository.deleteById(id);
+		} catch (Exception e) {
+			String errorMsg = new StringBuilder("Error deleting ExternalNew with id '")
+													.append(id).append("': ").append(e.getMessage()).toString();
+			logger.error(errorMsg, e);
+			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
+		}
 	}
 
 
