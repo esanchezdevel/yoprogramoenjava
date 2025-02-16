@@ -108,7 +108,7 @@ public class AdminController {
 
 		if (!StringUtils.hasLength(id)) {
 			logger.error("Error. Empty ID received");
-			return new RedirectView("/error");
+			return new RedirectView("/admin/error");
 		}
 
 		articlesService.delete(Long.valueOf(id));
@@ -189,7 +189,7 @@ public class AdminController {
 
 		if (!StringUtils.hasLength(id)) {
 			logger.error("Error. Empty ID received");
-			return new RedirectView("/error");
+			return new RedirectView("/admin/error");
 		}
 
 		topicsService.delete(Long.valueOf(id));
@@ -225,7 +225,7 @@ public class AdminController {
 		if (externalNewDTO == null || !StringUtils.hasLength(externalNewDTO.title()) ||
 			!StringUtils.hasLength(externalNewDTO.source()) || !StringUtils.hasLength(externalNewDTO.link())) {
 			logger.error("Error. Mandatory parameters are empty in dto: {}", externalNewDTO);
-			return new RedirectView("/error");
+			return new RedirectView("/admin/error");
 		}
 
 		externalNewsService.store(ExternalNewsMapping.parseToEntity(externalNewDTO));
@@ -274,7 +274,7 @@ public class AdminController {
 
 		if (!StringUtils.hasLength(id)) {
 			logger.error("Error. Empty ID received");
-			return new RedirectView("/error");
+			return new RedirectView("/admin/error");
 		}
 
 		externalNewsService.delete(Long.valueOf(id));

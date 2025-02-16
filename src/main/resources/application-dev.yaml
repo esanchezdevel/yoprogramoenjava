@@ -16,3 +16,6 @@ spring:
 
 server:
   port: 3500
+  error:
+    whitelable:
+      enabled: false

@@ -8,8 +8,6 @@
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
-	<script th:src="@{/js/code.js}"></script>
-
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -40,11 +38,12 @@
 	<div th:replace="~{fragments/menu :: menu}"></div>
 </nav>
 <section class="main-section">
-	<article id="article-content" class="main-article">
-		<h2 th:text="${article.title}"></h2>
+	<article class="main-article">
+		<h2>Uuups!!! Algo Sali&oacute; mal.</h2>
 		<hr>
-		<p th:utext="${article.content}"></p>
-		<p th:text="${article.date}"></p>
+		<p>
+		Algo sali&oacute; mal. Intentalo de nuevo y si el problema persiste por favor, ponte en contacto con el Administrador.
+		</p>
 	</article>
 </section>
 <footer>
