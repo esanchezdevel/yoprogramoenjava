@@ -230,7 +230,7 @@ public class AdminController {
 
 		externalNewsService.store(ExternalNewsMapping.parseToEntity(externalNewDTO));
 
-		return new RedirectView("/admin");
+		return new RedirectView("/admin/news");
 	}
 
 	@GetMapping("/news/edit/{id}")
@@ -256,5 +256,15 @@ public class AdminController {
 		}
 
 		return "admin/external_news_edit_form";
+	}
+
+	@PostMapping("/news/edit/{id}")
+	public RedirectView editExternalNews(@PathVariable String id, @ModelAttribute ExternalNewDTO externalNewDTO, Model model) {
+		logger.info("Edit externalNew with id: {}", id);
+
+		externalNewsService.update(Long.valueOf(id), ExternalNewsMapping.parseToEntity(externalNewDTO));
+
+		logger.info("ExternalNew modified");
+		return new RedirectView("/admin/news");
 	}
 }
