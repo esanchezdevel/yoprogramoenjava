@@ -267,4 +267,19 @@ public class AdminController {
 		logger.info("ExternalNew modified");
 		return new RedirectView("/admin/news");
 	}
+
+	@GetMapping("/news/delete/{id}")
+	public RedirectView deleteExternalNews(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return new RedirectView("/error");
+		}
+
+		externalNewsService.delete(Long.valueOf(id));
+		logger.info("ExternalNew with id '{}' deleted", id);
+
+		return new RedirectView("/admin/news");
+	}
 }
