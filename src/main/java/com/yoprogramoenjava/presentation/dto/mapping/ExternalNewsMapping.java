@@ -13,4 +13,8 @@ public class ExternalNewsMapping {
 		
 		return entity;
 	}
+
+	public static ExternalNewDTO parseToDTO(ExternalNew entity) {
+		return new ExternalNewDTO(String.valueOf(entity.getId()), entity.getTitle(), entity.getSource(), entity.getLink());
+	}
 }

@@ -36,6 +36,16 @@ public class ExternalNewsServiceImpl implements ExternalNewsService {
 		}
 	}
 
+	@Override
+	public Optional<ExternalNew> getById(Long id) throws AppException {
+		try {
+			return externalNewsRepository.findById(id);
+		} catch(Exception e) {
+			String errorMsg = new StringBuilder("Unexpected error getting ExternalNew with Id '").append(id).append("': ").append(e.getMessage()).toString();
+			logger.error(errorMsg, e);
+			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
+		}
+	}
 
 	@Override
 	public void store(ExternalNew externalNew) throws AppException {

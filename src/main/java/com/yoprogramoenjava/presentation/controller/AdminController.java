@@ -232,4 +232,29 @@ public class AdminController {
 
 		return new RedirectView("/admin");
 	}
+
+	@GetMapping("/news/edit/{id}")
+	public String editExternalNewsForm(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return "error";
+		}
+
+		try {
+			Optional<ExternalNew> externalNew = externalNewsService.getById(Long.valueOf(id));
+
+			if (externalNew.isEmpty()) {
+				logger.error("Error. ExternalNew with id '{}' not found", id);
+				return "error";
+			}
+			model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEW, ExternalNewsMapping.parseToDTO(externalNew.get()));
+		} catch (AppException e) {
+			logger.error(e.getMessage());
+			return "error";
+		}
+
+		return "admin/external_news_edit_form";
+	}
 }

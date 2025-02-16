@@ -1,5 +1,5 @@
 package com.yoprogramoenjava.presentation.dto;
 
-public record ExternalNewDTO (String title, String source, String link) {
+public record ExternalNewDTO (String id, String title, String source, String link) {
 
 }

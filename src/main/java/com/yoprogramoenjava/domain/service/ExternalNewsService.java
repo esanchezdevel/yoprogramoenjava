@@ -1,6 +1,7 @@
 package com.yoprogramoenjava.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.yoprogramoenjava.application.exception.AppException;
 import com.yoprogramoenjava.domain.model.ExternalNew;
@@ -14,6 +15,15 @@ public interface ExternalNewsService {
 	 * @throws AppException When any error happens
 	 */
 	List<ExternalNew> getAll() throws AppException;
+
+	/**
+	 * Get one ExternalNew object from database in base of the id
+	 * 
+	 * @param id The identifier of the object in database
+	 * @return Optional of ExternalNew. Empty if is not found
+	 * @throws AppException When any error happens
+	 */
+	Optional<ExternalNew> getById(Long id) throws AppException;
 
 	/**
 	 * Store one ExternalNew object in database
