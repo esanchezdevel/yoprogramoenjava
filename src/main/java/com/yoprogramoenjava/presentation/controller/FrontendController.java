@@ -47,7 +47,7 @@ public class FrontendController {
 	public String getArticle(@PathVariable long id, Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
-		Optional<Article> article = articlesService.getById(id);
+		Optional<Article> article = articlesService.getById(id, true);
 		
 		if (article.isEmpty()) {
 			logger.error("Article with id '{}' not found", id);

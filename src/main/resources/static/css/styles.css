@@ -172,6 +172,11 @@ footer p {
 	box-shadow: 10px 10px 10px #031752;
 }
 
+.article-image {
+	width: 100px;
+	height: 100px;
+}
+
 /* Style for access modifiers */
 .accessModifiers {
 	color: #922b21;

@@ -3,12 +3,16 @@ package com.yoprogramoenjava.domain.service.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.yoprogramoenjava.domain.service.HtmlParserService;
 
 @Service
 public class HtmlParserServiceImpl implements HtmlParserService {
+
+	private static final Logger logger = LogManager.getLogger(HtmlParserServiceImpl.class);
 
 	@Override
 	public String parseToHtml(String content) {
@@ -17,10 +21,12 @@ public class HtmlParserServiceImpl implements HtmlParserService {
 		parsedContent = parsedContent.replace("[/b]", "</b>");
 		parsedContent = parsedContent.replace("[i]", "<i>");
 		parsedContent = parsedContent.replace("[/i]", "</i>");
-		parsedContent = parsedContent.replace("[img src='", "<img src=\"");
+		parsedContent = parsedContent.replace("[img src='", "<img class=\"article-image\" src=\"");
 		parsedContent = parsedContent.replace("']", "\">");
 		parsedContent = parsedContent.replace("[code]", "</p><pre class=\"code-block\"><code>");
 		parsedContent = parsedContent.replace("[/code]", "</code></pre><p>");
+
+		logger.info("TEST--parsedContent: {}", parsedContent);
 
 		parsedContent = parseNewLines(parsedContent);
 

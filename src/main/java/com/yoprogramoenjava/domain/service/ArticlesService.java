@@ -18,9 +18,10 @@ public interface ArticlesService {
 	 * Get one Article looking by the Id
 	 * 
 	 * @param id The id of the Article
+	 * @param parseToHtml True to indicate if we want to parse the content of the article to HTML format
 	 * @return Optional of Article. Empty if the Article is not found
 	 */
-	Optional<Article> getById(long id);
+	Optional<Article> getById(long id, boolean parseToHtml);
 	
 	/**
 	 * Store one Article in database

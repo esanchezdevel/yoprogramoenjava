@@ -47,7 +47,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
-	public Optional<Article> getById(long id) {
+	public Optional<Article> getById(long id, boolean parseToHtml) {
 		Optional<Article> article = articlesRepository.findById(id);
 
 		if (article.isEmpty()) {
@@ -55,7 +55,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 			return article;
 		}
 
-		String parsedContent = htmlParserService.parseToHtml(article.get().getContent());
+		String parsedContent = parseToHtml ? htmlParserService.parseToHtml(article.get().getContent()) : article.get().getContent();
 
 		article.get().setContent(parsedContent);
 

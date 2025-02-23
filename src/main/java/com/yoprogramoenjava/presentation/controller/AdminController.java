@@ -89,7 +89,7 @@ public class AdminController {
 			return "error";
 		}
 
-		Optional<Article> article = articlesService.getById(Long.valueOf(id));
+		Optional<Article> article = articlesService.getById(Long.valueOf(id), false);
 
 		if (article.isEmpty()) {
 			logger.error("Error. Article with id '{}' not found", id);
