@@ -158,6 +158,8 @@ footer p {
 }
 
 .code-block {
+	overflow-x: auto;
+	white-space: pre;
 	background-color: white;
 	border: 0.1px solid #031752;
 	color: #102562;
@@ -347,6 +349,21 @@ footer p {
 		margin-right: 5px;
 		padding-left: 5px;
 		padding-right: 5px;
+	}
+
+	.code-block {
+		overflow-x: auto;
+  		white-space: pre;
+		background-color: white;
+		border: 0.1px solid #031752;
+		color: #102562;
+		font-size: 15px;
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-radius: 10px;
+		box-shadow: 10px 10px 10px #031752;
 	}
 }
 
