@@ -1,5 +1,8 @@
 package com.yoprogramoenjava.presentation.dto.mapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.yoprogramoenjava.domain.model.ExternalNew;
 import com.yoprogramoenjava.presentation.dto.ExternalNewDTO;
 
@@ -16,5 +19,13 @@ public class ExternalNewsMapping {
 
 	public static ExternalNewDTO parseToDTO(ExternalNew entity) {
 		return new ExternalNewDTO(String.valueOf(entity.getId()), entity.getTitle(), entity.getSource(), entity.getLink());
+	}
+
+	public static List<ExternalNewDTO> parseToListOfDTO(List<ExternalNew> entities) {
+		List<ExternalNewDTO> dtos = new ArrayList<ExternalNewDTO>();
+
+		entities.forEach(entity -> dtos.add(parseToDTO(entity)));
+
+		return dtos;
 	}
 }

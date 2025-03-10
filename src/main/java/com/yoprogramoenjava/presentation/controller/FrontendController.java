@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.yoprogramoenjava.application.utils.Constants;
 import com.yoprogramoenjava.domain.model.Article;
+import com.yoprogramoenjava.domain.model.ExternalNew;
 import com.yoprogramoenjava.domain.service.ArticlesService;
+import com.yoprogramoenjava.domain.service.ExternalNewsService;
+import com.yoprogramoenjava.presentation.dto.ExternalNewDTO;
 import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
+import com.yoprogramoenjava.presentation.dto.mapping.ExternalNewsMapping;
 
 @Controller
 public class FrontendController {
@@ -23,6 +27,9 @@ public class FrontendController {
 
 	@Autowired
 	private ArticlesService articlesService;
+
+	@Autowired
+	private ExternalNewsService externalNewsService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -57,5 +64,16 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLE, ArticleMapping.parseToDTO(article.get()));
 
 		return "article";
+	}
+
+	@GetMapping("/news")
+	public String getExternalNews(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<ExternalNew> externalNews = externalNewsService.getAll();
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(externalNews));
+
+		return "news";
 	}
 }
