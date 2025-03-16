@@ -4,46 +4,51 @@ body {
 	margin-bottom: 0px;
 	margin-left: 0px;
 	margin-right: 0px;
+	font-size: 16px;
+	line-height: 1.5;
+	letter-spacing: 1px;
 }
 
 h1 {
 	font-size: 60px;
-	color: #3498db;
+	letter-spacing: 3px;
+	color: #007bff;
 }
 
 h2 {
-	font-size: 40px;
-	color: #3498db;
-	text-shadow: 2px 2px 2px grey;
+	font-size: 30px;
+	letter-spacing: 2px;
+	color: #007bff;
 }
 
 h3 {
-	font-size: 30px;
-	color: #3498db;
+	font-size: 20px;
+	letter-spacing: 1.5px;
+	color: #007bff;
 }
 
 p {
-	font-size: 20px;
-	letter-spacing: 1px;
-	line-height: 30px;
-	color: black;
+	color: #555;
 	padding-top: 2px;
 	padding-bottom: 2px;
 }
 
 hr {
-	color: #3498db;
+	color: #007bff;
+	border: none;
+	height: 1px;
+	background-color: #007bff;
 }
 
 footer {
 	margin-top: 20px;
-	border-top: 1px solid #3498db;
+	border-top: 1px solid #007bff;
 }
 
 footer p {
 	width: 100%;
 	text-align: center;
-	color: #3498db;
+	color: #007bff;
 	font-weight: bold;
 }
 
@@ -54,7 +59,7 @@ footer p {
 
 .custom-button {
 	display: inline-block;
-	background: #3498db;
+	background: #007bff;
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
@@ -79,7 +84,7 @@ footer p {
 }
 
 #main-title {
-	background: #3498db;
+	background: #007bff;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 15px;
@@ -103,7 +108,7 @@ footer p {
 
 /* Styles for the responsive top menu*/
 #main-menu {
-	border-bottom: 1px solid #3498db;
+	border-bottom: 1px solid #007bff;
 }
 
 .topnav {
@@ -121,24 +126,24 @@ footer p {
 .topnav a {
 	float: left;
 	display: block;
-	color: #3498db;
+	color: #007bff;
 	text-align: center;
 	padding: 14px 16px;
 	text-decoration: none;
-	font-size: 25px;
+	font-size: 20px;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-	background-color: #3498db;
+	background-color: #007bff;
 	color: white;
 }
 
 /* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
 	display: none;
-	color: #3498db;
-	font-size: 40px;
+	color: #007bff;
+	font-size: 30px;
 }
 
 .main-section {
@@ -153,7 +158,7 @@ footer p {
 	margin: 0 auto;
 	padding-left: 20px;
 	padding-right: 20px;
-	border: 3px solid #3498db;
+	border: 3px solid #007bff;
 	box-shadow: 10px 10px 10px grey;
 }
 
@@ -201,7 +206,7 @@ footer p {
 }
 
 .table-list th, td {
-	border: 2px solid #3498db;
+	border: 2px solid #007bff;
 	font-size: 20px;
 	padding-top: 10px;
 	padding-bottom: 10px;
@@ -211,7 +216,7 @@ footer p {
 
 .table-list th {
 	background: #a6dbff;
-	color: #3498db;
+	color: #007bff;
 	font-weight: bold;
 }
 
@@ -226,15 +231,15 @@ footer p {
 }
 
 .table-action a:link {
-	color:#3498db;
+	color:#007bff;
 }
 
 .table-action a:visited {
-	color:#3498db;
+	color:#007bff;
 }
 
 .table-action a:active {
-	color:#3498db;
+	color:#007bff;
 }
 
 .table-action a:hover {
@@ -248,7 +253,6 @@ footer p {
 	padding-bottom: 10px;
 	padding-left: 5px;
 	padding-right: 5px;
-	font-size: 20px;
 	width: 90%
 }
 
@@ -257,66 +261,44 @@ footer p {
 	margin: 0 auto;
 	padding-left: 20px;
 	padding-right: 20px;
-	border: 3px solid #3498db;
+	border: 1px solid #007bff;
 	box-shadow: 10px 10px 10px grey;
 }
 
-#list-articles ul {
-	list-style-type: none;
-	font-size: 20px;
-	letter-spacing: 1px;
-	padding-right: 60px;
+/* styles to show all articles */
+.articles-list {
+    list-style: none;
+    padding: 0;
 }
 
-#list-articles ul li {
-	padding-bottom: 10px;
-	padding-top: 10px;
-	border-bottom: 1px solid #3498db;
+.article-card {
+    background: #fff;
+    border-radius: 10px;
+	border: 1px solid #007bff;
+	margin-top: 30px;
+	margin-bottom: 30px;
+    padding: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-#list-articles ul li a:link {
-	color: black;
-	text-decoration: none;
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-#list-articles ul li a:active {
-	color: black;
-	text-decoration: none;
+.article-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
-#list-articles ul li a:visited {
-	color: black;
-	text-decoration: none;
+.article-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
 }
-
-#list-articles ul li a:hover {
-	color: #3498db;
-	text-decoration: none;
-}
-
-#list-articles ul li h3 {
-	margin-top: 10px;
-	margin-bottom: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	font-size: 22px;
-	background-color: #d6eaf8;
-	box-shadow: 2px 2px 2px black;
-}
-
-#list-articles ul li p {
-	margin-top: 5px;
-	margin-left: 0px;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
-	font-size: 17px;
-	background-color: #eaeded;
-	box-shadow: 2px 2px 2px black;
-}
+/* End styles to list all articles */
 
 @media only screen and (max-width: 600px) {
 	
@@ -402,6 +384,6 @@ footer p {
 		float: none;
 		display: block;
 		text-align: left;
-		border-bottom: 1px solid #3498db;
+		border-bottom: 1px solid #007bff;
 	}
 }

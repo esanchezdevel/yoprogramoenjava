@@ -38,7 +38,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 			Article article = new Article();
 			article.setId(dto.id());
 			article.setTitle(dto.title());
-			article.setDescription(dto.description());
+
+			String parsedDescription = htmlParserService.parseToHtml(dto.description());
+
+			article.setDescription(parsedDescription);
 			article.setDateCreation(dto.dateCreation());
 
 			articles.add(article);
@@ -55,8 +58,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 			return article;
 		}
 
+		String parsedDescription = parseToHtml ? htmlParserService.parseToHtml(article.get().getDescription()) : article.get().getDescription();
 		String parsedContent = parseToHtml ? htmlParserService.parseToHtml(article.get().getContent()) : article.get().getContent();
 
+		article.get().setDescription(parsedDescription);
 		article.get().setContent(parsedContent);
 
 		return article;
