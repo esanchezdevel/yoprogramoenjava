@@ -16,7 +16,6 @@ import com.yoprogramoenjava.domain.model.Article;
 import com.yoprogramoenjava.domain.model.ExternalNew;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.ExternalNewsService;
-import com.yoprogramoenjava.presentation.dto.ExternalNewDTO;
 import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
 import com.yoprogramoenjava.presentation.dto.mapping.ExternalNewsMapping;
 

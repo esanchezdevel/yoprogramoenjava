@@ -26,8 +26,6 @@ public class HtmlParserServiceImpl implements HtmlParserService {
 		parsedContent = parsedContent.replace("[code]", "</p><pre class=\"code-block\"><code>");
 		parsedContent = parsedContent.replace("[/code]", "</code></pre><p>");
 
-		logger.info("TEST--parsedContent: {}", parsedContent);
-
 		parsedContent = parseNewLines(parsedContent);
 
 		return parsedContent;
