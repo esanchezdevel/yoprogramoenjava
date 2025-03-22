@@ -7,6 +7,7 @@ body {
 	font-size: 16px;
 	line-height: 1.5;
 	letter-spacing: 1px;
+	width: 100%;
 }
 
 h1 {
@@ -303,7 +304,7 @@ footer p {
 @media only screen and (max-width: 600px) {
 	
 	.tab {
-		margin-left: 20px;
+		margin-left: 10px;
 	}
 	
 	#main-title {
@@ -322,15 +323,14 @@ footer p {
 
 	.main-article {
 		width: 100%;
-		padding-left: 0px;
-		padding-right: 0px;
-		border: 0px;
+		padding: 0px 10px;
+		border: none;
 		box-shadow: 0px 0px 0px;
 	}
 
 	.main-article h2, p {
 		padding-left: 5px;
-		padding-right: 5px;
+		padding-right: 0px;
 	}
 		
 	#list-articles ul {
@@ -360,6 +360,15 @@ footer p {
 		height: auto;
 		display: block;
 		margin: 0 auto;
+	}
+
+	* {
+		box-sizing: border-box; /* Ensures padding/borders don't add extra width */
+	}
+	
+	.main-section, .main-article, .topnav, #main-menu {
+		max-width: 100%; /* Prevents elements from exceeding the screen width */
+		overflow-x: hidden; /* Hides any overflow */
 	}
 }
 
