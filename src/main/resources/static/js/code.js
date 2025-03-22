@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Define keyword groups with different styles
     const keywordGroups = {
-        accessModifiers: ["class", "interface", "record", "implements", "extends", "public", "private", "protected"],
+        accessModifiers: ["class", "interface", "record", "implements", "extends", "public", "private", "protected", "for", "if", "else", "elif", "enum", "while"],
         dataTypes: ["String", "Integer", "int", "long", "Long", "double", "float", "Float", "List", "ArrayList", "Map", "HashMap", "Set", "HashSet"]
     };
 

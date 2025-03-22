@@ -159,7 +159,7 @@ footer p {
 	margin: 0 auto;
 	padding-left: 20px;
 	padding-right: 20px;
-	border: 3px solid #007bff;
+	border: 1px solid #007bff;
 	box-shadow: 10px 10px 10px grey;
 }
 
@@ -167,15 +167,15 @@ footer p {
 	overflow-x: auto;
 	white-space: pre;
 	background-color: white;
-	border: 0.1px solid #031752;
-	color: #102562;
+	border: 0.1px solid #007bff;
+	color: black;
 	font-size: 15px;
 	padding-left: 40px;
 	padding-right: 40px;
 	padding-top: 40px;
 	padding-bottom: 40px;
 	border-radius: 10px;
-	box-shadow: 10px 10px 10px #031752;
+	box-shadow: 5px 5px 5px #007bff;
 }
 
 .article-image {
@@ -344,15 +344,15 @@ footer p {
 		overflow-x: auto;
   		white-space: pre;
 		background-color: white;
-		border: 0.1px solid #031752;
-		color: #102562;
+		border: 0.1px solid #007bff;
+		color: black;
 		font-size: 15px;
 		padding-left: 10px;
 		padding-right: 10px;
 		padding-top: 20px;
 		padding-bottom: 20px;
 		border-radius: 10px;
-		box-shadow: 10px 10px 10px #031752;
+		box-shadow: 5px 5px 5px grey;
 	}
 
 	.article-image {
@@ -369,6 +369,15 @@ footer p {
 	.main-section, .main-article, .topnav, #main-menu {
 		max-width: 100%; /* Prevents elements from exceeding the screen width */
 		overflow-x: hidden; /* Hides any overflow */
+	}
+
+	#article-content {
+		width: 100%;
+		margin: 0 auto;
+		padding-left: 10px;
+		padding-right: 10px;
+		border: none;
+		box-shadow: none;
 	}
 }
 
