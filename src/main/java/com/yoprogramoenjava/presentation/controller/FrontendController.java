@@ -1,5 +1,6 @@
 package com.yoprogramoenjava.presentation.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import com.yoprogramoenjava.domain.model.ExternalNew;
 import com.yoprogramoenjava.domain.model.Topic;
 import com.yoprogramoenjava.domain.service.ArticlesService;
 import com.yoprogramoenjava.domain.service.ExternalNewsService;
+import com.yoprogramoenjava.domain.service.HtmlParserService;
 import com.yoprogramoenjava.domain.service.TopicsService;
 import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
 import com.yoprogramoenjava.presentation.dto.mapping.ExternalNewsMapping;
@@ -37,6 +39,9 @@ public class FrontendController {
 
 	@Autowired
 	private TopicsService topicsService;
+
+	@Autowired
+	private HtmlParserService htmlParserService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -94,5 +99,25 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, TopicMapping.parseToListOfDTO(topics));
 
 		return "topics";
+	}
+
+	@GetMapping("/topics/{id}")
+	@Transactional
+	public String getTopicArticles(@PathVariable Long id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		Optional<Topic> topic = topicsService.getById(id);
+
+		if (topic.isEmpty()) {
+			logger.error("Topic with id '{}' not found", id);
+			return "error_not_found";
+		}
+
+		List<Article> articles = topic.get().getArticles().stream().toList();
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPIC_TITLE, topic.get().getTitle());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(htmlParserService, articles));
+
+		return "topic";
 	}
 }
