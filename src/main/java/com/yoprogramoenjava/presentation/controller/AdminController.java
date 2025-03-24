@@ -31,6 +31,8 @@ import com.yoprogramoenjava.presentation.dto.mapping.ArticleMapping;
 import com.yoprogramoenjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.yoprogramoenjava.presentation.dto.mapping.TopicMapping;
 
+import jakarta.transaction.Transactional;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -72,6 +74,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/articles/create")
+	@Transactional
 	public RedirectView postCreateArticle(@ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Processing new article: {}", articleDTO);
 		

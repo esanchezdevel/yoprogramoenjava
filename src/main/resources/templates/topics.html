@@ -6,11 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
-	<link th:href="@{/css/admin-styles.css}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	
-	<script th:src="@{/js/form.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -35,24 +32,22 @@
 </head>
 <body>
 <header id="main-title">
-	<h1 th:text="${title}"></h1>
+	<a href="/"><h1 th:text="${title}"></h1></a>
 </header>
 <nav id="main-menu">
-	<div th:replace="~{admin/fragments/admin_menu :: admin_menu}"></div>
+	<div th:replace="~{fragments/menu :: menu}"></div>
 </nav>
 <section class="main-section">
-	<article id="admin-main-article">
-		<h2>Admin - Nuevo Tema</h2>
+	<article class="main-article list-contents">
+		<h2>Temas</h2>
 		<hr>
-		<form action="/admin/topics/create" method="POST">
-			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" required>
-			<br>
-			<textarea id="description" name="description" rows="5" placeholder="Descripci&oacute;n. Max 255 caracteres"  class="form-element" maxlength="255" required></textarea>
-			<br>
-			<button type="submit" class="custom-button">Crear</button>
-			<br>
-		</form>
+		<ul>
+			<li th:each="topic : ${topics}"><a th:href="'/topics/' + ${topic.id}">
+				<h2 th:utext="${topic.title}"></h2>
+				<p th:utext="'Art&iacute;culos publicados: ' + ${topic.numberOfArticles}"></p>
+				<p th:utext="${topic.description}"></p>
+			</a></li>
+		</ul>
 	</article>
 </section>
 <footer>

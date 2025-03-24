@@ -3,16 +3,12 @@ package com.yoprogramoenjava.domain.service.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.yoprogramoenjava.domain.service.HtmlParserService;
 
 @Service
 public class HtmlParserServiceImpl implements HtmlParserService {
-
-	private static final Logger logger = LogManager.getLogger(HtmlParserServiceImpl.class);
 
 	@Override
 	public String parseToHtml(String content) {
