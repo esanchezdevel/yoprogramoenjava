@@ -42,8 +42,8 @@
 		<h2>Temas</h2>
 		<hr>
 		<ul>
-			<li th:each="topic : ${topics}"><a th:href="'/topics/' + ${topic.id}">
-				<h2 th:utext="${topic.title}"></h2>
+			<li th:each="topic : ${topics}"><a class="topic-link" th:href="'/topics/' + ${topic.id}">
+				<h3 th:utext="${topic.title}"></h3>
 				<p th:utext="'Art&iacute;culos publicados: ' + ${topic.numberOfArticles}"></p>
 				<p th:utext="${topic.description}"></p>
 			</a></li>

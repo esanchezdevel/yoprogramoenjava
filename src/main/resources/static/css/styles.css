@@ -336,6 +336,10 @@ footer p {
 }
 /* End of styles to show list of contents */
 
+.topic-link:hover {
+	background: white !important;
+}
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
