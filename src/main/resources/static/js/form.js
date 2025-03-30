@@ -1,12 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const content = document.getElementById('content');
+	const button_h3 = document.getElementById('button-h3');
 	const button_bold = document.getElementById('button-bold');
 	const button_italic = document.getElementById('button-italic');
 	const button_image = document.getElementById('button-image');
 	const button_youtube = document.getElementById('button-youtube');
 	const button_tweet = document.getElementById('button-tweet');
 	const button_code = document.getElementById('button-code');
-	
+
+	button_h3.addEventListener('click', (event) => {
+		event.preventDefault();
+		add_tags(content, 'h3')
+	});
+
 	button_bold.addEventListener('click', (event) => {
 		event.preventDefault();
 		add_tags(content, 'b')

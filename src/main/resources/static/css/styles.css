@@ -340,6 +340,12 @@ footer p {
 	background: white !important;
 }
 
+.article-h3 {
+	font-size: 20px;
+	letter-spacing: 1.5px;
+	color: black;
+}
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
