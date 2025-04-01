@@ -31,6 +31,13 @@ public interface ArticlesService {
 	void store(Article article);
 
 	/**
+	 * Change the status of one article to published
+	 * 
+	 * @param id The id of the article to be updated
+	 */
+	void publish(String id);
+
+	/**
 	 * Update one article in database
 	 * 
 	 * @param id The article id

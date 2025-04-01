@@ -74,6 +74,13 @@ public class ArticlesServiceImpl implements ArticlesService {
 		articlesRepository.save(article);	
 	}
 
+	@Override
+	public void publish(String id) {
+		Optional<Article> article = articlesRepository.findById(Long.valueOf(id));
+		if (article.isPresent()) {
+			article.get().setPublished(true);
+		}
+	}
 
 	@Override
 	@Transactional

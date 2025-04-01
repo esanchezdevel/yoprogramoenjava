@@ -83,6 +83,21 @@ public class AdminController {
 		return new RedirectView("/admin");
 	}
 
+	@GetMapping("/articles/publish/{id}")
+	@Transactional
+	public RedirectView postPublishArticle(@PathVariable String id, Model model) {
+		logger.info("Publish article: {}", id);
+		
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return new RedirectView("/error");
+		}
+
+		articlesService.publish(id);
+		
+		return new RedirectView("/admin/articles");
+	}
+
 	@GetMapping("/articles/edit/{id}")
 	public String editArticleForm(@PathVariable String id, Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
