@@ -3,7 +3,6 @@ package com.yoprogramoenjava.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.yoprogramoenjava.application.exception.AppException;
 import com.yoprogramoenjava.domain.model.Article;
 
 public interface ArticlesService {
