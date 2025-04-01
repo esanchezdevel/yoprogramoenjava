@@ -10,6 +10,6 @@ import com.yoprogramoenjava.infrastructure.db.dto.ArticleDTO;
 
 public interface ArticlesRepository extends JpaRepository<Article, Long> {
 
-	@Query("SELECT new com.yoprogramoenjava.infrastructure.db.dto.ArticleDTO(a.id, a.title, a.description, a.dateCreation) FROM Article a ORDER BY a.dateCreation DESC")
+	@Query("SELECT new com.yoprogramoenjava.infrastructure.db.dto.ArticleDTO(a.id, a.title, a.description, a.dateCreation, a.published) FROM Article a ORDER BY a.dateCreation DESC")
 	List<ArticleDTO> findAllArticles();
 }

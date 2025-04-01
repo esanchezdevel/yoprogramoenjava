@@ -38,7 +38,7 @@ public class Article {
 	private String source;
 
 	@Column(nullable = false)
-	private boolean draft = false;
+	private boolean published = false;
 	
 	@CreatedDate
 	@Column(name = "date_creation")
@@ -100,12 +100,12 @@ public class Article {
 		this.source = source;
 	}
 
-	public boolean isDraft() {
-		return draft;
+	public boolean isPublished() {
+		return published;
 	}
 
-	public void setDraft(boolean draft) {
-		this.draft = draft;
+	public void setPublished(boolean published) {
+		this.published = published;
 	}
 	
 	public LocalDateTime getDateCreation() {
@@ -135,7 +135,7 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", description=" + description + ", content=" + content
-				+ ", tags=" + tags + ", source=" + source + ", draft=" + draft + ", dateCreation=" + dateCreation + ", dateLastUpdate="
+				+ ", tags=" + tags + ", source=" + source + ", published=" + published + ", dateCreation=" + dateCreation + ", dateLastUpdate="
 				+ dateLastUpdate + ", topic_id=" + topic != null ? String.valueOf(topic.getId()) : "" + "]";
 	}
 }

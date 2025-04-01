@@ -43,6 +43,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 			article.setDescription(parsedDescription);
 			article.setDateCreation(dto.dateCreation());
+			article.setPublished(dto.published());
 
 			articles.add(article);
 		});
