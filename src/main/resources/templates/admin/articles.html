@@ -48,6 +48,7 @@
 			<thead>
 				<tr>
 					<th class="table-title">Art&iacute;culo</th>
+					<th class="table-action">Publicar</th>
 					<th class="table-action">Editar</th>
 					<th class="table-action">Eliminar</th>
 				</tr>
@@ -55,6 +56,7 @@
 			<tbody>
 				<tr th:each="article : ${articles}">
 					<td class="table-title" th:text="${article.title}"></td>
+					<td class="table-action"><a th:href="'/admin/articles/publish/' + ${article.id}"><i class="fas fa-cloud-arrow-up"></i></a></td>
 					<td class="table-action"><a th:href="'/admin/articles/edit/' + ${article.id}"><i class="fas fa-edit"></i></a></td>
 					<td class="table-action"><a th:href="'/admin/articles/delete/' + ${article.id}" onclick="return confirm('Est&aacute;s seguro de que quieres eliminar este art&iacute;culo?');"><i class="fas fa-trash"></i></a></td>
 				</tr>
