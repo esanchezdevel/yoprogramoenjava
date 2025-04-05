@@ -51,6 +51,27 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
+	public List<Article> getPublishedArticles() {
+		List<ArticleDTO> articlesDTOs = articlesRepository.findByPublished(true);
+		
+		List<Article> articles = new ArrayList<>();
+		articlesDTOs.forEach(dto -> {
+			Article article = new Article();
+			article.setId(dto.id());
+			article.setTitle(dto.title());
+
+			String parsedDescription = htmlParserService.parseToHtml(dto.description());
+
+			article.setDescription(parsedDescription);
+			article.setDateCreation(dto.dateCreation());
+			article.setPublished(dto.published());
+
+			articles.add(article);
+		});
+		return articles;
+	}
+
+	@Override
 	public Optional<Article> getById(long id, boolean parseToHtml) {
 		Optional<Article> article = articlesRepository.findById(id);
 

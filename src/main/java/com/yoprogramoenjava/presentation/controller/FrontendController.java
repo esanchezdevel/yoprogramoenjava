@@ -54,7 +54,7 @@ public class FrontendController {
 	public String getArticles(Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
-		List<Article> articles = articlesService.getAll();
+		List<Article> articles = articlesService.getPublishedArticles();
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(articles));
 

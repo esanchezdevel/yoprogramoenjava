@@ -15,6 +15,13 @@ public interface ArticlesService {
 	List<Article> getAll();
 
 	/**
+	 * Get all Articles with status published
+	 * 
+	 * @return List of Articles
+	 */
+	List<Article> getPublishedArticles();
+
+	/**
 	 * Get one Article looking by the Id
 	 * 
 	 * @param id The id of the Article
