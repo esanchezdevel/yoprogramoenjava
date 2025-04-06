@@ -45,6 +45,13 @@ public interface ArticlesService {
 	void publish(String id);
 
 	/**
+	 * Change the status of one article to unpublished
+	 * 
+	 * @param id The id of the article to be updated
+	 */
+	void unpublish(String id);
+
+	/**
 	 * Update one article in database
 	 * 
 	 * @param id The article id

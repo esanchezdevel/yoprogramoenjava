@@ -67,7 +67,7 @@ public class FrontendController {
 
 		Optional<Article> article = articlesService.getById(id, true);
 		
-		if (article.isEmpty()) {
+		if (article.isEmpty() || !article.get().isPublished()) {
 			logger.error("Article with id '{}' not found", id);
 			return "error_not_found";
 		}

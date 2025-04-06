@@ -104,6 +104,14 @@ public class ArticlesServiceImpl implements ArticlesService {
 	}
 
 	@Override
+	public void unpublish(String id) {
+		Optional<Article> article = articlesRepository.findById(Long.valueOf(id));
+		if (article.isPresent()) {
+			article.get().setPublished(false);
+		}
+	}
+
+	@Override
 	@Transactional
 	public void update(Long id, Article article) {
 		

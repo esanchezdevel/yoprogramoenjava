@@ -60,7 +60,9 @@
 						<a th:if="${!article.published}" th:href="'/admin/articles/publish/' + ${article.id}">
 							<i class="fas fa-cloud-arrow-up"></i>
 						</a>
-						<i th:if="${article.published}" class="fas fa-cloud-arrow-up text-muted"></i>
+						<a th:href="'/admin/articles/unpublish/' + ${article.id}">
+							<i th:if="${article.published}" class="fas fa-solid fa-eye-slash"></i>
+						</a>
 					</td>
 					<td class="table-action"><a th:href="'/admin/articles/edit/' + ${article.id}"><i class="fas fa-edit"></i></a></td>
 					<td class="table-action"><a th:href="'/admin/articles/delete/' + ${article.id}" onclick="return confirm('Est&aacute;s seguro de que quieres eliminar este art&iacute;culo?');"><i class="fas fa-trash"></i></a></td>
