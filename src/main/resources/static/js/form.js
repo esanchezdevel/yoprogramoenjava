@@ -51,14 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		const selected_text = text.substring(start, end);
 
 		if (selected_text) {
-			if (tag === 'img' || tag === 'youtube' || tag === 'tweet') {
+			if (tag === 'img' || tag === 'tweet') {
 				content.value = text.substring(0, end) + `[` + tag + ` src='']` + text.substring(end);
+			} else if (tag === 'youtube') {
+				content.value = text.substring(0, end) + `[` + tag + ` src='' youtube]` + text.substring(end);
 			} else {
 				content.value = text.substring(0, start) + `[` + tag + `]${selected_text}[/` + tag + `]` + text.substring(end);	
 			}
 		} else {
-			if (tag === 'img' || tag === 'youtube' || tag === 'tweet') {
+			if (tag === 'img' || tag === 'tweet') {
 				content.value = text.substring(0, start) + `[` + tag + ` src='']` + text.substring(start);
+				content.selectionStart = content.selectionEnd = start;
+			} else if (tag === 'youtube') {
+				content.value = text.substring(0, start) + `[` + tag + ` src='' youtube]` + text.substring(start);
 				content.selectionStart = content.selectionEnd = start;
 			} else {
 				content.value = text.substring(0, start) + `[` + tag + `][/` + tag + `]` + text.substring(start);

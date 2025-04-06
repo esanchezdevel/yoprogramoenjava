@@ -151,6 +151,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/articles/edit/{id}")
+	@Transactional
 	public RedirectView editArticle(@PathVariable String id, @ModelAttribute ArticleDTO articleDTO, Model model) {
 		logger.info("Edit article with id: {}", id);
 
