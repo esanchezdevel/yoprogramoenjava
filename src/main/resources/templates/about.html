@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${title}"></title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<a href="/"><h1 th:text="${title}"></h1></a>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{fragments/menu :: menu}"></div>
+</nav>
+<section class="main-section">
+	<article class="main-article">
+		<h2>Acerca de m&iacute;</h2>
+		<hr>
+		<p>
+		Soy Ingeniero de Software con más de 14 años de experiencia en el desarrollo de aplicaciones. <br>
+		A lo largo de mi carrera, me he especializado principalmente en Java, aunque también he tenido la oportunidad 
+		de trabajar con otros lenguajes como Python, PHP, C++ y Bash, lo que me ha permitido tener una visión más amplia 
+		y versátil del mundo del desarrollo.
+		</p>
+		<p>
+		Tengo sólidos conocimientos en bases de datos relacionales como MySQL y PostgreSQL, así como en bases de datos NoSQL 
+		como MongoDB, lo que me permite diseñar e implementar soluciones eficientes y escalables adaptadas a distintas necesidades.
+		</p>
+		<p>
+		Para mí, la programación no es solo una profesión, sino también una pasión. Me gusta seguir aprendiendo, explorando 
+		nuevas tecnologías y desarrollando proyectos personales en mi tiempo libre.
+		</p>
+		<p>
+		Además, cada día intento seguir aprendiendo y profundizando mis conocimientos sobre herramientas de contenedorización y 
+		orquestación como Docker y Kubernetes, ya que considero que son fundamentales en el desarrollo y despliegue moderno 
+		de aplicaciones. <br>
+		Me gusta experimentar con diferentes configuraciones, automatizar procesos y mejorar mis entornos de desarrollo y 
+		producción continuamente.
+		</p>
+		<p>
+		Si quieres echar un vistazo a parte de mi trabajo y contribuciones, puedes visitar mi repositorio en GitHub:<br>
+		<a href="https://github.com/esanchezdevel">https://github.com/esanchezdevel</a>
+		</p>
+		<h2>Sobre este blog</h2>
+		<hr>
+		<p>
+		Este blog ha sido desarrollado utilizando Java y el framework Spring Boot.
+		Como base de datos se utiliza PostgreSQL y todo el sistema está desplegado en un pequeño clúster de Kubernetes, 
+		lo que me permite tener un entorno flexible, escalable y controlado para gestionar el contenido.
+		</p>
+	</article>
+</section>
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>

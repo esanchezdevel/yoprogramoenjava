@@ -119,4 +119,12 @@ public class FrontendController {
 
 		return "topic";
 	}
+
+	@GetMapping("/about")
+	public String getAbout(Model model) {
+		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "about";
+	}
 }
