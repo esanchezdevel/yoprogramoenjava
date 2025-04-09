@@ -25,6 +25,8 @@ public class HtmlParserServiceImpl implements HtmlParserService {
 		parsedContent = parsedContent.replace("[/code]", "</code></pre><p>");
 		parsedContent = parsedContent.replace("[youtube src='", "<div class=\"video-wrapper\"><iframe width=\"560\" height=\"315\" src=\"");
 		parsedContent = parsedContent.replace("' youtube]", "\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe></div>");
+		parsedContent = parsedContent.replace("[tweet src='", "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\"></p><a href=\"");
+		parsedContent = parsedContent.replace("' tweet]", "?ref_src=twsrc%5Etfw\"></a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>");
 
 		parsedContent = parseNewLines(parsedContent);
 		parsedContent = removeNewLineAfterHeader(parsedContent);
