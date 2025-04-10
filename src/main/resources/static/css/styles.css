@@ -84,6 +84,26 @@ footer p {
 	font-size: 20px;
 }
 
+.basic-link:link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.basic-link:active {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.basic-link:visited {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.basic-link:hover {
+	color: #007bff;
+	text-decoration: underline;
+}
+
 #main-title {
 	background: #007bff;
 	padding-top: 5px;
