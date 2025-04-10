@@ -13,6 +13,7 @@ public class ArticleMapping {
 	public static Article parseToEntity(ArticleDTO dto, TopicsService topicsService) {
 		Article entity = new Article();
 		entity.setTitle(dto.title());
+		entity.setTags(dto.tags());
 		entity.setTopic(topicsService.getByTitle(dto.topic()).orElse(null));
 		entity.setDescription(dto.description());
 		entity.setContent(dto.content());
@@ -23,6 +24,7 @@ public class ArticleMapping {
 	public static ArticleDTO parseToDTO(Article entity) {
 		ArticleDTO dto = new ArticleDTO(String.valueOf(entity.getId()),
 										entity.getTitle(), 
+										entity.getTags(),
 										entity.getTopic() != null ? entity.getTopic().getTitle() : "", 
 										entity.getDescription(), 
 										entity.getContent(),
@@ -33,6 +35,7 @@ public class ArticleMapping {
 	public static ArticleDTO parseToDTO(HtmlParserService htmlParserService, Article entity) {
 		ArticleDTO dto = new ArticleDTO(String.valueOf(entity.getId()),
 										entity.getTitle(), 
+										entity.getTags(),
 										entity.getTopic() != null ? entity.getTopic().getTitle() : "", 
 										htmlParserService.parseToHtml(entity.getDescription()), 
 										htmlParserService.parseToHtml(entity.getContent()),

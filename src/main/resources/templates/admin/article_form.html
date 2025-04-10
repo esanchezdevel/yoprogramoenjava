@@ -48,6 +48,8 @@
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="text" id="title" name="title" placeholder="T&iacute;tulo" class="form-element" required>
 			<br>
+			<input type="text" id="tags" name="tags" placeholder="Etiquetas separadas por comma" class="form-element" maxlength="200" required>
+			<br>
 			<select id="tema" name="topic" class="form-element">
 				<option value="" disabled selected>Selecciona un Tema</option>
 				<option th:each="topic : ${topics}" th:value="${topic.title}" th:text="${topic.title}"></option>
