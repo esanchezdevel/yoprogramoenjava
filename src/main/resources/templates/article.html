@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:text="${title}"></title>
+	<title th:utext="${title} + ' - ' + ${article.title}"></title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
@@ -34,14 +34,14 @@
 </head>
 <body>
 <header id="main-title">
-	<a href="/"><h1 th:text="${title}"></h1></a>
+	<a href="/"><h1 th:utext="${title}"></h1></a>
 </header>
 <nav id="main-menu">
 	<div th:replace="~{fragments/menu :: menu}"></div>
 </nav>
 <section class="main-section">
 	<article id="article-content" class="main-article">
-		<h2 th:text="${article.title}"></h2>
+		<h2 th:utext="${article.title}"></h2>
 		<hr>
 		<p th:utext="${article.content}"></p>
 		<p th:text="${article.date}"></p>

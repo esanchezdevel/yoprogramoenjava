@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:text="${title}"></title>
+	<title th:utext="${title} + ' - Noticias'"></title>
 
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +43,7 @@
 		<h2>Noticias</h2>
 		<hr>
 		<ul>
-			<li th:each="externalNew : ${externalNews}"><a th:href="${externalNew.link}" th:text="${externalNew.title} + ' - ' + ${externalNew.source}"></a></li>
+			<li th:each="externalNew : ${externalNews}"><a th:href="${externalNew.link}" th:utext="${externalNew.title} + ' - ' + ${externalNew.source}"></a></li>
 		</ul>
 	</article>
 </section>
