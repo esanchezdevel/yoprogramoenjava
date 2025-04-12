@@ -26,6 +26,14 @@ public interface ExternalNewsService {
 	Optional<ExternalNew> getById(Long id) throws AppException;
 
 	/**
+	 * Get last 5 news from database
+	 * 
+	 * @return List last 5 ExternalNew objects found in database
+	 * @throws AppException When any error happens
+	 */
+	List<ExternalNew> getLast() throws AppException;
+
+	/**
 	 * Store one ExternalNew object in database
 	 * 
 	 * @param externalNew The object to be stored

@@ -48,6 +48,17 @@ public class ExternalNewsServiceImpl implements ExternalNewsService {
 	}
 
 	@Override
+	public List<ExternalNew> getLast() throws AppException {
+		try {
+			return externalNewsRepository.findTop5ByOrderByDateCreationDesc();
+		} catch (Exception e) {
+			String errorMsg = new StringBuilder("Error getting ExternalNews from database. ").append(e.getMessage()).toString();
+			logger.error(errorMsg, e);
+			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
+		}
+	}
+
+	@Override
 	public void store(ExternalNew externalNew) throws AppException {
 		if (!isValid(externalNew)) {
 			String errorMsg = new StringBuilder("Error. Wrong ExternalNew object received: ").append(externalNew).toString();

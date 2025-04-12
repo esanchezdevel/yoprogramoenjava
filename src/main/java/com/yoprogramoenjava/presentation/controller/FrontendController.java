@@ -46,6 +46,10 @@ public class FrontendController {
 	public String getIndex(Model model) {
 		
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<ExternalNew> lastExternalNews = externalNewsService.getLast();
+		logger.info("LastExternalNews found: {}", lastExternalNews.size());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(lastExternalNews));
 		
 		return "index";
 	}

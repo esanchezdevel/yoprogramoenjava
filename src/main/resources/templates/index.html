@@ -37,7 +37,19 @@
 <nav id="main-menu">
 	<div th:replace="~{fragments/menu :: menu}"></div>
 </nav>
+
+<aside class="news-ticker">
+	<section class="ticker-content">
+	  <span class="last-news-header-item">&Uacute;ltimas Noticias: </span>
+	  <span th:each="news, iterStat : ${externalNews}" class="news-item">
+		<a th:href="${news.link}" th:text="${news.title}"></a>
+		<span class="news-separator" th:if="${!iterStat.last}">—</span>
+	  </span>
+	</section>
+</aside>
+
 <section class="main-section">
+
 	<article class="main-article">
 		<h2>Introducci&oacute;n</h2>
 		<hr>
@@ -61,10 +73,6 @@
     	<b>Noticias:</b> Mantente al d&iacute;a con las &uacute;ltimas novedades del ecosistema Java. 
     	Aqu&iacute; encontrar&aacute;s enlaces a noticias oficiales, actualizaciones de versiones, tendencias 
     	y anuncios relevantes para desarrolladores.
-    	<br><br>
-    	<b>Memes:</b> Porque la programaci&oacute;n tambi&eacute;n tiene su lado divertido. Disfruta de una colecci&oacute;n 
-    	de memes sobre Java, inform&aacute;tica y la vida del programador para sacar una sonrisa incluso en los d&iacute;as 
-    	m&aacute;s complicados de debugging.
 		</p>
 		<p>
 		Nuestra misi&oacute;n es ofrecerte un lugar donde puedas informarte, aprender y, sobre todo, sentirte parte 

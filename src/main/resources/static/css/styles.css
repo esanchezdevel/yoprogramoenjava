@@ -366,6 +366,79 @@ footer p {
 	color: black;
 }
 
+/* Styles for index news scrollbar */
+.news-ticker {
+	overflow: hidden;
+	background-color: white;
+	border-top: 2px solid #007bff;
+	border-bottom: 2px solid #007bff;
+	padding: 8px 0;
+	margin-top: 20px;
+	margin-bottom: 0px;
+	white-space: nowrap;
+	position: relative;
+}
+
+.ticker-content {
+	display: inline-block;
+	padding-left: 100%;
+	white-space: nowrap;
+	animation: ticker-scroll 40s linear infinite;
+}
+
+.last-news-header-item {
+	display: inline;
+	margin-right: 50px;
+	font-weight: bold;
+	font-size: 20px;
+	color: #555;
+}
+
+.news-item {
+	display: inline;
+	margin-right: 0px;
+	font-weight: bold;
+	color: #007bff;
+}
+
+.news-item a:link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.news-item a:visited {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.news-item a:active {
+	color: #007bff;
+	text-decoration: none;
+}
+
+.news-item a:hover {
+	color: #007bff;
+	text-decoration: underline;
+}
+
+.news-separator {
+	color: #007bff;
+	margin-right: 60px;
+	margin-left: 60px;
+}
+
+@keyframes ticker-scroll {
+	0% {
+		transform: translateX(0%);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+}
+  
+/* End of styles for index news scrollbar */
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
