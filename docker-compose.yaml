@@ -6,7 +6,7 @@ services:
     container_name: yoprogramoenjava
     restart: always
     ports:
-      - "3500:3500"
+      - "80:3500"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/yoprogramoenjava
       - SPRING_DATASOURCE_USERNAME={DB_USER}
