@@ -2,22 +2,22 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: yoprogramoenjava
+  name: programandoconjava
 spec:
   ports:
-    - name: yoprogramoenjava
+    - name: programandoconjava
       port: 3500
       targetPort: 3500
   selector:
-    app: yoprogramoenjava
+    app: programandoconjava
   type: ClusterIP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: yoprogramoenjava-external
+  name: programandoconjava-external
   labels:
-    app: yoprogramoenjava
+    app: programandoconjava
 spec:
   type: NodePort
   ports:
@@ -25,27 +25,27 @@ spec:
       targetPort: 3500
       nodePort: 30001
   selector:
-    app: yoprogramoenjava
+    app: programandoconjava
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yoprogramoenjava
+  name: programandoconjava
   labels:
-    app: yoprogramoenjava
+    app: programandoconjava
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: yoprogramoenjava
+      app: programandoconjava
   template:
     metadata:
       labels:
-        app: yoprogramoenjava
+        app: programandoconjava
     spec:
       containers:
-        - name: yoprogramoenjava
-          image: esanchezdevel/yoprogramoenjava:v0.0.1-SNAPSHOT
+        - name: programandoconjava
+          image: esanchezdevel/programandoconjava:v0.0.1-SNAPSHOT
           imagePullPolicy: Always
           ports:
             - containerPort: 3500
@@ -87,7 +87,7 @@ spec:
                   name: postgres-password
                   key: password
             - name: POSTGRES_DB
-              value: "yoprogramoenjava"
+              value: "programandoconjava"
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-storage

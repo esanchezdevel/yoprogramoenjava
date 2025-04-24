@@ -1,9 +1,9 @@
 FROM openjdk:21-jdk-slim
 
-WORKDIR /yoprogramoenjava
+WORKDIR /programandoconjava
 
-COPY ./target/*.jar yoprogramoenjava.jar
+COPY ./target/*.jar programandoconjava.jar
 
 EXPOSE 3500
 
-CMD ["java", "-jar", "yoprogramoenjava.jar", "--spring.profiles.active=dev"]
+CMD ["java", "-jar", "programandoconjava.jar", "--spring.profiles.active=prod"]

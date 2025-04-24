@@ -1,5 +1,5 @@
 #!/bin/bash
-NAMESPACE=yoprogramoenjava
+NAMESPACE=programandoconjava
 VERSION=v0.0.1-SNAPSHOT
 PG_PASSWORD=$1
 
@@ -9,11 +9,11 @@ mvn clean package -Dspring.profiles.active=dev -DskipTests
 
 echo
 echo "Building image..."
-docker build -t esanchezdevel/yoprogramoenjava:$VERSION .
+docker build -t esanchezdevel/programandoconjava:$VERSION .
 
 echo
 echo "Pushing image to registry..."
-docker push esanchezdevel/yoprogramoenjava:$VERSION
+docker push esanchezdevel/programandoconjava:$VERSION
 
 echo
 echo "Cleaning K8s namespace..."

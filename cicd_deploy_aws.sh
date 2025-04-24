@@ -16,11 +16,11 @@ mvn clean package -Dspring.profiles.active=prod -DskipTests
 
 echo
 echo "2. Build Docker image..."
-docker build --no-cache -t esanchezdevel/yoprogramoenjava:$version .
+docker build --no-cache -t esanchezdevel/programandoconjava:$version .
 
 echo
 echo "3. Push Docker image to Registry..."
-docker push esanchezdevel/yoprogramoenjava:$version
+docker push esanchezdevel/programandoconjava:$version
 
 echo
 echo "4. Upload Docker Compose file to AWS"

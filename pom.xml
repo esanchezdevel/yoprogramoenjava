@@ -9,10 +9,10 @@
 		<version>3.4.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.yoprogramoenjava</groupId>
-	<artifactId>yoprogramoenjava</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>yoprogramoenjava</name>
+	<groupId>com.programandoconjava</groupId>
+	<artifactId>programandoconjava</artifactId>
+	<version>1.0.0</version>
+	<name>programandoconjava</name>
 	<description>Blog about Java programming language</description>
 	<url />
 	<licenses>

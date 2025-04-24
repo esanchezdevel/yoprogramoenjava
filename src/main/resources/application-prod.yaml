@@ -1,9 +1,9 @@
 spring:
   application:
-    name: yoprogramoenjava
+    name: programandoconjava
 
   datasource:
-    url: jdbc:postgresql://postgres:5432/yoprogramoenjava
+    url: jdbc:postgresql://postgres:5432/programandoconjava
     username: admin
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver

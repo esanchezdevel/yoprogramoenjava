@@ -1,5 +1,5 @@
-### YoProgramoEnJava
-This repository is dedicated to the implementation of the Blog `YoProgramoEnJava`.<br>
+### programandoconjava
+This repository is dedicated to the implementation of the Blog `programandoconjava`.<br>
 This Blog will be dedicated to create articles and publish news related to the Java Programming Language.
 
 ### How to Deploy on Local k8s cluster
