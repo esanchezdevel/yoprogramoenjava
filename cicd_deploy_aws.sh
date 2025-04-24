@@ -5,7 +5,7 @@ db_password=$2  # Password to use in database installation
 aws_ssh_ip=$3   # IP of the server where we want to deploy
 aws_ssh_key=$4  # Full path to the AWS SSH .pem Key
 
-version=v1.0.0
+version=v1.0.0  # Version of Docker image to push in Docker HUB
 
 echo "Deploy to AWS"
 echo "-------------"
