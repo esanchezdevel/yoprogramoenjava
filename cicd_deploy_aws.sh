@@ -16,7 +16,7 @@ mvn clean package -Dspring.profiles.active=prod -DskipTests
 
 echo
 echo "2. Build Docker image..."
-docker build -t esanchezdevel/yoprogramoenjava:$version .
+docker build --no-cache -t esanchezdevel/yoprogramoenjava:$version .
 
 echo
 echo "3. Push Docker image to Registry..."
@@ -35,6 +35,7 @@ ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{BLOG_VERSION}/$version/g' d
 echo
 echo "6. Clean environment"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "docker compose down"
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "docker image rm \$(docker images -q)"
 
 echo
 echo "7. Deploy web application"
