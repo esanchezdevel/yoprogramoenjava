@@ -4,6 +4,7 @@ db_user=$1      # User to use in database installation
 db_password=$2  # Password to use in database installation
 aws_ssh_ip=$3   # IP of the server where we want to deploy
 aws_ssh_key=$4  # Full path to the AWS SSH .pem Key
+https_key_password=$5   # Password used by the HTTPS certificate
 
 version=v1.0.0  # Version of Docker image to push in Docker HUB
 
@@ -31,6 +32,7 @@ echo "5. Replace placeholders in Docker Compose file"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{DB_USER}/$db_user/g' docker-compose.yaml"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{DB_PASS}/$db_password/g' docker-compose.yaml"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{BLOG_VERSION}/$version/g' docker-compose.yaml"
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{HTTPS_KEYSTORE_PASSWORD}/$https_key_password/g' docker-compose.yaml"
 
 echo
 echo "6. Clean environment"

@@ -6,11 +6,14 @@ services:
     container_name: programandoconjava
     restart: always
     ports:
-      - "80:3500"
+      - "443:3500"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/programandoconjava
       - SPRING_DATASOURCE_USERNAME={DB_USER}
       - SPRING_DATASOURCE_PASSWORD={DB_PASS}
+      - KEYSTORE_PASSWORD={HTTPS_KEYSTORE_PASSWORD}
+    volumes:
+      - /etc/letsencrypt/live/programandoconjava.com/keystore.p12:/certs/keystore.p12
     depends_on:
       - postgres
 
