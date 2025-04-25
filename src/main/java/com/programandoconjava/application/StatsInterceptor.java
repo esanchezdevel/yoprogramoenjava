@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.programandoconjava.domain.model.Stat;
+import com.programandoconjava.domain.model.StatBot;
+import com.programandoconjava.infrastructure.db.repository.StatsBotsRepository;
 import com.programandoconjava.infrastructure.db.repository.StatsRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +20,12 @@ public class StatsInterceptor implements HandlerInterceptor {
 	@Autowired
     private StatsRepository statsRepository;
 
+    @Autowired
+    private StatsBotsRepository statsBotsRepository;
+
     private static final List<String> BOTS_IDENTIFIERS = List.of("Googlebot", "Bingbot", "Slurp", "DuckDuckBot",
-            "Baiduspider", "YandexBot", "Sogou", "Exabot", "facebot", "ia_archiver");
+            "Baiduspider", "YandexBot", "Sogou", "Exabot", "facebot", "ia_archiver", "censys", "zgrab", "Go-http-client", "onlyscans.com",
+            "twitter", "Crawler", "Custom-AsyncHttpClient");
 
     @SuppressWarnings("null")
 	@Override
@@ -37,6 +43,14 @@ public class StatsInterceptor implements HandlerInterceptor {
             stat.setEndpoint(endpoint);
     
             statsRepository.save(stat);
+        } else {
+            StatBot statBot = new StatBot();
+            statBot.setIp(ip);
+            statBot.setUserAgent(userAgent);
+            statBot.setMethod(method);
+            statBot.setEndpoint(endpoint);
+    
+            statsBotsRepository.save(statBot);
         }
         return true;
     }
@@ -44,7 +58,7 @@ public class StatsInterceptor implements HandlerInterceptor {
     private boolean isBot(String userAgent) {
         boolean isBot = false;
         for (String identifier : BOTS_IDENTIFIERS) {
-            if (userAgent.contains(identifier)) {
+            if (userAgent != null && userAgent.toLowerCase().contains(identifier.toLowerCase())) {
                 isBot = true;
                 break;
             }
