@@ -20,7 +20,9 @@ public class HtmlParserServiceImpl implements HtmlParserService {
 		parsedContent = parsedContent.replace("[h3]", "</p><h3 class=\"article-h3\">");
 		parsedContent = parsedContent.replace("[/h3]", "</h3><p>");
 		parsedContent = parsedContent.replace("[img src='", "<img class=\"article-image\" src=\"");
+		parsedContent = parsedContent.replace("[a href='", "<a class=\"basic-link\" href=\"");
 		parsedContent = parsedContent.replace("']", "\">");
+		parsedContent = parsedContent.replace("[/a]", "</a>");
 		parsedContent = parsedContent.replace("[code]", "</p><pre class=\"code-block\"><code>");
 		parsedContent = parsedContent.replace("[/code]", "</code></pre><p>");
 		parsedContent = parsedContent.replace("[youtube src='", "<div class=\"video-wrapper\"><iframe width=\"560\" height=\"315\" src=\"");

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const button_bold = document.getElementById('button-bold');
 	const button_italic = document.getElementById('button-italic');
 	const button_image = document.getElementById('button-image');
+	const button_link = document.getElementById('button-link');
 	const button_youtube = document.getElementById('button-youtube');
 	const button_tweet = document.getElementById('button-tweet');
 	const button_code = document.getElementById('button-code');
@@ -26,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	button_image.addEventListener('click', (event) => {
 		event.preventDefault();
 		add_tags(content, 'img')
+	});
+
+	button_link.addEventListener('click', (event) => {
+		event.preventDefault();
+		add_tags(content, 'a')
 	});
 
 	button_youtube.addEventListener('click', (event) => {
@@ -55,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				content.value = text.substring(0, end) + `[` + tag + ` src='']` + text.substring(end);
 			} else if (tag === 'youtube' || tag === 'tweet') {
 				content.value = text.substring(0, end) + `[` + tag + ` src='' ` + tag + `]` + text.substring(end);
+			} else if (tag === 'a') {
+				content.value = text.substring(0, start) + `[` + tag + ` href='${selected_text}']${selected_text}[/` + tag + `]` + text.substring(end);	
 			} else {
 				content.value = text.substring(0, start) + `[` + tag + `]${selected_text}[/` + tag + `]` + text.substring(end);	
 			}
@@ -65,6 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			} else if (tag === 'youtube' || tag === 'tweet') {
 				content.value = text.substring(0, start) + `[` + tag + ` src='' ` + tag + `]` + text.substring(start);
 				content.selectionStart = content.selectionEnd = start;
+			} else if(tag === 'a') {
+				content.value = text.substring(0, start) + `[` + tag + ` href=''][/` + tag + `]` + text.substring(start);
+    			content.selectionStart = content.selectionEnd = start + 11;
 			} else {
 				content.value = text.substring(0, start) + `[` + tag + `][/` + tag + `]` + text.substring(start);
 				// Move the tags to the center between both tags
