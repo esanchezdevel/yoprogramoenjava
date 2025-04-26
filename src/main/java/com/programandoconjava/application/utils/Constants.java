@@ -10,6 +10,7 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_TOPICS = "topics";
 	public static final String ATTRIBUTE_NAME_TOPIC = "topic";
 	public static final String ATTRIBUTE_NAME_TOPIC_TITLE = "topic_title";
+	public static final String ATTRIBUTE_NAME_TOPIC_DESCRIPTION = "topic_description";
 	public static final String ATTRIBUTE_NAME_EXTERNAL_NEWS = "externalNews";
 	public static final String ATTRIBUTE_NAME_EXTERNAL_NEW = "externalNew";
 }

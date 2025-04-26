@@ -5,6 +5,9 @@
 
 	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
 
+	<meta charset="UTF-8">
+	<meta name="description" th:ucontent="${article.description}">
+	<meta name="keywords" th:ucontent="${article.tags}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />

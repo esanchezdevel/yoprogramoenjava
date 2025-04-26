@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:utext="${title} + '- ' + ${topic_title}"></title>
+	<title th:utext="${title} + '- ' + ${topic.title}"></title>
 
 	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
 
+	<meta name="description" th:ucontent="${topic.description}">
+	<meta name="keywords" content="programar, programando, java, programandoconjava, programacion, programaci&oacute;n, blog">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />

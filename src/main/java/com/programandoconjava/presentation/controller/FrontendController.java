@@ -99,7 +99,7 @@ public class FrontendController {
 
 		List<Topic> topics = topicsService.getAll();
 
-		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, TopicMapping.parseToListOfDTO(topics));
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPICS, TopicMapping.parseToListOfDTO(htmlParserService, topics));
 
 		return "topics";
 	}
@@ -118,7 +118,7 @@ public class FrontendController {
 
 		List<Article> articles = topic.get().getArticles().stream().toList();
 
-		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPIC_TITLE, topic.get().getTitle());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPIC, TopicMapping.parseToDTO(topic.get()));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(htmlParserService, articles));
 
 		return "topic";

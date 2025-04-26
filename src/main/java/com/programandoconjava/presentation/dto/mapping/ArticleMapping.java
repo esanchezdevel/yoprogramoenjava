@@ -22,11 +22,15 @@ public class ArticleMapping {
 	}
 
 	public static ArticleDTO parseToDTO(Article entity) {
+		return parseToDTO(entity, true);
+	}
+
+	public static ArticleDTO parseToDTO(Article entity, boolean isMetaDescription) {
 		ArticleDTO dto = new ArticleDTO(String.valueOf(entity.getId()),
 										entity.getTitle(), 
 										entity.getTags(),
-										entity.getTopic() != null ? entity.getTopic().getTitle() : "", 
-										entity.getDescription(), 
+										entity.getTopic() != null ? entity.getTopic().getTitle() : "",
+										isMetaDescription ? entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "") : entity.getDescription(), 
 										entity.getContent(),
 										entity.getDateCreation().toLocalDate().toString());
 		return dto;
@@ -46,7 +50,7 @@ public class ArticleMapping {
 	public static List<ArticleDTO> parseListToDTOs(List<Article> entities) {
 		List<ArticleDTO> dtos = new ArrayList<>();
 		
-		entities.forEach(e -> dtos.add(parseToDTO(e)));
+		entities.forEach(e -> dtos.add(parseToDTO(e, false)));
 		
 		return dtos;
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.programandoconjava.domain.model.Topic;
+import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.presentation.dto.TopicDTO;
 
 public class TopicMapping {
@@ -18,12 +19,23 @@ public class TopicMapping {
 
 	public static TopicDTO parseToDTO(Topic entity) {
 		String articles = entity.getArticles() != null ? String.valueOf(entity.getArticles().size()) : "0";
-		return new TopicDTO(String.valueOf(entity.getId()), entity.getTitle(), entity.getDescription(), articles);
+		return new TopicDTO(String.valueOf(entity.getId()), 
+							entity.getTitle(), 
+							entity.getDescription().replace("<br>", "").replace("\n", "").replace("\r", ""),
+							articles);
 	}
 
-	public static List<TopicDTO> parseToListOfDTO(List<Topic> entities) {
+	public static TopicDTO parseToDTO(HtmlParserService htmlParserService, Topic entity) {
+		String articles = entity.getArticles() != null ? String.valueOf(entity.getArticles().size()) : "0";
+		return new TopicDTO(String.valueOf(entity.getId()), 
+							entity.getTitle(), 
+							htmlParserService.parseToHtml(entity.getDescription()),
+							articles);
+	}
+
+	public static List<TopicDTO> parseToListOfDTO(HtmlParserService htmlParserService, List<Topic> entities) {
 		List<TopicDTO> dtos = new ArrayList<>();
-		entities.forEach(entity -> dtos.add(parseToDTO(entity)));
+		entities.forEach(entity -> dtos.add(parseToDTO(htmlParserService, entity)));
 		return dtos;
 	}
 }
