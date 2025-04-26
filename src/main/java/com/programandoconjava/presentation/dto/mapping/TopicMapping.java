@@ -2,7 +2,9 @@ package com.programandoconjava.presentation.dto.mapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.programandoconjava.domain.model.Article;
 import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.presentation.dto.TopicDTO;
@@ -26,7 +28,8 @@ public class TopicMapping {
 	}
 
 	public static TopicDTO parseToDTO(HtmlParserService htmlParserService, Topic entity) {
-		String articles = entity.getArticles() != null ? String.valueOf(entity.getArticles().size()) : "0";
+		List<Article> publishedArticles = entity.getArticles().stream().filter(a -> a.isPublished()).collect(Collectors.toList());
+		String articles = publishedArticles != null ? String.valueOf(publishedArticles.size()) : "0";
 		return new TopicDTO(String.valueOf(entity.getId()), 
 							entity.getTitle(), 
 							htmlParserService.parseToHtml(entity.getDescription()),

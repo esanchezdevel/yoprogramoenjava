@@ -116,7 +116,7 @@ public class FrontendController {
 			return "error_not_found";
 		}
 
-		List<Article> articles = topic.get().getArticles().stream().toList();
+		List<Article> articles = topic.get().getArticles().stream().filter(a -> a.isPublished()).toList();
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TOPIC, TopicMapping.parseToDTO(topic.get()));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(htmlParserService, articles));
