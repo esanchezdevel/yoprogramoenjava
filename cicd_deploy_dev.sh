@@ -1,6 +1,6 @@
 #!/bin/bash
 NAMESPACE=programandoconjava
-VERSION=v0.0.1-SNAPSHOT
+VERSION=v1.0.1-SNAPSHOT
 PG_PASSWORD=$1
 
 echo "======================="
