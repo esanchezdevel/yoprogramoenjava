@@ -131,4 +131,12 @@ public class FrontendController {
 		
 		return "about";
 	}
+
+	@GetMapping("/cookies-policy")
+	public String getCookiesPolicy(Model model) {
+		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "cookies_policy";
+	}
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:utext="${title} + ' - Pol&iacute;tica de Cookies'"></title>
+
+	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<a href="/"><h1 th:text="${title}"></h1></a>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{fragments/menu :: menu}"></div>
+</nav>
+<section class="main-section">
+	<article class="main-article">
+		<h2>Pol&iacute;tica de Cookies</h2>
+		<hr>
+		<h3>¿Qu&eacute; son las cookies?</h3>
+		<p>
+		Una cookie es un peque&ntilde;o archivo de texto que se almacena en tu navegador cuando visitas casi cualquier p&aacute;gina web. <br>
+		Su utilidad es que la web sea capaz de recordar tu visita cuando vuelvas a navegar por esa p&aacute;gina. <br>
+		Las cookies suelen almacenar información de car&aacute;cter t&eacute;cnico, preferencias personales, personalizaci&oacute;n de contenidos, 
+		estad&iacute;sticas de uso, enlaces a redes sociales, acceso a cuentas de usuario, etc.
+		<br><br>
+		El objetivo de la cookie es adaptar el contenido de la web a tu perfil y necesidades. <br>
+		Sin cookies, los servicios ofrecidos por cualquier p&aacute;gina se ver&iacute;an mermados notablemente.
+		</p>
+		<h3>¿Qu&eacute; tipo de cookies utiliza esta p&aacute;gina web?</h3>
+		<p>
+		Esta p&aacute;gina web puede utilizar los siguientes tipos de cookies:<br>
+		- <b>Cookies t&eacute;cnicas o necesarias:</b> Permiten al usuario la navegaci&oacute;n a trav&eacute;s de la p&aacute;gina web y la utilizaci&oacute;n de 
+		las diferentes opciones o servicios que en ella existan.
+		<br><br>
+    	- <b>Cookies de personalizaci&oacute;n:</b> Permiten recordar informaci&oacute;n para que el usuario acceda al servicio con 
+		determinadas caracter&iacute;sticas (como el idioma o la configuraci&oacute;n regional).
+		<br><br>
+    	- <b>Cookies de an&aacute;lisis:</b> Permiten el seguimiento y an&aacute;lisis del comportamiento de los usuarios del sitio web para 
+		introducir mejoras en funci&oacute;n de los datos de uso que se hacen de los servicios.
+		<br><br>
+    	- <b>Cookies de publicidad comportamental:</b> Almacenan informaci&oacute;n del comportamiento de los usuarios obtenida a 
+		trav&eacute;s de la observaci&oacute;n continuada de sus h&aacute;bitos de navegaci&oacute;n, permitiendo desarrollar un perfil espec&iacute;fico para mostrar publicidad en funci&oacute;n de este.
+		</p>
+		<h3>Cookies de terceros</h3>
+		<p>
+		Este sitio web puede utilizar servicios de terceros que recopilan informaci&oacute;n con fines estad&iacute;sticos y 
+		de uso del sitio web.<br>
+		En particular, este sitio web utiliza:
+		<br><br>
+    	- <b>Google Analytics:</b> Un servicio de an&aacute;lisis de webs prestado por Google, Inc. Para m&aacute;s informaci&oacute;n, puedes 
+		consultar su pol&iacute;tica de privacidad en: <a class="basic-link" href="https://policies.google.com/privacy">https://policies.google.com/privacy</a>
+		<br><br>
+		Otros servicios de terceros pueden ser incorporados en el futuro.
+		</p>
+		<h3>¿C&oacute;mo puedes configurar o desactivar las cookies?</h3>
+		<p>
+		Puedes permitir, bloquear o eliminar las cookies instaladas en tu dispositivo mediante la configuración de 
+		las opciones del navegador instalado en tu ordenador.
+		</p>
+		<h3>Consentimiento</h3>
+		<p>
+		Al acceder a este sitio web por primera vez, ver&aacute;s un banner de aviso sobre el uso de cookies.<br>
+		Al aceptar expresamente el uso de cookies o continuar navegando, consientes la instalaci&oacute;n de cookies, 
+		salvo en la medida que hayas modificado la configuraci&oacute;n de tu navegador para rechazar su utilizaci&oacute;n.
+		</p>
+		<h3>Actualizaci&oacute;n de la pol&iacute;tica de cookies</h3>
+		<p>
+		Es posible que actualicemos la Pol&iacute;tica de Cookies de nuestra p&aacute;gina web, por ello te recomendamos revisar 
+		esta pol&iacute;tica cada vez que accedas a nuestro sitio web para estar adecuadamente informado sobre c&oacute;mo y para 
+		qu&eacute; usamos las cookies.
+		</p>
+	</article>
+</section>
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>
