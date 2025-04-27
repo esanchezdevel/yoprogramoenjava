@@ -10,8 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/cookies-policy-styles.css}" rel="stylesheet" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
+	<script th:src="@{/js/cookies-policy.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -53,6 +55,9 @@
 		</ul>
 	</article>
 </section>
+
+<section th:replace="~{fragments/cookies-banner :: cookies-banner}"></section>
+
 <footer>
 	<div th:replace="~{fragments/footer :: footer}"></div>
 </footer>
