@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.programandoconjava.domain.model.Stat;
 import com.programandoconjava.domain.model.StatBot;
+import com.programandoconjava.domain.service.StatBotService;
 import com.programandoconjava.infrastructure.db.repository.StatsBotsRepository;
 import com.programandoconjava.infrastructure.db.repository.StatsRepository;
 
@@ -21,7 +22,7 @@ public class StatsInterceptor implements HandlerInterceptor {
     private StatsRepository statsRepository;
 
     @Autowired
-    private StatsBotsRepository statsBotsRepository;
+    private StatBotService statBotService;
 
     private static final List<String> BOTS_IDENTIFIERS = List.of("Googlebot", "Bingbot", "Slurp", "DuckDuckBot",
             "Baiduspider", "YandexBot", "Sogou", "Exabot", "facebot", "ia_archiver", "censys", "zgrab", "Go-http-client", "onlyscans.com",
@@ -35,6 +36,11 @@ public class StatsInterceptor implements HandlerInterceptor {
 		String method = request.getMethod();
         String endpoint = request.getRequestURI();
 
+        // When the request is to /error endpoint but comes from the a Forbidden traffic, not store in stats.
+        if ("/error".equals(endpoint) && Boolean.TRUE.equals(request.getAttribute("fromMaliciousRequest"))) {
+            return true;
+        }
+
         if (!isBot(userAgent)) {
             Stat stat = new Stat();
             stat.setIp(ip);
@@ -44,13 +50,7 @@ public class StatsInterceptor implements HandlerInterceptor {
     
             statsRepository.save(stat);
         } else {
-            StatBot statBot = new StatBot();
-            statBot.setIp(ip);
-            statBot.setUserAgent(userAgent);
-            statBot.setMethod(method);
-            statBot.setEndpoint(endpoint);
-    
-            statsBotsRepository.save(statBot);
+            statBotService.logStat(ip, method, endpoint, userAgent);
         }
         return true;
     }
