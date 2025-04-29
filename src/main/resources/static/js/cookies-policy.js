@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     document.getElementById('accept-cookies').addEventListener('click', () => {
-        setCookie('cookie-consent', 'accepted', 365);
+        setCookie('cookie-consent', 'accepted', 7);
         document.getElementById('cookie-consent').style.display = 'none';
     });
     
     document.getElementById('decline-cookies').addEventListener('click', () => {
-        setCookie('cookie-consent', 'declined', 365);
+        setCookie('cookie-consent', 'declined', 7);
         document.getElementById('cookie-consent').style.display = 'none';
     });
 });
