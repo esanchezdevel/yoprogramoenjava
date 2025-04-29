@@ -24,8 +24,8 @@ public class UserAgentBlockFilter implements Filter {
 
     private final Logger logger = LogManager.getLogger(UserAgentBlockFilter.class);
 
-    // List of user agents blocked
-    private static final List<String> BLOCKED_USER_AGENTS = List.of("Custom-AsyncHttpClient");
+    // List of user agents blocked because seems to be malicious, not just bots from search engines.
+    private static final List<String> BLOCKED_USER_AGENTS = List.of("Custom-AsyncHttpClient", "python-requests", "Nmap Scripting Engine", "l9explore");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -40,6 +40,7 @@ public class UserAgentBlockFilter implements Filter {
 
         // Get the User-Agent header
         String userAgent = httpRequest.getHeader("User-Agent");
+        String endpoint = httpRequest.getRequestURI();
 
         // Check if the User-Agent matches the one of the blocked ones
         for (String blockedUserAgent : BLOCKED_USER_AGENTS) {
@@ -50,6 +51,23 @@ public class UserAgentBlockFilter implements Filter {
                 return; // Stop further processing
             }
         }
+
+        // Block traffic that tries to access to forbidden endpoints
+        if (endpoint.toLowerCase().contains(".php") || 
+            endpoint.toLowerCase().contains("wordpress") || 
+            endpoint.toLowerCase().contains("wp-admin") || 
+            endpoint.toLowerCase().contains(".env") || 
+            endpoint.toLowerCase().contains("cmd_sco") ||
+            endpoint.toLowerCase().contains("AwsConfig.json") ||
+            endpoint.toLowerCase().contains("user_secrets.yml") ||
+            endpoint.toLowerCase().contains("phpinfo") ||
+            endpoint.toLowerCase().contains("HNAP1")) {
+            logger.info("Blocked possible Malicious traffic detected from userAgent '{}' trying to access to endpoint: {}", userAgent, endpoint);
+            // Block the request by sending a 403 Forbidden status
+            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied for User-Agent: " + userAgent + " in endpoint " + endpoint);
+            return; // Stop further processing
+        }
+
         // If the User-Agent does not match, continue with the filter chain
         chain.doFilter(request, response);
     }
