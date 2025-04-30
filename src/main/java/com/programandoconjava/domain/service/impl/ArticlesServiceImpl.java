@@ -1,8 +1,10 @@
 package com.programandoconjava.domain.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -89,6 +91,20 @@ public class ArticlesServiceImpl implements ArticlesService {
 		return article;
 	}
 	
+	@Override
+	public Set<String> getAllTags() {
+		List<String> tags = articlesRepository.findAllTags(true);
+
+		Set<String> uniqueTags = new HashSet<>();
+
+		tags.forEach(articleTags -> {
+			String[] articleTagsArray = articleTags.split(",");
+			for (String tag : articleTagsArray) {
+				uniqueTags.add(tag);
+			}
+		});
+		return uniqueTags;
+	}
 
 	@Override
 	public void store(Article article) {

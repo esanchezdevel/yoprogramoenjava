@@ -2,6 +2,7 @@ package com.programandoconjava.presentation.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,6 +52,9 @@ public class FrontendController {
 		logger.info("LastExternalNews found: {}", lastExternalNews.size());
 		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(lastExternalNews));
 		
+		Set<String> tags = articlesService.getAllTags();
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, tags);
+
 		return "index";
 	}
 

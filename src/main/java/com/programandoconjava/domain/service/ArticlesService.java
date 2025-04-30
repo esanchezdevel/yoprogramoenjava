@@ -2,6 +2,7 @@ package com.programandoconjava.domain.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.programandoconjava.domain.model.Article;
 
@@ -29,6 +30,13 @@ public interface ArticlesService {
 	 * @return Optional of Article. Empty if the Article is not found
 	 */
 	Optional<Article> getById(long id, boolean parseToHtml);
+
+	/**
+	 * Retrieve all the unique tags from the articles
+	 * 
+	 * @return List of unique tags
+	 */
+	Set<String> getAllTags();
 	
 	/**
 	 * Store one Article in database
