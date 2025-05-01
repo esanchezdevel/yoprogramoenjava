@@ -92,8 +92,8 @@
 	<aside id="tags-aside">
 		<section>
 			<span th:each="tag : ${tags}"
-				  th:utext="${tag} "
-				  th:style="'font-size: 18px;'">
+				  th:utext="${tag.tag} + ' &nbsp;&nbsp;'"
+				  th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
 			</span>
 		</section>
 	</aside>

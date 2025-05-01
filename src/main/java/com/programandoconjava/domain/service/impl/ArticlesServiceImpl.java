@@ -100,7 +100,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 		tags.forEach(articleTags -> {
 			String[] articleTagsArray = articleTags.split(",");
 			for (String tag : articleTagsArray) {
-				uniqueTags.add(tag);
+				uniqueTags.add(tag.trim());
 			}
 		});
 		return uniqueTags;
@@ -136,6 +136,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 		if (articleDb.isPresent()) {
 			articleDb.get().setTitle(article.getTitle());
 			articleDb.get().setDescription(article.getDescription());
+			articleDb.get().setTags(article.getTags());
 			articleDb.get().setContent(article.getContent());
 			articleDb.get().setTopic(article.getTopic());
 		}

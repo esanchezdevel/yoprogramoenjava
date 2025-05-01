@@ -21,6 +21,7 @@ import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
+import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
@@ -53,7 +54,7 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(lastExternalNews));
 		
 		Set<String> tags = articlesService.getAllTags();
-		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, tags);
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, ArticleTagsMapping.parseToSetOfDTOs(tags));
 
 		return "index";
 	}
