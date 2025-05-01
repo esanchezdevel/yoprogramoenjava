@@ -93,12 +93,12 @@
 		<section>
 			<h2 id="tags-h2">Tags:</h2>
 			<hr>
-			<span class="tags-span" th:each="tag : ${tags}"
-				  th:utext="${tag.tag}"
-				  th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
+			<span class="tags-span" th:each="tag : ${tags}" th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
+				<a class="basic-link" th:href="@{'/articles/tag/' + ${tag.tag}}" th:text="${tag.tag}"></a>
 			</span>
 		</section>
 	</aside>
+	
 	
 </main>
 
