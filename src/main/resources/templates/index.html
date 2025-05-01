@@ -55,38 +55,52 @@
 	</section>
 </aside>
 
-<section class="main-section">
+<main class="content-wrapper">
+	<section class="main-section">
 
-	<article class="main-article">
-		<h2>Introducci&oacute;n</h2>
-		<hr>
-		<p>
-		¡Bienvenido a tu punto de encuentro con Java y el mundo de la programaci&oacute;n!
-		</p>
-		<p>
-		En esta p&aacute;gina encontrar&aacute;s un espacio dedicado a los entusiastas y profesionales 
-		de Java, donde combinamos informaci&oacute;n, aprendizaje y diversi&oacute;n. Nuestro contenido 
-		se organiza en tres secciones principales diseñadas para inspirar, educar y entretener:
-		</p>
-		<p class="tab">
-		<b>Artículos:</b> Explora contenido original creado por nosotros, donde abordamos temas esenciales y 
-    	avanzados de Java y tecnolog&iacute;as relacionadas, como Docker, Kubernetes y Bases de datos. Aprende 
-    	nuevas t&eacute;cnicas, resuelve desaf&iacute;os comunes y profundiza en herramientas clave para el 
-    	desarrollo moderno.
-    	<br><br>
-    	<b>Temas:</b> Navega por series de art&iacute;culos relacionados entre s&iacute;, organizados para 
-    	que puedas profundizar en conceptos complejos de manera estructurada.
-    	<br><br>
-    	<b>Noticias:</b> Mantente al d&iacute;a con las &uacute;ltimas novedades del ecosistema Java. 
-    	Aqu&iacute; encontrar&aacute;s enlaces a noticias oficiales, actualizaciones de versiones, tendencias 
-    	y anuncios relevantes para desarrolladores.
-		</p>
-		<p>
-		Nuestra misi&oacute;n es ofrecerte un lugar donde puedas informarte, aprender y, sobre todo, sentirte parte 
-		de una comunidad apasionada por el desarrollo en Java.
-		</p>
-	</article>
-</section>
+		<article class="main-article-index">
+			<h2>Introducci&oacute;n</h2>
+			<hr>
+			<p>
+			¡Bienvenido a tu punto de encuentro con Java y el mundo de la programaci&oacute;n!
+			</p>
+			<p>
+			En esta p&aacute;gina encontrar&aacute;s un espacio dedicado a los entusiastas y profesionales 
+			de Java, donde combinamos informaci&oacute;n, aprendizaje y diversi&oacute;n. Nuestro contenido 
+			se organiza en tres secciones principales diseñadas para inspirar, educar y entretener:
+			</p>
+			<p class="tab">
+			<b>Artículos:</b> Explora contenido original creado por nosotros, donde abordamos temas esenciales y 
+			avanzados de Java y tecnolog&iacute;as relacionadas, como Docker, Kubernetes y Bases de datos. Aprende 
+			nuevas t&eacute;cnicas, resuelve desaf&iacute;os comunes y profundiza en herramientas clave para el 
+			desarrollo moderno.
+			<br><br>
+			<b>Temas:</b> Navega por series de art&iacute;culos relacionados entre s&iacute;, organizados para 
+			que puedas profundizar en conceptos complejos de manera estructurada.
+			<br><br>
+			<b>Noticias:</b> Mantente al d&iacute;a con las &uacute;ltimas novedades del ecosistema Java. 
+			Aqu&iacute; encontrar&aacute;s enlaces a noticias oficiales, actualizaciones de versiones, tendencias 
+			y anuncios relevantes para desarrolladores.
+			</p>
+			<p>
+			Nuestra misi&oacute;n es ofrecerte un lugar donde puedas informarte, aprender y, sobre todo, sentirte parte 
+			de una comunidad apasionada por el desarrollo en Java.
+			</p>
+		</article>
+	</section>
+
+	<aside id="tags-aside">
+		<section>
+			<h2 id="tags-h2">Tags:</h2>
+			<hr>
+			<span class="tags-span" th:each="tag : ${tags}" th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
+				<a class="basic-link" th:href="@{'/articles/tag/' + ${tag.tag}}" th:text="${tag.tag}"></a>
+			</span>
+		</section>
+	</aside>
+	
+	
+</main>
 
 <section th:replace="~{fragments/cookies-banner :: cookies-banner}"></section>
 

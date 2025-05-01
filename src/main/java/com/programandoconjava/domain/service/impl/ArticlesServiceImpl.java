@@ -1,8 +1,10 @@
 package com.programandoconjava.domain.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,6 +65,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 			String parsedDescription = htmlParserService.parseToHtml(dto.description());
 
 			article.setDescription(parsedDescription);
+			article.setTags(dto.tags());
 			article.setDateCreation(dto.dateCreation());
 			article.setPublished(dto.published());
 
@@ -89,6 +92,49 @@ public class ArticlesServiceImpl implements ArticlesService {
 		return article;
 	}
 	
+	@Override
+	public Set<String> getAllTags() {
+		List<String> tags = articlesRepository.findAllTags(true);
+
+		Set<String> uniqueTags = new HashSet<>();
+
+		tags.forEach(articleTags -> {
+			String[] articleTagsArray = articleTags.split(",");
+			for (String tag : articleTagsArray) {
+				uniqueTags.add(tag.trim());
+			}
+		});
+		return uniqueTags;
+	}
+
+	@Override
+	public List<Article> getByTag(String tag) {
+		List<Article> allArticles = getPublishedArticles();
+
+		List<Article> result = new ArrayList<>();
+
+		for (Article a : allArticles) {
+			if (isTagPresent(a.getTags(), tag)) {
+				result.add(a);
+				continue;
+			}
+		};
+
+		return result;
+	}
+
+	private boolean isTagPresent(String allTags, String tag) {
+		boolean found = false;
+		String[] tagsArray = allTags.split(",");
+
+		for (String t : tagsArray) {
+			if (t.trim().equalsIgnoreCase(tag)) {
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
 
 	@Override
 	public void store(Article article) {
@@ -120,6 +166,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 		if (articleDb.isPresent()) {
 			articleDb.get().setTitle(article.getTitle());
 			articleDb.get().setDescription(article.getDescription());
+			articleDb.get().setTags(article.getTags());
 			articleDb.get().setContent(article.getContent());
 			articleDb.get().setTopic(article.getTopic());
 		}

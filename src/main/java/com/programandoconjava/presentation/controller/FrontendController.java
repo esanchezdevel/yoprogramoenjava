@@ -2,6 +2,7 @@ package com.programandoconjava.presentation.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
+import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
@@ -51,6 +53,9 @@ public class FrontendController {
 		logger.info("LastExternalNews found: {}", lastExternalNews.size());
 		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(lastExternalNews));
 		
+		Set<String> tags = articlesService.getAllTags();
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, ArticleTagsMapping.parseToSetOfDTOs(tags));
+
 		return "index";
 	}
 
@@ -79,6 +84,22 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLE, ArticleMapping.parseToDTO(article.get()));
 
 		return "article";
+	}
+
+	@GetMapping("/articles/tag/{tag}")
+	public String getArticlesByTag(@PathVariable String tag, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<Article> articles = articlesService.getByTag(tag);
+
+		if (articles == null || articles.isEmpty()) {
+			logger.error("Articles not found for tag '{}'", tag);
+			return "error_not_found";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(articles));
+
+		return "articles";
 	}
 
 	@GetMapping("/news")

@@ -168,7 +168,8 @@ footer p {
 }
 
 .main-section {
-	width: 100%;
+	flex: 1;
+	/*width: 100%;*/
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 40px;
@@ -279,6 +280,15 @@ footer p {
 
 .main-article {
 	width: 75%;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 1px solid #007bff;
+	box-shadow: 10px 10px 10px grey;
+}
+
+.main-article-index {
+	width: 90%;
 	margin: 0 auto;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -439,6 +449,31 @@ footer p {
   
 /* End of styles for index news scrollbar */
 
+.content-wrapper {
+	display: flex;
+}
+
+#tags-aside {
+	width: 400px;
+	padding: 10px;
+	background-color: white;
+	border: 1px solid #007bff;
+	margin: 40px 40px 40px 0px;
+	line-height: 1.1;
+	box-shadow: 10px 10px 10px grey;
+}
+
+#tags-h2 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.tags-span {
+	margin: 0px 5px 0px 5px; 
+	display: inline-block;
+}
+
+
 @media only screen and (max-width: 600px) {
 	
 	.tab {
@@ -466,11 +501,27 @@ footer p {
 		box-shadow: 0px 0px 0px;
 	}
 
+	.main-article-index {
+		width: 100%;
+		padding: 0px 10px;
+		border: none;
+		box-shadow: 0px 0px 0px;
+	}
+
 	.main-article h2, p {
 		padding-left: 5px;
 		padding-right: 0px;
 	}
-		
+
+	.main-article-index h2, p {
+		padding-left: 5px;
+		padding-right: 0px;
+	}
+	
+	#tags-aside {
+		display: none;
+	}
+
 	#list-articles ul {
 		margin-left: 5px;
 		margin-right: 5px;
@@ -504,7 +555,7 @@ footer p {
 		box-sizing: border-box; /* Ensures padding/borders don't add extra width */
 	}
 	
-	.main-section, .main-article, .topnav, #main-menu {
+	.main-section, .main-article, .main-article-index, .topnav, #main-menu {
 		max-width: 100%; /* Prevents elements from exceeding the screen width */
 		overflow-x: hidden; /* Hides any overflow */
 	}
@@ -584,5 +635,12 @@ footer p {
 		display: block;
 		text-align: left;
 		border-bottom: 1px solid #007bff;
+	}
+}
+
+@media screen and (max-width: 850px) {
+
+	#tags-aside {
+		display: none;
 	}
 }
