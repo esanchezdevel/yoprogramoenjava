@@ -65,6 +65,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 			String parsedDescription = htmlParserService.parseToHtml(dto.description());
 
 			article.setDescription(parsedDescription);
+			article.setTags(dto.tags());
 			article.setDateCreation(dto.dateCreation());
 			article.setPublished(dto.published());
 
@@ -104,6 +105,35 @@ public class ArticlesServiceImpl implements ArticlesService {
 			}
 		});
 		return uniqueTags;
+	}
+
+	@Override
+	public List<Article> getByTag(String tag) {
+		List<Article> allArticles = getPublishedArticles();
+
+		List<Article> result = new ArrayList<>();
+
+		for (Article a : allArticles) {
+			if (isTagPresent(a.getTags(), tag)) {
+				result.add(a);
+				continue;
+			}
+		};
+
+		return result;
+	}
+
+	private boolean isTagPresent(String allTags, String tag) {
+		boolean found = false;
+		String[] tagsArray = allTags.split(",");
+
+		for (String t : tagsArray) {
+			if (t.trim().equalsIgnoreCase(tag)) {
+				found = true;
+				break;
+			}
+		}
+		return found;
 	}
 
 	@Override

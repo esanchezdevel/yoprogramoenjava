@@ -86,6 +86,22 @@ public class FrontendController {
 		return "article";
 	}
 
+	@GetMapping("/articles/tag/{tag}")
+	public String getArticlesByTag(@PathVariable String tag, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<Article> articles = articlesService.getByTag(tag);
+
+		if (articles == null || articles.isEmpty()) {
+			logger.error("Articles not found for tag '{}'", tag);
+			return "error_not_found";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(articles));
+
+		return "articles";
+	}
+
 	@GetMapping("/news")
 	public String getExternalNews(Model model) {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);

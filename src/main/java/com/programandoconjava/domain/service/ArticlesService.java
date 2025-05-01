@@ -37,6 +37,14 @@ public interface ArticlesService {
 	 * @return List of unique tags
 	 */
 	Set<String> getAllTags();
+
+	/**
+	 * Get all articles that have the specified tag
+	 * 
+	 * @param tag Tag to look for
+	 * @return The list of articles found
+	 */
+	List<Article> getByTag(String tag);
 	
 	/**
 	 * Store one Article in database
