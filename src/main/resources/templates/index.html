@@ -58,7 +58,7 @@
 <main class="content-wrapper">
 	<section class="main-section">
 
-		<article class="main-article">
+		<article class="main-article-index">
 			<h2>Introducci&oacute;n</h2>
 			<hr>
 			<p>
@@ -91,8 +91,10 @@
 
 	<aside id="tags-aside">
 		<section>
-			<span th:each="tag : ${tags}"
-				  th:utext="${tag.tag} + ' &nbsp;&nbsp;'"
+			<h2 id="tags-h2">Tags:</h2>
+			<hr>
+			<span class="tags-span" th:each="tag : ${tags}"
+				  th:utext="${tag.tag}"
 				  th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
 			</span>
 		</section>
