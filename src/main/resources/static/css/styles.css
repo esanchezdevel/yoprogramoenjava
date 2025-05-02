@@ -168,7 +168,14 @@ footer p {
 }
 
 .main-section {
-	flex: 1;
+	/*width: 100%;*/
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 40px;
+}
+
+.main-section-index {
+	flex: 2;
 	/*width: 100%;*/
 	padding-left: 20px;
 	padding-right: 20px;
@@ -449,19 +456,31 @@ footer p {
   
 /* End of styles for index news scrollbar */
 
-.content-wrapper {
+.content-wrapper {	
 	display: flex;
 }
 
-#tags-aside {
+#index-left-aside {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+#tags-aside, #articles-aside{
+	flex: 1;
 	width: 400px;
 	padding: 10px;
 	background-color: white;
 	border: 1px solid #007bff;
-	margin: 40px 40px 40px 0px;
+	margin: 10px 40px 40px 0px;
 	line-height: 1.1;
 	box-shadow: 10px 10px 10px grey;
 }
+
+#tags-aside {
+	margin-top: 40px;
+}
+
 
 #tags-h2 {
 	margin-top: 10px;

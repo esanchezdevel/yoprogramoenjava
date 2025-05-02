@@ -56,7 +56,7 @@
 </aside>
 
 <main class="content-wrapper">
-	<section class="main-section">
+	<section class="main-section-index">
 
 		<article class="main-article-index">
 			<h2>Introducci&oacute;n</h2>
@@ -89,16 +89,30 @@
 		</article>
 	</section>
 
-	<aside id="tags-aside">
-		<section>
-			<h2 id="tags-h2">Tags:</h2>
-			<hr>
-			<span class="tags-span" th:each="tag : ${tags}" th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
-				<a class="basic-link" th:href="@{'/articles/tag/' + ${tag.tag}}" th:text="${tag.tag}"></a>
-			</span>
-		</section>
-	</aside>
-	
+	<div id="index-left-aside">
+		<aside id="tags-aside">
+			<section>
+				<h2 id="tags-h2">Tags:</h2>
+				<hr>
+				<span class="tags-span" th:each="tag : ${tags}" th:style="'font-size: ' + ${tag.fontSize} + 'px;'">
+					<a class="basic-link" th:href="@{'/articles/tag/' + ${tag.tag}}" th:text="${tag.tag}"></a>
+				</span>
+			</section>
+		</aside>
+		<aside id="articles-aside">
+			<section>
+				<h2 id="articles-aside-h2">&Uacute;ltimos Art&iacute;culos:</h2>
+				<hr>
+				<ul>
+					<li>Articulo numero uno</li>
+					<li>Articulo numero dos</li>
+					<li>Articulo numero tres</li>
+					<li>Articulo numero cuatro</li>
+					<li>Articulo numero cinco</li>
+				</ul>
+			</section>
+		</aside>
+	</div>
 	
 </main>
 
