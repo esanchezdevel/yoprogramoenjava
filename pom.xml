@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.programandoconjava</groupId>
 	<artifactId>programandoconjava</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<name>programandoconjava</name>
 	<description>Blog about Java programming language</description>
 	<url />
