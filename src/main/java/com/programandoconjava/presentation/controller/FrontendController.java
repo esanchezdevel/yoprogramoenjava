@@ -56,6 +56,9 @@ public class FrontendController {
 		Set<String> tags = articlesService.getAllTags();
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, ArticleTagsMapping.parseToSetOfDTOs(tags));
 
+		List<Article> lastArticles = articlesService.getLastArticles(5);
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(lastArticles));
+
 		return "index";
 	}
 

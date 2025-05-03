@@ -23,6 +23,14 @@ public interface ArticlesService {
 	List<Article> getPublishedArticles();
 
 	/**
+	 * Get the last X published articles
+	 * 
+	 * @param numberOfArticles Number of articles to get
+	 * @return The list of articles found
+	 */
+	List<Article> getLastArticles(int numberOfArticles);
+
+	/**
 	 * Get one Article looking by the Id
 	 * 
 	 * @param id The id of the Article

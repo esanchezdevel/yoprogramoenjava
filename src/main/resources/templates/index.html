@@ -103,12 +103,8 @@
 			<section>
 				<h2 id="articles-aside-h2">&Uacute;ltimos Art&iacute;culos:</h2>
 				<hr>
-				<ul>
-					<li>Articulo numero uno</li>
-					<li>Articulo numero dos</li>
-					<li>Articulo numero tres</li>
-					<li>Articulo numero cuatro</li>
-					<li>Articulo numero cinco</li>
+				<ul th:each="article : ${articles}">
+					<li><a class="basic-link" th:href="@{'/articles/' + ${article.id}}" th:utext="${article.title}"></a></li>
 				</ul>
 			</section>
 		</aside>
