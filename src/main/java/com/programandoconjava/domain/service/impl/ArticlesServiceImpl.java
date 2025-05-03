@@ -24,6 +24,8 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	private static final Logger logger = LogManager.getLogger(ArticlesServiceImpl.class);
 
+	private static List<Article> LAST_ARTICLES = new ArrayList<>();
+
 	@Autowired
 	private ArticlesRepository articlesRepository;
 
@@ -94,24 +96,25 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public List<Article> getLastArticles(int numberOfArticles) {
-		List<ArticleDTO> articlesDTOs = articlesRepository.findLastArticles(numberOfArticles);
+		if (LAST_ARTICLES.isEmpty()) {
+			List<ArticleDTO> articlesDTOs = articlesRepository.findLastArticles(numberOfArticles);
 		
-		List<Article> articles = new ArrayList<>();
-		articlesDTOs.forEach(dto -> {
-			Article article = new Article();
-			article.setId(dto.id());
-			article.setTitle(dto.title());
-
-			String parsedDescription = htmlParserService.parseToHtml(dto.description());
-
-			article.setDescription(parsedDescription);
-			article.setTags(dto.tags());
-			article.setDateCreation(dto.dateCreation());
-			article.setPublished(dto.published());
-
-			articles.add(article);
-		});
-		return articles;
+			articlesDTOs.forEach(dto -> {
+				Article article = new Article();
+				article.setId(dto.id());
+				article.setTitle(dto.title());
+	
+				String parsedDescription = htmlParserService.parseToHtml(dto.description());
+	
+				article.setDescription(parsedDescription);
+				article.setTags(dto.tags());
+				article.setDateCreation(dto.dateCreation());
+				article.setPublished(dto.published());
+	
+				LAST_ARTICLES.add(article);
+			});
+		}
+		return LAST_ARTICLES;
 	}
 	
 	@Override
@@ -198,5 +201,10 @@ public class ArticlesServiceImpl implements ArticlesService {
 	@Override
 	public void delete(Long id) {
 		articlesRepository.deleteById(id);
+	}
+
+	@Override
+	public void cleanLastArticlesList() {
+		LAST_ARTICLES = new ArrayList<>();
 	}
 }

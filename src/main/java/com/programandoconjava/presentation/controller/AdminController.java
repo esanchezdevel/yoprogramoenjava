@@ -94,6 +94,7 @@ public class AdminController {
 		}
 
 		articlesService.publish(id);
+		articlesService.cleanLastArticlesList();
 		
 		return new RedirectView("/admin/articles");
 	}
@@ -109,6 +110,7 @@ public class AdminController {
 		}
 
 		articlesService.unpublish(id);
+		articlesService.cleanLastArticlesList();
 		
 		return new RedirectView("/admin/articles");
 	}
@@ -144,6 +146,7 @@ public class AdminController {
 			return new RedirectView("/admin/error");
 		}
 
+		articlesService.cleanLastArticlesList();
 		articlesService.delete(Long.valueOf(id));
 		logger.info("Article with id '{}' deleted", id);
 
@@ -156,6 +159,8 @@ public class AdminController {
 		logger.info("Edit article with id: {}", id);
 
 		articlesService.update(Long.valueOf(id), ArticleMapping.parseToEntity(articleDTO, topicsService));
+
+		articlesService.cleanLastArticlesList();
 
 		logger.info("Article modified");
 		return new RedirectView("/admin");

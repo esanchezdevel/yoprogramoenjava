@@ -89,4 +89,10 @@ public interface ArticlesService {
 	 * @param id The identifier of the Article to be deleted
 	 */
 	void delete(Long id);
+
+	/**
+	 * Clean the static list that contains the last articles.
+	 * This method is used when an article is published, updated or deleted.
+	 */
+	void cleanLastArticlesList();
 }
