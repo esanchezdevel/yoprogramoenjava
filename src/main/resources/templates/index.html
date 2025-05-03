@@ -102,9 +102,12 @@
 		<aside id="articles-aside">
 			<section>
 				<h2 id="articles-aside-h2">&Uacute;ltimos Art&iacute;culos:</h2>
-				<hr>
-				<ul th:each="article : ${articles}">
-					<li><a class="basic-link" th:href="@{'/articles/' + ${article.id}}" th:utext="${article.title}"></a></li>
+				<hr id="articles-aside-hr">
+				<ul id="last-articles-list">
+					<li th:each="article, iterStat : ${articles}"
+						th:class="${iterStat.index % 2 == 0} ? 'row-even' : 'row-odd'">
+						<a class="basic-link" th:href="@{'/articles/' + ${article.id}}" th:utext="${article.title}"></a>
+					</li>
 				</ul>
 			</section>
 		</aside>

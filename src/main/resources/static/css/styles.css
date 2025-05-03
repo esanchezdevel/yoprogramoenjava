@@ -175,8 +175,7 @@ footer p {
 }
 
 .main-section-index {
-	flex: 2;
-	/*width: 100%;*/
+	flex: 3;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 40px;
@@ -464,9 +463,10 @@ footer p {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
-#tags-aside, #articles-aside{
+#tags-aside, #articles-aside {
 	flex: 1;
 	width: 400px;
 	padding: 10px;
@@ -475,6 +475,11 @@ footer p {
 	margin: 10px 40px 40px 0px;
 	line-height: 1.1;
 	box-shadow: 10px 10px 10px grey;
+}
+
+#articles-aside {
+	padding: 10px 0px 0px 0px;
+	width: 420px;
 }
 
 #tags-aside {
@@ -492,6 +497,36 @@ footer p {
 	display: inline-block;
 }
 
+#articles-aside-h2 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+#articles-aside-hr {
+	margin: 0px 10px 0px 10px;
+}
+
+#last-articles-list {
+	font-size: 20px;
+	list-style: none;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+
+#last-articles-list li {
+	padding: 20px 10px 20px 10px;
+	margin: 0px 0px 0px 0px;
+}
+
+.row-even {
+    background-color: #f0f0f0;
+}
+
+.row-odd {
+    background-color: #ffffff;
+}
 
 @media only screen and (max-width: 600px) {
 	
