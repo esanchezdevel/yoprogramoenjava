@@ -3,7 +3,7 @@
 db_user=$1      # User to use in database installation
 db_password=$2  # Password to use in database installation
 
-version=v1.0.3-SNAPSHOT  # Version of Docker image to push in Docker HUB
+version=v1.0.4-SNAPSHOT  # Version of Docker image to push in Docker HUB
 
 echo "Deploy to AWS"
 echo "-------------"
