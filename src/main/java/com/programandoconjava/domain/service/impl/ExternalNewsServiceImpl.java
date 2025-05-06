@@ -28,7 +28,7 @@ public class ExternalNewsServiceImpl implements ExternalNewsService {
 	@Override
 	public List<ExternalNew> getAll() throws AppException {
 		try {
-			return externalNewsRepository.findAll();
+			return externalNewsRepository.findAllByOrderByDateCreationDesc();
 		} catch (Exception e) {
 			String errorMsg = new StringBuilder("Error getting ExternalNews from database. ").append(e.getMessage()).toString();
 			logger.error(errorMsg, e);
