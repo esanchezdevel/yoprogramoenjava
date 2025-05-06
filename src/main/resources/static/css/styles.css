@@ -380,6 +380,12 @@ footer p {
 	font-size: 25px;
 	letter-spacing: 1.5px;
 	color: #007bff;
+	margin: 5px 0px 5px 0px;
+}
+
+.article-p {
+	margin: 5px 0px 5px 0px;
+	padding: 0px 0px 0px 0px;
 }
 
 /* Styles for index news scrollbar */
