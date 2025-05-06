@@ -14,9 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.programandoconjava.domain.model.StatBot;
 import com.programandoconjava.domain.service.StatBotService;
-import com.programandoconjava.infrastructure.db.repository.StatsBotsRepository;
 
 import java.io.IOException;
 import java.util.List;

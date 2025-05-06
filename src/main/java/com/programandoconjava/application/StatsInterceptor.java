@@ -7,9 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.programandoconjava.domain.model.Stat;
-import com.programandoconjava.domain.model.StatBot;
 import com.programandoconjava.domain.service.StatBotService;
-import com.programandoconjava.infrastructure.db.repository.StatsBotsRepository;
 import com.programandoconjava.infrastructure.db.repository.StatsRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
