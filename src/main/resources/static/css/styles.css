@@ -461,6 +461,7 @@ footer p {
   
 /* End of styles for index news scrollbar */
 
+/* Index aside components styles */
 .content-wrapper {	
 	display: flex;
 }
@@ -533,6 +534,23 @@ footer p {
 .row-odd {
     background-color: #ffffff;
 }
+
+/* End of index Aside components styles */
+
+/* Products styles */
+.products-templates-list {
+	width: 400px;
+	list-style: none;
+	background-color: #d6eaf8;
+	padding: 10px 10px 10px 10px;
+	font-size: 14px;
+}
+
+.products-templates-list li img{
+	width: 350px;
+}
+
+/* End of Products styles */
 
 @media screen and (max-width: 850px) {
 
