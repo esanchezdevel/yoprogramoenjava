@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:utext="${title} + ' - Acerca de'"></title>
+
+	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/cookies-policy-styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script th:src="@{/js/cookies-policy.js}"></script>
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<a href="/"><h1 th:text="${title}"></h1></a>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{fragments/menu :: menu}"></div>
+</nav>
+<section class="main-section">
+	<article class="main-article">
+		<h2>Productos</h2>
+		<hr>
+		<p>
+		En esta secci&oacute;n encontrar&aacute;s programas y plantillas web creadas por m&iacute;, disponibles para la venta. <br>
+		Cada producto est&aacute; dise&ntilde;ado con el objetivo de ofrecerte soluciones pr&aacute;cticas y profesionales para tus proyectos. <br>
+		Al adquirirlos, no solo estar&aacute;s mejorando tu negocio o proyecto personal, sino que tambi&eacute;n estar&aacute;s apoyando el mantenimiento 
+		y crecimiento de este blog, lo que me permite seguir ofreciendo contenido valioso y seguir desarrollando nuevos productos. 
+		<br><br>
+		¡Gracias por tu apoyo!
+		</p>
+	</article>
+</section>
+
+<section th:replace="~{fragments/cookies-banner :: cookies-banner}"></section>
+
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>

@@ -148,6 +148,14 @@ public class FrontendController {
 		return "topic";
 	}
 
+	@GetMapping("/products")
+	public String getProducts(Model model) {
+		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "products";
+	}
+
 	@GetMapping("/about")
 	public String getAbout(Model model) {
 		
