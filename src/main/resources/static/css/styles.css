@@ -541,7 +541,7 @@ footer p {
 .products-templates-list {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 20px; /* spacing between list items */
+	gap: 60px; /* spacing between list items */
 	width: 100%;
 	list-style: none;
 	padding: 10px 10px 10px 10px;
