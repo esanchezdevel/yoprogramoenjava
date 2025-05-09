@@ -552,9 +552,16 @@ footer p {
 
 .products-templates-list li {
 	flex: 0 1 400px;
-	background-color: #d6eaf8;
-	box-shadow: 5px 5px 5px grey;
+	background-color: white;
+	border: 1px solid #007bff;
 	text-align: center;
+	border-radius: 10px;
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.products-templates-list li:hover {
+	transform: translateY(-5px);
+	box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .products-templates-list li img{
@@ -562,6 +569,7 @@ footer p {
 	height: auto;
 	display: block;
 	margin: 0 auto;
+	border: 1px solid #007bff;
 }
 
 /* End of Products styles */
