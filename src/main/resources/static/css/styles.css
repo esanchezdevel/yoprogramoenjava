@@ -539,15 +539,29 @@ footer p {
 
 /* Products styles */
 .products-templates-list {
-	width: 400px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px; /* spacing between list items */
+	width: 100%;
 	list-style: none;
-	background-color: #d6eaf8;
 	padding: 10px 10px 10px 10px;
 	font-size: 14px;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+.products-templates-list li {
+	flex: 0 1 400px;
+	background-color: #d6eaf8;
+	box-shadow: 5px 5px 5px grey;
+	text-align: center;
 }
 
 .products-templates-list li img{
-	width: 350px;
+	max-width: 350px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
 }
 
 /* End of Products styles */
