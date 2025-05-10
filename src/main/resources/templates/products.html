@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<script th:src="@{/js/cookies-policy.js}"></script>
+	<script th:src="@{/js/products-previews.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -68,9 +69,21 @@
 				Puedes personalizar textos, servicios, colores y otros contenidos b&aacute;sicos de forma r&aacute;pida, lo que la hace ideal 
 				para aut&oacute;nomos, peque&ntilde;os negocios o quienes necesitan una presencia online sencilla y efectiva.
 				</p>
-				<button class="custom-button">Download</button>
+				<div class="products-buttons-container">
+					<button class="custom-button" data-video-src="/video/template-001-preview.mp4">Preview</button>
+					<button class="custom-button">Download</button>
+				</div>
 			</li>
 		</ul>
+		<div id="video-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-button">&times;</span>
+				<video id="modal-video" controls>
+				<source id="modal-video-source" src="" type="video/mp4">
+				Tu navegador no soporta la etiqueta de video.
+				</video>
+			</div>
+		</div>
 	</article>
 </section>
 
