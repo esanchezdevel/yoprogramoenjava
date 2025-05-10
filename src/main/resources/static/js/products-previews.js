@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoSource = document.getElementById('modal-video-source');
     const closeButton = document.querySelector('.close-button');
 
-    // Botón que abre el modal
+    // button that opens the preview popup
     document.querySelectorAll('[data-video-src]').forEach(button => {
         button.addEventListener('click', () => {
             const src = button.getAttribute('data-video-src');
@@ -15,14 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Botón de cerrar
+    // Close button
     closeButton.addEventListener('click', () => {
         modal.style.display = 'none';
         modalVideo.pause();
         modalVideo.currentTime = 0;
     });
 
-    // Cerrar al hacer clic fuera del modal
+    // Close when click out of the popup
     window.addEventListener('click', event => {
         if (event.target === modal) {
             modal.style.display = 'none';
