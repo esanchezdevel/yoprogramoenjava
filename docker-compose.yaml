@@ -13,6 +13,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD={DB_PASS}
       - KEYSTORE_PASSWORD={HTTPS_KEYSTORE_PASSWORD}
       - SPRING_PROFILE=prod
+      - SPRING_PAYPAL_CLIENT_ID={PAYPAL_CLIENT_ID}
+      - SPRING_PAYPAL_CLIENT_SECRET={PAYPAL_CLIENT_SECRET}
     volumes:
       - /etc/letsencrypt/live/programandoconjava.com/keystore.p12:/certs/keystore.p12
     depends_on:
