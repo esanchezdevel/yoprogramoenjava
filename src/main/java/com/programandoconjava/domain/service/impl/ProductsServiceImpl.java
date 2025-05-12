@@ -1,5 +1,7 @@
 package com.programandoconjava.domain.service.impl;
 
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +21,33 @@ public class ProductsServiceImpl implements ProductsService {
 	private PaymentService paymentService;
 
 	@Override
-	public void createOrder(String productName, String price, String currency) {
+	public Optional<CreateOrderResponse> createOrder(String productName, String price, String currency) {
 		logger.info("Creating new order for product={}, price={}, currency={}", productName, price, currency);
 		
+		CreateOrderResponse order = null;
 		try {
-			executeCreateOrderRequests(true, productName, price, currency);
+			order = executeCreateOrderRequests(true, productName, price, currency);
 		} catch (Exception e) {
 			if (e.getMessage().contains("401 Unauthorized")) {
 				logger.info("Authorization token expired. Requesting new one and retry request");
 				try {
-					executeCreateOrderRequests(false, productName, price, currency);
+					order = executeCreateOrderRequests(false, productName, price, currency);
 				} catch (Exception e1) {
-					logger.error("Unexpected error happens retrying to create a new order", e1);	
+					logger.error("Unexpected error happens retrying to create a new order", e1);
+					return Optional.empty();
 				}
 			} else {
 				logger.error("Unexpected error happens trying to create a new order", e);
-				return;
+				return Optional.empty();
 			}
 		}
+		return Optional.of(order);
 	}
 
-	private void executeCreateOrderRequests(boolean getAuthTokenFromCache, String productName, String price, String currency) throws Exception {
+	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, String productName, String price, String currency) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
 		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), productName, price, currency);
 		logger.info("Order created: {}", order);
+		return order;
 	}
 }

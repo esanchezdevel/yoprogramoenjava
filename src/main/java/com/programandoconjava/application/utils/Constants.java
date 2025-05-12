@@ -14,4 +14,5 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_EXTERNAL_NEWS = "externalNews";
 	public static final String ATTRIBUTE_NAME_EXTERNAL_NEW = "externalNew";
 	public static final String ATTRIBUTE_NAME_TAGS = "tags";
+	public static final String ATTRIBUTE_NAME_PAYPAL_CLIENT_ID = "paypal_client_id";
 }
