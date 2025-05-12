@@ -20,6 +20,7 @@ import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.TopicsService;
+import com.programandoconjava.infrastructure.payment.service.PaymentService;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
 import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
@@ -43,6 +44,9 @@ public class FrontendController {
 
 	@Autowired
 	private HtmlParserService htmlParserService;
+
+	@Autowired
+	private PaymentService paymentService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -170,5 +174,25 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 		
 		return "cookies_policy";
+	}
+
+	@GetMapping("/TestEndpoint")
+	public String testEndpoint(Model model) {
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<ExternalNew> lastExternalNews = externalNewsService.getLast();
+		logger.info("LastExternalNews found: {}", lastExternalNews.size());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_EXTERNAL_NEWS, ExternalNewsMapping.parseToListOfDTO(lastExternalNews));
+		
+		Set<String> tags = articlesService.getAllTags();
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TAGS, ArticleTagsMapping.parseToSetOfDTOs(tags));
+
+		List<Article> lastArticles = articlesService.getLastArticles(5);
+		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(lastArticles));
+
+		paymentService.getAuthToken(true);
+
+		return "index";
 	}
 }
