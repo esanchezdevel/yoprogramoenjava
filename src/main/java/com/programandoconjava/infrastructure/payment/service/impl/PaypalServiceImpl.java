@@ -77,7 +77,7 @@ public class PaypalServiceImpl implements PaymentService {
 
 		CreateOrderRequest request = new CreateOrderRequest(purchaseUnits, intent);
 		
-		CreateOrderResponse response = paypalRequest.createOrder(authToken, paypalRequestId, request);
+		CreateOrderResponse response = paypalRequest.createOrder("Bearer " + authToken, paypalRequestId, request);
 
 		logger.info("Order created: {}", response);
 
