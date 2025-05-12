@@ -19,3 +19,8 @@ server:
   error:
     whitelable:
       enabled: false
+
+payments:
+  paypal:
+    client-id: ${SPRING_PAYPAL_CLIENT_ID}
+    client-secret: ${SPRING_PAYPAL_CLIENT_SECRET}

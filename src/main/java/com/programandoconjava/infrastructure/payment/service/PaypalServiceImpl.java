@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration;
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
 import com.programandoconjava.infrastructure.payment.http.request.PaypalRequests;
 
@@ -22,6 +23,9 @@ public class PaypalServiceImpl implements PaymentService {
 	@Autowired
 	private PaypalRequests paypalRequest;
 
+	@Autowired
+	private PaymentConfiguration paymentConfiguration;
+
 	@Override
 	public AuthenticationResponse getAuthToken(boolean useCache) {
 		
@@ -31,8 +35,9 @@ public class PaypalServiceImpl implements PaymentService {
 		}
 
 		logger.debug("Requesting a new authentication token");
-		String clientId = "";
-		String clientSecret = "";
+		String clientId = paymentConfiguration.getPaypalClientId();
+		String clientSecret = paymentConfiguration.getPaypalClientSecret();
+
 		String credentials = Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
 		String authorizationHeader = "Basic " + credentials;
 
