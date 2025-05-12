@@ -19,8 +19,8 @@ import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
+import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.TopicsService;
-import com.programandoconjava.infrastructure.payment.service.PaymentService;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
 import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
@@ -46,7 +46,7 @@ public class FrontendController {
 	private HtmlParserService htmlParserService;
 
 	@Autowired
-	private PaymentService paymentService;
+	private ProductsService productsService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -191,7 +191,7 @@ public class FrontendController {
 		List<Article> lastArticles = articlesService.getLastArticles(5);
 		model.addAttribute(Constants.ATTRIBUTE_NAME_ARTICLES, ArticleMapping.parseListToDTOs(lastArticles));
 
-		paymentService.getAuthToken(true);
+		productsService.createOrder("template-001", "0.1", "EUR");
 
 		return "index";
 	}

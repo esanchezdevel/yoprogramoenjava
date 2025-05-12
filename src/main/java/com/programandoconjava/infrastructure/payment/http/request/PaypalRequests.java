@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
+import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderRequest;
+import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 
 @FeignClient(name = "Paypal", url = "https://api-m.sandbox.paypal.com")
 public interface PaypalRequests {
@@ -16,4 +18,11 @@ public interface PaypalRequests {
 				produces="application/json")
 	AuthenticationResponse authentication(@RequestHeader("Authorization") String authorization, 
 										@RequestBody MultiValueMap<String, String> formParams);
+
+	@PostMapping(value = "/v2/checkout/orders",
+				consumes = "application/json",
+				produces = "application/json")
+	CreateOrderResponse createOrder(@RequestHeader("Authorization") String authorization, 
+									@RequestHeader("PayPal-Request-Id") String paypalRequestId,
+									@RequestBody CreateOrderRequest request);
 }
