@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
+import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.infrastructure.payment.service.PaymentService;
 
@@ -48,6 +49,37 @@ public class ProductsServiceImpl implements ProductsService {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
 		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), productName, price, currency);
 		logger.info("Order created: {}", order);
+		return order;
+	}
+
+	@Override
+	public Optional<CaptureOrderResponse> captureOrder(String orderId) {
+		logger.info("Capturing order {}", orderId);
+		
+		CaptureOrderResponse order = null;
+		try {
+			order = executeCaptureOrderRequests(true, orderId);
+		} catch (Exception e) {
+			if (e.getMessage().contains("401 Unauthorized")) {
+				logger.info("Authorization token expired. Requesting new one and retry request");
+				try {
+					order = executeCaptureOrderRequests(false, orderId);
+				} catch (Exception e1) {
+					logger.error("Unexpected error happens retrying to capture order", e1);
+					return Optional.empty();
+				}
+			} else {
+				logger.error("Unexpected error happens trying to capture order", e);
+				return Optional.empty();
+			}
+		}
+		return Optional.of(order);
+	}
+
+	private CaptureOrderResponse executeCaptureOrderRequests(boolean getAuthTokenFromCache, String orderId) throws Exception {
+		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
+		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId);
+		logger.info("Order captured: {}", order);
 		return order;
 	}
 }

@@ -1,6 +1,7 @@
 package com.programandoconjava.infrastructure.payment.service;
 
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
+import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 
 public interface PaymentService {
@@ -15,4 +16,6 @@ public interface PaymentService {
 	AuthenticationResponse getAuthToken(boolean useCache);
 
 	CreateOrderResponse createOrder(String authToken, String productName, String price, String currency);
+
+	CaptureOrderResponse captureOrder(String authToken, String orderId);
 }

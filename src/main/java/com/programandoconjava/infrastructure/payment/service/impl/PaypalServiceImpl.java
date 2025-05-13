@@ -1,7 +1,6 @@
 package com.programandoconjava.infrastructure.payment.service.impl;
 
 import java.util.Base64;
-import java.util.Random;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +14,7 @@ import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration
 import com.programandoconjava.infrastructure.payment.http.dto.Amount;
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.Breakdown;
+import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderRequest;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.Item;
@@ -80,6 +80,17 @@ public class PaypalServiceImpl implements PaymentService {
 		CreateOrderResponse response = paypalRequest.createOrder("Bearer " + authToken, paypalRequestId, request);
 
 		logger.info("Order created: {}", response);
+
+		return response;
+	}
+
+	@Override
+	public CaptureOrderResponse captureOrder(String authToken, String orderId) {
+		String paypalRequestId = UUID.randomUUID().toString();
+		
+		CaptureOrderResponse response = paypalRequest.captureOrder("Bearer " + authToken, paypalRequestId, orderId);
+
+		logger.info("Order captured: {}", response);
 
 		return response;
 	}

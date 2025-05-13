@@ -55,10 +55,13 @@
 		<script th:src="|https://www.paypal.com/sdk/js?client-id=${paypal_client_id}&amp;currency=EUR|"></script>
 
 		<script>
+			const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+			const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
             paypal.Buttons({
                 async createOrder() {
-					const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-					const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+					console.log('Processing create order')
+
 
                     const response = await fetch("/payment/create-paypal-order", {
                         method: "POST",
@@ -75,7 +78,32 @@
                     });
                     const order = await response.json();
                     return order.id;
-                }
+                },
+
+				async onApprove(data, actions) {
+					console.log('Processing on approve')
+					const response = await fetch("/payment/capture-paypal-order", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							[csrfHeader]: csrfToken
+						},
+						body: JSON.stringify({ orderId: data.orderID })
+					});
+
+					const result = await response.json();
+
+					if (result.status === "COMPLETED") {
+						window.location.href = "/thank-you";
+					} else {
+						alert("Ha ocurrido un error inesperado. Contacta con soporte");
+					}
+				},
+
+				onError(err) {
+					console.error(err);
+					alert("An error occurred during the payment process.");
+				}
             }).render('#paypal-button-container');
         </script>
 	</article>

@@ -6,6 +6,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record PurchaseUnit(Item[] items, Amount amount) {
+public record PaymentSource(Card card, Bancontact bancontact, Paypal paypal) {
 
 }

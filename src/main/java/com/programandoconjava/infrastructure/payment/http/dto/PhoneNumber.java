@@ -2,10 +2,11 @@ package com.programandoconjava.infrastructure.payment.http.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record PurchaseUnit(Item[] items, Amount amount) {
+public record PhoneNumber(@JsonProperty("national_number") String nationalNumber) {
 
 }

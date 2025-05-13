@@ -1,5 +1,6 @@
 package com.programandoconjava.presentation.controller;
 
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration;
+import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 
 @Controller
@@ -51,5 +54,18 @@ public class PaymentController {
 			return ResponseEntity.internalServerError().build();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED.value()).body(order);
+	}
+
+	@PostMapping("/capture-paypal-order")
+	public ResponseEntity<?> capturePayPalOrder(@RequestBody Map<String, String> body) {
+		String orderId = body.get("orderId");
+
+		Optional<CaptureOrderResponse> order = productsService.captureOrder(orderId);
+
+		if (order.isEmpty()) {
+			logger.error("The process to capture a new order failed");
+			return ResponseEntity.internalServerError().build();
+		}
+		return ResponseEntity.status(HttpStatus.OK.value()).body(order);
 	}
 }
