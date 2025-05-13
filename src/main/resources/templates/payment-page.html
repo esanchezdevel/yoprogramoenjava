@@ -100,6 +100,11 @@
 					}
 				},
 
+				async onCancel(data, actions) {
+					console.log('Processing on cancel')
+					window.location.href = "/payment/cancel";
+				},
+
 				onError(err) {
 					console.error(err);
 					alert("An error occurred during the payment process.");
