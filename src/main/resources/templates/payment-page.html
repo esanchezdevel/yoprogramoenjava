@@ -60,9 +60,6 @@
 
             paypal.Buttons({
                 async createOrder() {
-					console.log('Processing create order')
-
-
                     const response = await fetch("/payment/create-paypal-order", {
                         method: "POST",
                         headers: {
@@ -81,7 +78,6 @@
                 },
 
 				async onApprove(data, actions) {
-					console.log('Processing on approve')
 					const response = await fetch("/payment/capture-paypal-order", {
 						method: "POST",
 						headers: {
@@ -101,7 +97,6 @@
 				},
 
 				async onCancel(data, actions) {
-					console.log('Processing on cancel')
 					window.location.href = "/payment/cancel";
 				},
 
