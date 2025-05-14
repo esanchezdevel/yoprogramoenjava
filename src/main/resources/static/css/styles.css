@@ -655,6 +655,12 @@ footer p {
 	padding: 0px;
 }
 
+.buttons-container {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+}
+
 /* End of Products styles */
 
 @media screen and (max-width: 850px) {
