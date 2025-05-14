@@ -655,10 +655,14 @@ footer p {
 	padding: 0px;
 }
 
-.buttons-container {
-	display: flex !important;
-	justify-content: center !important;
-	align-items: center !important;
+#paypal-button-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#paypal-button-container {
+	width: 50%;
 }
 
 /* End of Products styles */
@@ -688,6 +692,10 @@ footer p {
 	.modal-content {
 		width: 90%;
 		max-width: 90%;
+	}
+
+	#paypal-button-container {
+		width: 100%;
 	}
 }
 

@@ -50,8 +50,9 @@
 	<article class="main-article">
 		<h2>P&aacute;gina de pago</h2>
 		<hr>
-		<div id="paypal-button-container"></div>
-
+		<div id="paypal-button-wrapper">
+			<div id="paypal-button-container"></div>
+		</div>
 		<script th:src="|https://www.paypal.com/sdk/js?client-id=${paypal_client_id}&amp;currency=EUR|"></script>
 
 		<script>
