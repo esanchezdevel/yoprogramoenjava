@@ -1,5 +1,7 @@
 package com.programandoconjava.domain.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +9,11 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.programandoconjava.domain.model.Product;
+import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.ProductsService;
+import com.programandoconjava.infrastructure.db.dto.ProductDTO;
+import com.programandoconjava.infrastructure.db.repository.ProductsRepository;
 import com.programandoconjava.infrastructure.payment.http.dto.AuthenticationResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
@@ -20,6 +26,12 @@ public class ProductsServiceImpl implements ProductsService {
 
 	@Autowired
 	private PaymentService paymentService;
+
+	@Autowired
+	private HtmlParserService htmlParserService;
+
+	@Autowired
+	private ProductsRepository productsRepository;
 
 	@Override
 	public Optional<CreateOrderResponse> createOrder(String productName, String price, String currency) {
@@ -81,5 +93,26 @@ public class ProductsServiceImpl implements ProductsService {
 		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId);
 		logger.info("Order captured: {}", order);
 		return order;
+	}
+
+	@Override
+	public List<Product> getAll() {
+
+		List<ProductDTO> productsDTOs = productsRepository.findAllProducts();
+		
+		List<Product> products = new ArrayList<>();
+		productsDTOs.forEach(dto -> {
+			Product product = new Product();
+			product.setId(dto.id());
+			product.setName(dto.name());
+
+			String parsedDescription = htmlParserService.parseToHtml(dto.description());
+
+			product.setDescription(parsedDescription);
+			product.setType(dto.type());
+
+			products.add(product);
+		});
+		return products;
 	}
 }

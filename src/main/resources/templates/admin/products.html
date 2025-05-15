@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${title}"></title>
+
+	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/admin-styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<h1 th:text="${title}"></h1>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{admin/fragments/admin_menu :: admin_menu}"></div>
+</nav>
+<section class="main-section">
+	<article id="admin-main-article">
+		<h2>Admin - Productos</h2>
+		<hr>
+		<a class="custom-button" href="/admin/products/create">Nuevo Producto</a>
+		<table class="table-list">
+			<thead>
+				<tr>
+					<th class="table-title">Producto</th>
+					<th class="table-title">Tipo</th>
+					<th class="table-action">Editar</th>
+					<th class="table-action">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product : ${products}">
+					<td class="table-title" th:text="${product.name}"></td>
+					<td class="table-title" th:text="${product.type}"></td>
+					<td class="table-action"><a th:href="'/admin/products/edit/' + ${product.id}"><i class="fas fa-edit"></i></a></td>
+					<td class="table-action"><a th:href="'/admin/products/delete/' + ${product.id}" onclick="return confirm('Est&aacute;s seguro de que quieres eliminar este producto?');"><i class="fas fa-trash"></i></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</article>
+</section>
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>

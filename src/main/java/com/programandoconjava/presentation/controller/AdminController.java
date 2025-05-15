@@ -23,6 +23,7 @@ import com.programandoconjava.domain.model.ExternalNew;
 import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
+import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.presentation.dto.ArticleDTO;
 import com.programandoconjava.presentation.dto.ExternalNewDTO;
@@ -47,6 +48,9 @@ public class AdminController {
 
 	@Autowired
 	private ExternalNewsService externalNewsService;
+
+	@Autowired
+	private ProductsService productsService;
 	
 	@GetMapping() 
 	public String getAdminPanel(Model model) {
@@ -320,5 +324,14 @@ public class AdminController {
 		logger.info("ExternalNew with id '{}' deleted", id);
 
 		return new RedirectView("/admin/news");
+	}
+
+	@GetMapping("/products")
+	public String getProducts(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS, productsService.getAll());
+		
+		return "admin/products";
 	}
 }

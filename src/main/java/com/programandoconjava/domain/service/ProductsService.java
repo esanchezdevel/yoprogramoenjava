@@ -1,7 +1,9 @@
 package com.programandoconjava.domain.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 
@@ -24,4 +26,11 @@ public interface ProductsService {
 	 * @return Optional of CaptureOrderResponse that contains the data related to the order. Empty if the process failed
 	 */
 	Optional<CaptureOrderResponse> captureOrder(String orderId);
+
+	/**
+	 * Get all the Products stored in database
+	 * 
+	 * @return List of Products
+	 */
+	List<Product> getAll();
 }
