@@ -20,6 +20,7 @@ import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.TopicsService;
+import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
 import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
@@ -43,6 +44,9 @@ public class FrontendController {
 
 	@Autowired
 	private HtmlParserService htmlParserService;
+
+	@Autowired
+	private PaymentConfiguration paymentConfiguration;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -170,5 +174,15 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 		
 		return "cookies_policy";
+	}
+
+	@GetMapping("/payment")
+	public String getPaymentPage(Model model) {
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PAYPAL_CLIENT_ID, paymentConfiguration.getPaypalClientId());
+		
+		return "payment-page";
 	}
 }
