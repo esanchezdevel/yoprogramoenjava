@@ -16,4 +16,5 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_TAGS = "tags";
 	public static final String ATTRIBUTE_NAME_PAYPAL_CLIENT_ID = "paypal_client_id";
 	public static final String ATTRIBUTE_NAME_PRODUCTS = "products";
+	public static final String ATTRIBUTE_NAME_PRODUCTS_TYPES = "types";
 }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${title}"></title>
+
+	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
+
+	<meta charset="UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<link th:href="@{/css/admin-styles.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	
+	<script th:src="@{/js/form.js}"></script>
+	<script type="text/javascript">
+		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
+		function toggleMenu() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+			
+		    const main_menu = document.querySelector("#main-menu");
+		    const borderBottom = window.getComputedStyle(main_menu).getPropertyValue("border-bottom-width");
+
+		    if (borderBottom !== "0px") {
+		    	main_menu.style.borderBottom = "0px"; // Remove the border
+		    } else {
+		    	main_menu.style.borderBottom = "1px solid #3498db";
+		    }
+			
+		}
+	</script>
+</head>
+<body>
+<header id="main-title">
+	<h1 th:text="${title}"></h1>
+</header>
+<nav id="main-menu">
+	<div th:replace="~{admin/fragments/admin_menu :: admin_menu}"></div>
+</nav>
+<section class="main-section">
+	<article id="admin-main-article">
+		<h2>Admin Nuevo Producto</h2>
+		<hr>
+		<form action="/admin/products/create" method="POST">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+			<input type="text" id="name" name="name" placeholder="Nombre" class="form-element" required>
+			<br>
+			<select id="type" name="type" class="form-element">
+				<option value="" disabled selected>Selecciona un Tipo</option>
+				<option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+			</select>
+			<br>
+			<textarea id="description" name="description" rows="5" placeholder="Descripci&oacute;n."  class="form-element" required></textarea>
+			<br>
+			<input type="text" id="imagePreview" name="imagePreview" placeholder="Ruta imagen de preview" class="form-element" required>
+			<br>
+			<input type="text" id="videoPreview" name="videoPreview" placeholder="Ruta video de preview" class="form-element">
+			<br>
+			<input type="number" id="price" name="price" placeholder="Precio en Euros" class="form-element" min="0.00" step="any">
+			<br>
+			<button type="submit" class="custom-button">Crear</button>
+			<br>
+		</form>
+	</article>
+</section>
+<footer>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</footer>
+</body>
+</html>

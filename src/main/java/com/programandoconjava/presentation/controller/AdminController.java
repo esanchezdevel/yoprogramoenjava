@@ -20,6 +20,7 @@ import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Article;
 import com.programandoconjava.domain.model.ExternalNew;
+import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
@@ -27,9 +28,11 @@ import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.presentation.dto.ArticleDTO;
 import com.programandoconjava.presentation.dto.ExternalNewDTO;
+import com.programandoconjava.presentation.dto.ProductDTO;
 import com.programandoconjava.presentation.dto.TopicDTO;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
+import com.programandoconjava.presentation.dto.mapping.ProductMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
 import jakarta.transaction.Transactional;
@@ -333,5 +336,24 @@ public class AdminController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS, productsService.getAll());
 		
 		return "admin/products";
+	}
+
+	@GetMapping("/products/create")
+	public String createProductsForm(Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.values());
+
+		return "admin/product_form";
+	}
+	
+	@PostMapping("/products/create")
+	@Transactional
+	public RedirectView postCreateProduct(@ModelAttribute ProductDTO productDTO, Model model) {
+		logger.info("Processing new product: {}", productDTO);
+		
+		productsService.store(ProductMapping.parseToEntity(productDTO));
+		
+		return new RedirectView("/admin");
 	}
 }

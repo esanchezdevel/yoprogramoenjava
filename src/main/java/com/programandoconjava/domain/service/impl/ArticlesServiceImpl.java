@@ -163,7 +163,7 @@ public class ArticlesServiceImpl implements ArticlesService {
 
 	@Override
 	public void store(Article article) {
-		articlesRepository.save(article);	
+		articlesRepository.save(article);
 	}
 
 	@Override

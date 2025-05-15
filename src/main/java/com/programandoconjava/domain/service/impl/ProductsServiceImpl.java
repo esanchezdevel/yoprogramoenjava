@@ -8,7 +8,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.programandoconjava.domain.model.Article;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.ProductsService;
@@ -96,6 +98,7 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Product> getAll() {
 
 		List<ProductDTO> productsDTOs = productsRepository.findAllProducts();
@@ -114,5 +117,10 @@ public class ProductsServiceImpl implements ProductsService {
 			products.add(product);
 		});
 		return products;
+	}
+
+	@Override
+	public void store(Product product) {
+		productsRepository.save(product);
 	}
 }

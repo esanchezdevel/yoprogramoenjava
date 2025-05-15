@@ -33,4 +33,11 @@ public interface ProductsService {
 	 * @return List of Products
 	 */
 	List<Product> getAll();
+
+	/**
+	 * Store one Product in database
+	 * 
+	 * @param product The product to be saved
+	 */
+	void store(Product product);
 }
