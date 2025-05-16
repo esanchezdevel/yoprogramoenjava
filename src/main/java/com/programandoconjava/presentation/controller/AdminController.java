@@ -20,6 +20,7 @@ import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Article;
 import com.programandoconjava.domain.model.ExternalNew;
+import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.ArticlesService;
@@ -355,5 +356,27 @@ public class AdminController {
 		productsService.store(ProductMapping.parseToEntity(productDTO));
 		
 		return new RedirectView("/admin");
+	}
+
+	@GetMapping("/products/edit/{id}")
+	public String editProductForm(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return "error";
+		}
+
+		Optional<Product> product = productsService.getById(Long.valueOf(id), false);
+
+		if (product.isEmpty()) {
+			logger.error("Error. Product with id '{}' not found", id);
+			return "error";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.values());
+
+		return "admin/product_edit_form";
 	}
 }

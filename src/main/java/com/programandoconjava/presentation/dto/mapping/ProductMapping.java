@@ -21,4 +21,19 @@ public class ProductMapping {
 		
 		return entity;
 	}
+
+	public static ProductDTO parseToDTO(Product entity) {
+		return parseToDTO(entity, true);
+	}
+
+	public static ProductDTO parseToDTO(Product entity, boolean isMetaDescription) {
+		ProductDTO dto = new ProductDTO(String.valueOf(entity.getId()),
+										entity.getName(),
+										entity.getType().toString(),
+										isMetaDescription ? entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "") : entity.getDescription(), 
+										entity.getPreviewImage(),
+										entity.getPreviewVideo(),
+										String.valueOf(entity.getPrice()));
+		return dto;
+	}
 }

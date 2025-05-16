@@ -119,6 +119,22 @@ public class ProductsServiceImpl implements ProductsService {
 	}
 
 	@Override
+	public Optional<Product> getById(long id, boolean parseToHtml) {
+		Optional<Product> product = productsRepository.findById(id);
+
+		if (product.isEmpty()) {
+			logger.warn("Product with id '{}' not found", id);
+			return product;
+		}
+
+		String parsedDescription = parseToHtml ? htmlParserService.parseToHtml(product.get().getDescription()) : product.get().getDescription();
+
+		product.get().setDescription(parsedDescription);
+
+		return product;
+	}
+
+	@Override
 	public void store(Product product) {
 		productsRepository.save(product);
 	}

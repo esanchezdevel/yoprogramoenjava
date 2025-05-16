@@ -35,6 +35,15 @@ public interface ProductsService {
 	List<Product> getAll();
 
 	/**
+	 * Get one Product looking by the Id
+	 * 
+	 * @param id The id of the Product
+	 * @param parseToHtml True to indicate if we want to parse the content of the product to HTML format
+	 * @return Optional of Product. Empty if the Product is not found
+	 */
+	Optional<Product> getById(long id, boolean parseToHtml);
+
+	/**
 	 * Store one Product in database
 	 * 
 	 * @param product The product to be saved
