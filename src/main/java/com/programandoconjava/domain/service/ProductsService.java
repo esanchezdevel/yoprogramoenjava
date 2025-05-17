@@ -49,4 +49,12 @@ public interface ProductsService {
 	 * @param product The product to be saved
 	 */
 	void store(Product product);
+
+	/**
+	 * Update one product in database
+	 * 
+	 * @param id The product id
+	 * @param article The product to be updated
+	 */
+	void update(Long id, Product product);
 }

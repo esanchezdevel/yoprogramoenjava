@@ -374,9 +374,20 @@ public class AdminController {
 			return "error";
 		}
 
-		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get(), false));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.names());
 
 		return "admin/product_edit_form";
+	}
+
+	@PostMapping("/products/edit/{id}")
+	@Transactional
+	public RedirectView editProduct(@PathVariable String id, @ModelAttribute ProductDTO productDTO, Model model) {
+		logger.info("Edit product with id: {}", id);
+
+		productsService.update(Long.valueOf(id), ProductMapping.parseToEntity(productDTO));
+
+		logger.info("Product modified");
+		return new RedirectView("/admin");
 	}
 }

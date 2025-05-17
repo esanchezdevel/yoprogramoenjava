@@ -138,4 +138,21 @@ public class ProductsServiceImpl implements ProductsService {
 	public void store(Product product) {
 		productsRepository.save(product);
 	}
+
+	@Override
+	@Transactional
+	public void update(Long id, Product product) {
+		
+		Optional<Product> productDb = productsRepository.findById(id);
+
+		if (productDb.isPresent()) {
+			productDb.get().setName(product.getName());
+			productDb.get().setDescription(product.getDescription());
+			productDb.get().setType(product.getType());
+			productDb.get().setPreviewImage(product.getPreviewImage());
+			productDb.get().setPreviewVideo(product.getPreviewVideo());
+			productDb.get().setPrice(product.getPrice());
+		}
+	}
+
 }
