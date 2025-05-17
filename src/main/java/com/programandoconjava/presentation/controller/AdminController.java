@@ -375,7 +375,7 @@ public class AdminController {
 		}
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
-		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.values());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.names());
 
 		return "admin/product_edit_form";
 	}
