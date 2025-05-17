@@ -1,5 +1,7 @@
 package com.programandoconjava.presentation.dto.mapping;
 
+import java.text.DecimalFormat;
+
 import org.springframework.util.StringUtils;
 
 import com.programandoconjava.domain.model.Product;
@@ -27,13 +29,16 @@ public class ProductMapping {
 	}
 
 	public static ProductDTO parseToDTO(Product entity, boolean isMetaDescription) {
+
+		DecimalFormat df = new DecimalFormat("#.##");
+
 		ProductDTO dto = new ProductDTO(String.valueOf(entity.getId()),
 										entity.getName(),
 										entity.getType().toString(),
 										isMetaDescription ? entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "") : entity.getDescription(), 
 										entity.getPreviewImage(),
 										entity.getPreviewVideo(),
-										String.valueOf(entity.getPrice()));
+										df.format(entity.getPrice()));
 		return dto;
 	}
 }
