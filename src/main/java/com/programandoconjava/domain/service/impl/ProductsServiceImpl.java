@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.programandoconjava.domain.model.Product;
+import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.infrastructure.db.dto.ProductDTO;
@@ -132,6 +133,17 @@ public class ProductsServiceImpl implements ProductsService {
 		product.get().setDescription(parsedDescription);
 
 		return product;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Product> getByType(ProductType type, boolean parseToHtml) {
+		List<Product> products = productsRepository.findByType(type);
+
+		if (parseToHtml) {
+			products.forEach(p -> p.setDescription(htmlParserService.parseToHtml(p.getDescription())));
+		}
+		return products;
 	}
 
 	@Override

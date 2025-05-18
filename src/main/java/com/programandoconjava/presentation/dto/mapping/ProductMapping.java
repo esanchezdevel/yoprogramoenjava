@@ -1,6 +1,8 @@
 package com.programandoconjava.presentation.dto.mapping;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.util.StringUtils;
 
@@ -25,20 +27,27 @@ public class ProductMapping {
 	}
 
 	public static ProductDTO parseToDTO(Product entity) {
-		return parseToDTO(entity, true);
-	}
 
-	public static ProductDTO parseToDTO(Product entity, boolean isMetaDescription) {
+		String metaDescription = entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "");
+		metaDescription = metaDescription.length() > 155 ? metaDescription.substring(0, 154) : metaDescription;
 
 		DecimalFormat df = new DecimalFormat("#.##");
-
 		ProductDTO dto = new ProductDTO(String.valueOf(entity.getId()),
 										entity.getName(),
 										entity.getType().toString(),
-										isMetaDescription ? entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "") : entity.getDescription(), 
+										entity.getDescription(),
+										metaDescription,
 										entity.getPreviewImage(),
 										entity.getPreviewVideo(),
 										df.format(entity.getPrice()));
 		return dto;
+	}
+
+	public static List<ProductDTO> parseListToDTOs(List<Product> entities) {
+		List<ProductDTO> dtos = new ArrayList<>();
+		
+		entities.forEach(e -> dtos.add(parseToDTO(e)));
+		
+		return dtos;
 	}
 }

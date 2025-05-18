@@ -15,15 +15,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Article;
 import com.programandoconjava.domain.model.ExternalNew;
+import com.programandoconjava.domain.model.Product;
+import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.model.Topic;
 import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
+import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
 import com.programandoconjava.presentation.dto.mapping.ArticleTagsMapping;
 import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
+import com.programandoconjava.presentation.dto.mapping.ProductMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
 import jakarta.transaction.Transactional;
@@ -47,6 +51,9 @@ public class FrontendController {
 
 	@Autowired
 	private PaymentConfiguration paymentConfiguration;
+
+	@Autowired
+	private ProductsService productsService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -156,6 +163,9 @@ public class FrontendController {
 	public String getProducts(Model model) {
 		
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		List<Product> products = productsService.getByType(ProductType.WEB_TEMPLATE, true);
+		model.addAttribute(Constants.ATTRIBUTE_NAME_WEB_TEMPLATES, ProductMapping.parseListToDTOs(products));
 		
 		return "products";
 	}

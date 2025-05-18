@@ -61,19 +61,14 @@
 		<h2>Plantillas Web</h2>
 		<hr>
 		<ul class="products-templates-list">
-			<li>
-				<h3>B&aacute;sica Para Negocios</h3>
-				<img th:src="@{/img/products/template-web-preview.png}"/>
-				<p class="product-description">
-				Esta plantilla es una p&aacute;gina web profesional que funciona con un peque&ntilde;o servidor <b>Node.js</b>. <br>
-				Est&aacute; pensada para ser f&aacute;cilmente configurable, incluso sin experiencia t&eacute;cnica avanzada. <br>
-				Puedes personalizar textos, servicios, colores y otros contenidos b&aacute;sicos de forma r&aacute;pida, lo que la hace ideal 
-				para aut&oacute;nomos, peque&ntilde;os negocios o quienes necesitan una presencia online sencilla y efectiva.
-				</p>
-				<p class="product-price">50&euro;</p>
+			<li th:each="webTemplate : ${webTemplates}">
+				<h3 th:text="${webTemplate.name}"></h3>
+				<img th:src="@{'/img/products/' + ${webTemplate.imagePreview}}"/>
+				<p class="product-description" th:utext="${webTemplate.description}"></p>
+				<p class="product-price" th:text="${webTemplate.price} + '&euro;'"></p>
 				<div class="products-buttons-container">
-					<button class="custom-modern-button" data-video-src="/video/template-001-preview.mp4">Preview</button>
-					<button class="custom-modern-button" id="download-template">Download</button>
+					<button class="custom-modern-button" th:data-video-src="'/video/' + ${webTemplate.videoPreview}">Preview</button>
+					<button class="custom-modern-button" id="download-template" th:product-id="${webTemplate.id}">Download</button>
 				</div>
 			</li>
 		</ul>

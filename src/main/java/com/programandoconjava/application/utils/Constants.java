@@ -18,4 +18,5 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_PRODUCTS = "products";
 	public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 	public static final String ATTRIBUTE_NAME_PRODUCTS_TYPES = "types";
+	public static final String ATTRIBUTE_NAME_WEB_TEMPLATES = "webTemplates";
 }

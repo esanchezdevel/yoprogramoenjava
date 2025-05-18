@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.programandoconjava.domain.model.Product;
+import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 
@@ -42,6 +43,15 @@ public interface ProductsService {
 	 * @return Optional of Product. Empty if the Product is not found
 	 */
 	Optional<Product> getById(long id, boolean parseToHtml);
+
+	/**
+	 * Get all Products looking by the type
+	 * 
+	 * @param type The type of the Product
+	 * @param parseToHtml True to indicate if we want to parse the description of the product to HTML format
+	 * @return List of Products found
+	 */
+	List<Product> getByType(ProductType type, boolean parseToHtml);
 
 	/**
 	 * Store one Product in database
