@@ -57,4 +57,11 @@ public interface ProductsService {
 	 * @param article The product to be updated
 	 */
 	void update(Long id, Product product);
+
+	/**
+	 * Delete one Product in base of the id
+	 * 
+	 * @param id The identifier of the Product to be deleted
+	 */
+	void delete(Long id);
 }

@@ -390,4 +390,19 @@ public class AdminController {
 		logger.info("Product modified");
 		return new RedirectView("/admin");
 	}
+
+	@GetMapping("/products/delete/{id}")
+	public RedirectView deleteProduct(@PathVariable String id, Model model) {
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		if (!StringUtils.hasLength(id)) {
+			logger.error("Error. Empty ID received");
+			return new RedirectView("/admin/error");
+		}
+
+		productsService.delete(Long.valueOf(id));
+		logger.info("Product with id '{}' deleted", id);
+
+		return new RedirectView("/admin/products");
+	}
 }
