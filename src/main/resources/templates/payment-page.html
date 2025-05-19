@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:utext="${title} + ' - Acerca de'"></title>
+	<title th:utext="${title} + ' - P&aacute;gina de Pago'"></title>
 
 	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
 
@@ -50,6 +50,13 @@
 	<article class="main-article">
 		<h2>P&aacute;gina de pago</h2>
 		<hr>
+		<p>Est&aacute;s a punto de comprar el siguiente producto:</p>
+		<p><b>Producto:</b> <span th:utext="${product.name}"></span></p>
+		<p><b>Precio:</b> <span th:utext="${product.price} + ' &euro;'"></span></p>
+		<p><b>Descripci&oacute;n:</b> <span th:utext="${product.description}"></span></p>
+		<div id="payment-page-preview-image">
+			<img th:src="@{'/img/products/' + ${product.imagePreview}}" th:alt="${product.name}">
+		</div>
 		<div id="paypal-button-wrapper">
 			<div id="paypal-button-container"></div>
 		</div>
@@ -59,6 +66,8 @@
 			const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 			const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
+			const product_id = window.location.pathname.split("/").pop();
+
             paypal.Buttons({
                 async createOrder() {
                     const response = await fetch("/payment/create-paypal-order", {
@@ -67,12 +76,11 @@
                             "Content-Type": "application/json",
 							[csrfHeader]: csrfToken
                         },
-                        body: JSON.stringify({
-                            cart: [{
-                                sku: "1",
-                                quantity: "1",
-                            }]
-                        })
+                        body: JSON.stringify(
+                            {
+                                product_id: product_id
+                            }
+                        )
                     });
                     const order = await response.json();
                     return order.id;

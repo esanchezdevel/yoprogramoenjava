@@ -194,12 +194,25 @@ public class FrontendController {
 		return "cookies_policy";
 	}
 
-	@GetMapping("/payment")
-	public String getPaymentPage(Model model) {
+	@GetMapping("/payment/{product-id}")
+	public String getPaymentPage(Model model, @PathVariable("product-id") Long productId) {
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
+		if (productId == null) {
+			logger.error("product id not received");
+			return "error";
+		}
+
+		Optional<Product> product = productsService.getById(productId, true);
+
+		if (product.isEmpty()) {
+			logger.error("Product with id '{}' not found in database", productId);
+			return "error_not_found";
+		}
+
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PAYPAL_CLIENT_ID, paymentConfiguration.getPaypalClientId());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
 		
 		return "payment-page";
 	}
