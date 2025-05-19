@@ -30,7 +30,7 @@ public class PaymentController {
 	private ProductsService productsService;
 
 	@PostMapping("/create-paypal-order")
-	public ResponseEntity<?> createPayPalOrder(Model model, @RequestBody Map<String, String> request) {
+	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request) {
 
 		if (request == null || request.get("product_id") == null || 
 			request.get("product_id").length() == 0 || !Validators.isValidLong(request.get("product_id"))) {
