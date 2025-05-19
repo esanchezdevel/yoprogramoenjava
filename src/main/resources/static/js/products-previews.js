@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const src = button.getAttribute('data-video-src');
             videoSource.src = src;
             modalVideo.load();
-            modal.style.display = 'block';
+            modal.style.display = 'flex';
             modalVideo.play();
         });
     });
