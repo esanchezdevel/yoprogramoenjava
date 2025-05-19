@@ -163,11 +163,19 @@ public class FrontendController {
 	public String getProducts(Model model) {
 		
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "products";
+	}
+
+	@GetMapping("/products/templates")
+	public String getProductsTemplates(Model model) {
+		
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
 		List<Product> products = productsService.getByType(ProductType.WEB_TEMPLATE, true);
 		model.addAttribute(Constants.ATTRIBUTE_NAME_WEB_TEMPLATES, ProductMapping.parseListToDTOs(products));
 		
-		return "products";
+		return "products_web_templates";
 	}
 
 	@GetMapping("/about")

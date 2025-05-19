@@ -665,6 +665,10 @@ footer p {
 	width: 50%;
 }
 
+#products-types-list li a {
+	text-align: center;
+}
+
 /* End of Products styles */
 
 @media screen and (max-width: 850px) {

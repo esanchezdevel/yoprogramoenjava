@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title th:utext="${title} + ' - Productos'"></title>
+	<title th:utext="${title} + ' - Descarga Plantillas Web'"></title>
 
 	<link rel="icon" type="image/x-icon" th:href="@{/img/favicon.ico}">
 
 	<meta charset="UTF-8">
-	<meta name="robots" content="noindex, nofollow">
+	<meta name="description" content="Descarga plantillas web con las cuales podrás empezar a crear tu propia página web para tu negocio o proyecto personal.">
+	<meta name="keywords" content="descarga, download, plantilla, web, site, template">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<link th:href="@{/css/styles.css}" rel="stylesheet" />
@@ -14,6 +15,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<script th:src="@{/js/cookies-policy.js}"></script>
+	<script th:src="@{/js/products-previews.js}"></script>
+	<script th:src="@{/js/products-download.js}"></script>
 	<script type="text/javascript">
 		/* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
 		function toggleMenu() {
@@ -44,20 +47,30 @@
 	<div th:replace="~{fragments/menu :: menu}"></div>
 </nav>
 <section class="main-section">
-	<article class="main-article list-contents">
-		<h2>Productos</h2>
+	<article class="main-article">
+		<h2>Descarga Plantillas Web</h2>
 		<hr>
-		<p>
-		En esta secci&oacute;n encontrar&aacute;s diferentes programas y plantillas web creadas por m&iacute;, disponibles para la venta. <br>
-		Cada producto est&aacute; dise&ntilde;ado con el objetivo de ofrecerte soluciones pr&aacute;cticas y profesionales para tus proyectos. <br>
-		Al adquirirlos, no solo estar&aacute;s mejorando tu negocio o proyecto personal, sino que tambi&eacute;n estar&aacute;s apoyando el mantenimiento 
-		y crecimiento de este blog, lo que me permite seguir ofreciendo contenido valioso y seguir desarrollando nuevos productos. 
-		<br><br>
-		¡Gracias por tu apoyo!
-		</p>
-		<ul id="products-types-list">
-			<li><a href="/products/templates">Plantillas Web</a></li>
+		<ul class="products-templates-list">
+			<li th:each="webTemplate : ${webTemplates}">
+				<h3 th:text="${webTemplate.name}"></h3>
+				<img th:src="@{'/img/products/' + ${webTemplate.imagePreview}}"/>
+				<p class="product-description" th:utext="${webTemplate.description}"></p>
+				<p class="product-price" th:text="${webTemplate.price} + '&euro;'"></p>
+				<div class="products-buttons-container">
+					<button class="custom-modern-button" th:data-video-src="'/video/' + ${webTemplate.videoPreview}">Preview</button>
+					<button class="custom-modern-button" id="download-template" th:product-id="${webTemplate.id}">Download</button>
+				</div>
+			</li>
 		</ul>
+		<div id="video-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-button">&times;</span>
+				<video id="modal-video" controls>
+				<source id="modal-video-source" src="" type="video/mp4">
+				Tu navegador no soporta la etiqueta de video.
+				</video>
+			</div>
+		</div>
 	</article>
 </section>
 
