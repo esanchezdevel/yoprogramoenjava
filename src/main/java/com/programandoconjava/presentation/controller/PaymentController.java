@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.programandoconjava.application.utils.Validators;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
@@ -32,7 +33,7 @@ public class PaymentController {
 	public ResponseEntity<?> createPayPalOrder(Model model, @RequestBody Map<String, String> request) {
 
 		if (request == null || request.get("product_id") == null || 
-			request.get("product_id").length() == 0 || !isValidLong(request.get("product_id"))) {
+			request.get("product_id").length() == 0 || !Validators.isValidLong(request.get("product_id"))) {
 			logger.error("Wrong product id received in request. request: {}", request);
 			return ResponseEntity.badRequest().build();
 		}
@@ -54,15 +55,6 @@ public class PaymentController {
 			return ResponseEntity.internalServerError().build();
 		}
 		return ResponseEntity.status(HttpStatus.CREATED.value()).body(order);
-	}
-
-	private boolean isValidLong(String value) {
-		try {
-			Long.valueOf(value);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
 	}
 
 	@PostMapping("/capture-paypal-order")
