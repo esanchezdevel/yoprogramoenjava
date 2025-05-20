@@ -19,6 +19,8 @@ import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
+import com.programandoconjava.presentation.dto.CreateOrderResponseDTO;
+import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
 @RestController
 @RequestMapping("/payment")
@@ -54,7 +56,7 @@ public class PaymentController {
 			logger.error("The process to create a new order failed");
 			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED.value()).body(order);
+		return ResponseEntity.status(HttpStatus.CREATED.value()).body(PaymentMapping.parseCreateOrderResponseToDTO(order.get()));
 	}
 
 	@PostMapping("/capture-paypal-order")
@@ -67,6 +69,6 @@ public class PaymentController {
 			logger.error("The process to capture a new order failed");
 			return ResponseEntity.internalServerError().build();
 		}
-		return ResponseEntity.status(HttpStatus.OK.value()).body(order);
+		return ResponseEntity.status(HttpStatus.OK.value()).body(PaymentMapping.parseCaptureOrderResponseToDTO(order.get()));
 	}
 }
