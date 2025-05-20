@@ -56,6 +56,12 @@ public class ProductsServiceImpl implements ProductsService {
 				return Optional.empty();
 			}
 		}
+
+		if (!"CREATED".equals(order.status())) {
+			logger.error("Unexpected status received in Create Order response: '{}'", order.status());
+			return Optional.empty();
+		}
+
 		return Optional.of(order);
 	}
 

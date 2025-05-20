@@ -82,6 +82,13 @@
                             }
                         )
                     });
+
+					if (!response.ok) {
+						const errorMsg = "Error al intentar crear la transacción en Paypal. Error: " + response.status;
+						alert(errorMsg);
+						throw new Error(errorMsg);
+					}
+
                     const order = await response.json();
                     return order.id;
                 },
@@ -111,7 +118,6 @@
 
 				onError(err) {
 					console.error(err);
-					alert("An error occurred during the payment process.");
 				}
             }).render('#paypal-button-container');
         </script>
