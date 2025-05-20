@@ -93,6 +93,12 @@ public class ProductsServiceImpl implements ProductsService {
 				return Optional.empty();
 			}
 		}
+
+		if (!"COMPLETED".equals(order.status())) {
+			logger.error("Unexpected status received in Capture Order response: '{}'", order.status());
+			return Optional.empty();
+		}
+
 		return Optional.of(order);
 	}
 
