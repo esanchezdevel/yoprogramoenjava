@@ -3,7 +3,6 @@ package com.programandoconjava.presentation.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyBoolean;
-import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -18,8 +17,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import com.programandoconjava.domain.model.Product;
@@ -58,5 +55,14 @@ public class PaymentControllerTest {
 
 		assertNotNull(response);
 		assertEquals(201, response.getStatusCode().value());
+	}
+
+	@Test
+	void whenProductIdNotPresentThenCreateOrderError400() {
+		Map<String, String> request = new HashMap<>();
+
+		ResponseEntity<?> response = paymentController.createPayPalOrder(request);
+		assertNotNull(response);
+		assertEquals(400, response.getStatusCode().value());
 	}
 }
