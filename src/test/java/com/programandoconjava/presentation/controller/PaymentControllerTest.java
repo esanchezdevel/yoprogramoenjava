@@ -2,9 +2,12 @@ package com.programandoconjava.presentation.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -21,7 +24,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.ProductsService;
+import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
+import com.programandoconjava.presentation.dto.CaptureOrderResponseDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentControllerTest {
@@ -32,6 +37,7 @@ public class PaymentControllerTest {
 	@InjectMocks
 	private PaymentController paymentController;
 
+	// Create Order tests
 	@Test
 	void whenValidIdReceivedThenCreateOrderSuccess() {
 
@@ -64,5 +70,99 @@ public class PaymentControllerTest {
 		ResponseEntity<?> response = paymentController.createPayPalOrder(request);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
+
+		request = null;
+		response = paymentController.createPayPalOrder(request);
+		assertNotNull(response);
+		assertEquals(400, response.getStatusCode().value());
+
+		request = new HashMap<>();
+		request.put("product_id", null);
+		response = paymentController.createPayPalOrder(request);
+		assertNotNull(response);
+		assertEquals(400, response.getStatusCode().value());
+
+		request = new HashMap<>();
+		request.put("product_id", "");
+		response = paymentController.createPayPalOrder(request);
+		assertNotNull(response);
+		assertEquals(400, response.getStatusCode().value());
+
+		request = new HashMap<>();
+		request.put("product_id", "test");
+		response = paymentController.createPayPalOrder(request);
+		assertNotNull(response);
+		assertEquals(400, response.getStatusCode().value());
+	}
+
+	@Test
+	void whenProductNotPresentInDatabaseThenCreateOrderError404() {
+		Map<String, String> request = new HashMap<>();
+		request.put("product_id", "1");
+
+		when(productsService.getById(anyLong(), anyBoolean())).thenReturn(Optional.empty());
+
+		ResponseEntity<?> response = paymentController.createPayPalOrder(request);
+
+		assertNotNull(response);
+		assertEquals(404, response.getStatusCode().value());
+		verify(productsService, times(0)).createOrder(anyString(), anyString(), anyString());
+	}
+
+	@Test
+	void whenCreateOrderFailsInPaymentPlatformThenError500() {
+		Map<String, String> request = new HashMap<>();
+		request.put("product_id", "1");
+
+		Product product = new Product();
+		product.setId(1L);
+		product.setName("test-product");
+		product.setDescription("test-description");
+		product.setPreviewImage("test-image.jpg");
+		product.setPreviewVideo("test-video.mp4");
+		product.setPrice(50.0);
+
+		when(productsService.getById(anyLong(), anyBoolean())).thenReturn(Optional.of(product));
+		when(productsService.createOrder(anyString(), anyString(), anyString())).thenReturn(Optional.empty());
+
+		ResponseEntity<?> response = paymentController.createPayPalOrder(request);
+
+		assertNotNull(response);
+		assertEquals(500, response.getStatusCode().value());
+	}
+
+	// Capture Order tests
+	@Test
+	void whenValidOrderIdReceivedThenCaptureOrderSuccess() {
+
+		Map<String, String> request = new HashMap<>();
+		request.put("orderId", "1");
+
+		CaptureOrderResponse captureOrderResponse = new CaptureOrderResponse("", "", "1", null, null, null, "", null, "COMPLETED");
+
+		when(productsService.captureOrder(anyString())).thenReturn(Optional.of(captureOrderResponse));
+
+		ResponseEntity<?> response = paymentController.capturePayPalOrder(request);
+
+		assertNotNull(response);
+		assertTrue(response.getBody() instanceof CaptureOrderResponseDTO);
+		assertEquals(200, response.getStatusCode().value());
+
+		CaptureOrderResponseDTO captureOrderResponseDTO = (CaptureOrderResponseDTO) response.getBody();
+		assertEquals("COMPLETED", captureOrderResponseDTO.status());
+	}
+
+	@Test
+	void whenCaptureOrderFailsInPaymentPlatformThenCaptureOrderError500() {
+
+		Map<String, String> request = new HashMap<>();
+		request.put("orderId", "1");
+
+		when(productsService.captureOrder(anyString())).thenReturn(Optional.empty());
+
+		ResponseEntity<?> response = paymentController.capturePayPalOrder(request);
+
+		assertNotNull(response);
+		assertEquals(500, response.getStatusCode().value());
 	}
 }
