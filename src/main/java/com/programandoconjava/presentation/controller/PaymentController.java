@@ -20,6 +20,8 @@ import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderRespon
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
@@ -30,7 +32,7 @@ public class PaymentController {
 	private ProductsService productsService;
 
 	@PostMapping("/create-paypal-order")
-	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request) {
+	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
 
 		if (request == null || request.get("product_id") == null || 
 			request.get("product_id").length() == 0 || !Validators.isValidLong(request.get("product_id"))) {
@@ -48,7 +50,7 @@ public class PaymentController {
 			return ResponseEntity.notFound().build();
 		}
 
-		Optional<CreateOrderResponse> order = productsService.createOrder(product.get().getName(), String.valueOf(product.get().getPrice()), "EUR");
+		Optional<CreateOrderResponse> order = productsService.createOrder(product.get(), servletRequest.getRemoteAddr(), servletRequest.getHeader("User-Agent"));
 
 		if (order.isEmpty()) {
 			logger.error("The process to create a new order failed");
@@ -58,10 +60,11 @@ public class PaymentController {
 	}
 
 	@PostMapping("/capture-paypal-order")
-	public ResponseEntity<?> capturePayPalOrder(@RequestBody Map<String, String> body) {
-		String orderId = body.get("orderId");
+	public ResponseEntity<?> capturePayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
+		String orderId = request.get("orderId");
+		String productId = request.get("product_id");
 
-		Optional<CaptureOrderResponse> order = productsService.captureOrder(orderId);
+		Optional<CaptureOrderResponse> order = productsService.captureOrder(orderId, productId, servletRequest.getRemoteAddr(), servletRequest.getHeader("User-Agent"));
 
 		if (order.isEmpty()) {
 			logger.error("The process to capture a new order failed");

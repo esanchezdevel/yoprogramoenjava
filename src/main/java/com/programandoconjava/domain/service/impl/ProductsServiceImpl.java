@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.service.HtmlParserService;
@@ -36,17 +37,17 @@ public class ProductsServiceImpl implements ProductsService {
 	private ProductsRepository productsRepository;
 
 	@Override
-	public Optional<CreateOrderResponse> createOrder(String productName, String price, String currency) {
-		logger.info("Creating new order for product={}, price={}, currency={}", productName, price, currency);
+	public Optional<CreateOrderResponse> createOrder(Product product, String clientIp, String userAgent) {
+		logger.info("Creating new order for product={}", product.getId());
 		
 		CreateOrderResponse order = null;
 		try {
-			order = executeCreateOrderRequests(true, productName, price, currency);
+			order = executeCreateOrderRequests(true, product, clientIp, userAgent);
 		} catch (Exception e) {
 			if (e.getMessage().contains("401 Unauthorized")) {
 				logger.info("Authorization token expired. Requesting new one and retry request");
 				try {
-					order = executeCreateOrderRequests(false, productName, price, currency);
+					order = executeCreateOrderRequests(false, product, clientIp, userAgent);
 				} catch (Exception e1) {
 					logger.error("Unexpected error happens retrying to create a new order", e1);
 					return Optional.empty();
@@ -57,33 +58,40 @@ public class ProductsServiceImpl implements ProductsService {
 			}
 		}
 
-		if (!"CREATED".equals(order.status())) {
-			logger.error("Unexpected status received in Create Order response: '{}'", order.status());
+		if (!"CREATED".equals(order.getStatus())) {
+			logger.error("Unexpected status received in Create Order response: '{}'", order.getStatus());
 			return Optional.empty();
 		}
 
 		return Optional.of(order);
 	}
 
-	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, String productName, String price, String currency) throws Exception {
+	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, Product product, String clientIp, String userAgent) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
-		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), productName, price, currency);
+		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), String.valueOf(product.getId()), product.getName(), String.valueOf(product.getPrice()), Constants.CURRENCY_EUR, clientIp, userAgent);
 		logger.info("Order created: {}", order);
 		return order;
 	}
 
 	@Override
-	public Optional<CaptureOrderResponse> captureOrder(String orderId) {
+	public Optional<CaptureOrderResponse> captureOrder(String orderId, String productId, String clientIp, String userAgent) {
 		logger.info("Capturing order {}", orderId);
 		
+		Optional<Product> product = getById(Long.parseLong(productId), false);
+
+		if (product.isEmpty()) {
+			logger.error("Product id '{}' not found in database");
+			return Optional.empty();
+		}
+
 		CaptureOrderResponse order = null;
 		try {
-			order = executeCaptureOrderRequests(true, orderId);
+			order = executeCaptureOrderRequests(true, orderId, product.get(), clientIp, userAgent);
 		} catch (Exception e) {
 			if (e.getMessage().contains("401 Unauthorized")) {
 				logger.info("Authorization token expired. Requesting new one and retry request");
 				try {
-					order = executeCaptureOrderRequests(false, orderId);
+					order = executeCaptureOrderRequests(false, orderId, product.get(), clientIp, userAgent);
 				} catch (Exception e1) {
 					logger.error("Unexpected error happens retrying to capture order", e1);
 					return Optional.empty();
@@ -94,17 +102,17 @@ public class ProductsServiceImpl implements ProductsService {
 			}
 		}
 
-		if (!"COMPLETED".equals(order.status())) {
-			logger.error("Unexpected status received in Capture Order response: '{}'", order.status());
+		if (!"COMPLETED".equals(order.getStatus())) {
+			logger.error("Unexpected status received in Capture Order response: '{}'", order.getStatus());
 			return Optional.empty();
 		}
 
 		return Optional.of(order);
 	}
 
-	private CaptureOrderResponse executeCaptureOrderRequests(boolean getAuthTokenFromCache, String orderId) throws Exception {
+	private CaptureOrderResponse executeCaptureOrderRequests(boolean getAuthTokenFromCache, String orderId, Product product, String clientIp, String userAgent) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
-		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId);
+		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId, String.valueOf(product.getId()), String.valueOf(product.getPrice()), Constants.CURRENCY_EUR, clientIp, userAgent);
 		logger.info("Order captured: {}", order);
 		return order;
 	}

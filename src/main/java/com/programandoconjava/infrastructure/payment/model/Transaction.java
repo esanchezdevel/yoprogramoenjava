@@ -1,4 +1,4 @@
-package com.programandoconjava.domain.model;
+package com.programandoconjava.infrastructure.payment.model;
 
 import java.time.LocalDateTime;
 
@@ -12,9 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +31,9 @@ public class Transaction {
 	@Column(name = "order_id")
 	private String orderId;
 
+	@Column(name = "paypal_request_id")
+	private String paypalRequestId;
+
 	private String operation;
 
 	private String status;
@@ -44,9 +45,8 @@ public class Transaction {
 	@Column(name = "payer_email")
 	private String payerEmail;
 
-	@ManyToOne
-    @JoinColumn(name = "product_id")
-	private Product product;
+	@Column(name = "product_id")
+	private Long productId;
 
 	@Lob
 	@Column(columnDefinition = "TEXT")
@@ -83,6 +83,14 @@ public class Transaction {
 		this.orderId = orderId;
 	}
 
+	public String getPaypalRequestId() {
+		return paypalRequestId;
+	}
+
+	public void setPaypalRequestId(String paypalRequestId) {
+		this.paypalRequestId = paypalRequestId;
+	}
+	
 	public String getOperation() {
 		return operation;
 	}
@@ -123,14 +131,14 @@ public class Transaction {
 		this.payerEmail = payerEmail;
 	}
 
-	public Product getProduct() {
-		return product;
+	public Long getProductId() {
+		return productId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
-
+	
 	public String getRequest() {
 		return request;
 	}
@@ -173,9 +181,10 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "Transaction [id=" + id + ", orderId=" + orderId + ", operation=" + operation + ", status=" + status
-				+ ", amount=" + amount + ", currency=" + currency + ", payerEmail=" + payerEmail + ", product="
-				+ product.getId() + ", request=" + request + ", response=" + response + ", clientIp=" + clientIp
-				+ ", userAgent=" + userAgent + ", dateCreation=" + dateCreation + "]";
+		return "Transaction [id=" + id + ", orderId=" + orderId + ", paypalRequestId=" + paypalRequestId
+				+ ", operation=" + operation + ", status=" + status + ", amount=" + amount + ", currency=" + currency
+				+ ", payerEmail=" + payerEmail + ", productId=" + productId + ", request=" + request + ", response="
+				+ response + ", clientIp=" + clientIp + ", userAgent=" + userAgent + ", dateCreation=" + dateCreation
+				+ "]";
 	}
 }

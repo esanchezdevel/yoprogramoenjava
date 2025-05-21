@@ -13,20 +13,23 @@ public interface ProductsService {
 	/**
 	 * Create an order into the Payment platform
 	 * 
-	 * @param productName The name of the product to be purchased
-	 * @param price The price of the product
-	 * @param currency The currency of the price applied
+	 * @param product The product to be purchased
+	 * @param clientIp The IP of the client
+	 * @param userAgent The User Agent of the client
 	 * @return Optional of CreateOrderResponse that contains the id of the order created. Empty if the process failed
 	 */
-	Optional<CreateOrderResponse> createOrder(String productName, String price, String currency);
+	Optional<CreateOrderResponse> createOrder(Product product, String clientIp, String userAgent);
 
 	/**
 	 * Capture an order to complete the transaction in the payment platform
 	 * 
 	 * @param orderId The id of the order to be captured
+	 * @param productId The id of the product that is being purchased
+	 * @param clientIp The IP of the client
+	 * @param userAgent The request header user agent of the user
 	 * @return Optional of CaptureOrderResponse that contains the data related to the order. Empty if the process failed
 	 */
-	Optional<CaptureOrderResponse> captureOrder(String orderId);
+	Optional<CaptureOrderResponse> captureOrder(String orderId, String productId, String clientIp, String userAgent);
 
 	/**
 	 * Get all the Products stored in database

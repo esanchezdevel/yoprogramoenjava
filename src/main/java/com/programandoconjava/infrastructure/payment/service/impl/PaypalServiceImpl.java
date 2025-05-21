@@ -19,15 +19,20 @@ import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderRequest
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.Item;
 import com.programandoconjava.infrastructure.payment.http.dto.PurchaseUnit;
+import com.programandoconjava.infrastructure.payment.http.dto.TransactionOperation;
 import com.programandoconjava.infrastructure.payment.http.dto.UnitAmount;
 import com.programandoconjava.infrastructure.payment.http.request.PaypalRequests;
 import com.programandoconjava.infrastructure.payment.service.PaymentService;
+import com.programandoconjava.infrastructure.payment.service.TransactionsService;
 
 @Service
 public class PaypalServiceImpl implements PaymentService {
 
 	private static final Logger logger = LogManager.getLogger(PaypalServiceImpl.class);
 
+	private static final String OPERATION_CREATE_ORDER = "CREATE_ORDER";
+	private static final String OPERATION_CAPTURE_ORDER = "CAPTURE_ORDER";
+	
 	public static AuthenticationResponse authenticationToken = null;
 
 	@Autowired
@@ -35,6 +40,9 @@ public class PaypalServiceImpl implements PaymentService {
 
 	@Autowired
 	private PaymentConfiguration paymentConfiguration;
+
+	@Autowired
+	private TransactionsService<TransactionOperation> transactionsService;
 
 	@Override
 	public AuthenticationResponse getAuthToken(boolean useCache) {
@@ -61,7 +69,8 @@ public class PaypalServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public CreateOrderResponse createOrder(String authToken, String productName, String price, String currency) {
+	public CreateOrderResponse createOrder(String authToken, String productId, String productName, String price,
+			String currency, String clientIp, String userAgent) {
 		
 		String paypalRequestId = UUID.randomUUID().toString();
 
@@ -81,16 +90,20 @@ public class PaypalServiceImpl implements PaymentService {
 
 		logger.info("Order created: {}", response);
 
+		transactionsService.store(paypalRequestId, Long.parseLong(productId), OPERATION_CREATE_ORDER, Float.parseFloat(price), currency, request, response, clientIp, userAgent);
+
 		return response;
 	}
 
 	@Override
-	public CaptureOrderResponse captureOrder(String authToken, String orderId) {
+	public CaptureOrderResponse captureOrder(String authToken, String orderId, String productId, String price, String currency, String clientIp, String userAgent) {
 		String paypalRequestId = UUID.randomUUID().toString();
 		
 		CaptureOrderResponse response = paypalRequest.captureOrder("Bearer " + authToken, paypalRequestId, orderId);
 
 		logger.info("Order captured: {}", response);
+
+		transactionsService.store(paypalRequestId, Long.parseLong(productId), OPERATION_CAPTURE_ORDER, Float.parseFloat(price), currency, null, response, clientIp, userAgent);
 
 		return response;
 	}

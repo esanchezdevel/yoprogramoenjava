@@ -19,4 +19,11 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 	public static final String ATTRIBUTE_NAME_PRODUCTS_TYPES = "types";
 	public static final String ATTRIBUTE_NAME_WEB_TEMPLATES = "webTemplates";
+
+	public static final String UNKNOWN = "unknown";
+	public static final String EMPTY = "";
+	public static final String CURRENCY_EUR = "EUR";
+	
+	public static final String OPERATION_CREATE_ORDER = "CREATE_ORDER";
+	public static final String OPERATION_CAPTURE_ORDER = "CAPTURE_ORDER";
 }

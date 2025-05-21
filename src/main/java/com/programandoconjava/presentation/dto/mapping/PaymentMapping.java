@@ -8,10 +8,10 @@ import com.programandoconjava.presentation.dto.CreateOrderResponseDTO;
 public class PaymentMapping {
 
 	public static CreateOrderResponseDTO parseCreateOrderResponseToDTO(CreateOrderResponse createOrderResponse) {
-		return new CreateOrderResponseDTO(createOrderResponse.id());
+		return new CreateOrderResponseDTO(createOrderResponse.getId());
 	}
 
 	public static CaptureOrderResponseDTO parseCaptureOrderResponseToDTO(CaptureOrderResponse captureOrderResponse) {
-		return new CaptureOrderResponseDTO(captureOrderResponse.status());
+		return new CaptureOrderResponseDTO(captureOrderResponse.getStatus());
 	}
 }

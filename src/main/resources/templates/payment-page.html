@@ -100,7 +100,12 @@
 							"Content-Type": "application/json",
 							[csrfHeader]: csrfToken
 						},
-						body: JSON.stringify({ orderId: data.orderID })
+						body: JSON.stringify(
+							{ 
+							orderId: data.orderID,
+							product_id: product_id
+							}
+						)
 					});
 
 					const result = await response.json();
