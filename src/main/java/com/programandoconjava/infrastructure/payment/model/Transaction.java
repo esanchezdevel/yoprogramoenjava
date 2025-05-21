@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
 @Entity
@@ -48,18 +47,15 @@ public class Transaction {
 	@Column(name = "product_id")
 	private Long productId;
 
-	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String request;
 
-	@Lob
 	@Column(columnDefinition = "TEXT")
 	private String response;
 
 	@Column(name = "client_ip")
 	private String clientIp;
 
-	@Lob
 	@Column(name = "user_agent", columnDefinition = "TEXT")
 	private String userAgent;
 
