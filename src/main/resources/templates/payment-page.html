@@ -111,7 +111,7 @@
 					const result = await response.json();
 
 					if (result.status === "COMPLETED") {
-						window.location.href = "/thank-you";
+						window.location.href = "/products/download/" + product_id;
 					} else {
 						alert("Ha ocurrido un error inesperado. Contacta con soporte");
 					}

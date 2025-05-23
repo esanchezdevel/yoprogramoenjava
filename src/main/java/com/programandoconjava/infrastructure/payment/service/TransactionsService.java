@@ -1,6 +1,9 @@
 package com.programandoconjava.infrastructure.payment.service;
 
+import java.util.List;
+
 import com.programandoconjava.infrastructure.payment.http.dto.TransactionOperation;
+import com.programandoconjava.infrastructure.payment.model.Transaction;
 
 public interface TransactionsService<T extends TransactionOperation> {
 
@@ -18,4 +21,12 @@ public interface TransactionsService<T extends TransactionOperation> {
 	 * @param userAgent The User Agent of the user
 	 */
 	void store(String paypalRequestId, Long productId, String operation, float price, String currency, T request, T response, String clientIp, String userAgent);
+
+	/**
+	 * Get the transactions that have the same orderId
+	 * 
+	 * @param orderId The order id to look for
+	 * @return The list that contains the Transactions found
+	 */
+	List<Transaction> getTransactionsByOrderId(String orderId);
 }

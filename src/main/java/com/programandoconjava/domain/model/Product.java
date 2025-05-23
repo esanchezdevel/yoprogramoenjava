@@ -1,5 +1,7 @@
 package com.programandoconjava.domain.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +36,9 @@ public class Product {
 
 	@Column(name = "preview_video")
 	private String previewVideo;
+
+	@OneToMany(mappedBy = "product")
+	private List<Purchase> purchases;
 
 	public Long getId() {
 		return id;
@@ -90,9 +96,18 @@ public class Product {
 		this.previewVideo = previewVideo;
 	}
 
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", description=" + description + ", price="
-				+ price + ", previewImage=" + previewImage + ", previewVideo=" + previewVideo + "]";
+				+ price + ", previewImage=" + previewImage + ", previewVideo=" + previewVideo + ", purchases="
+				+ purchases.size() + "]";
 	}
 }

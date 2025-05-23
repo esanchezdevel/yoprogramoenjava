@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.programandoconjava.application.utils.Validators;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.ProductsService;
+import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/payment")
@@ -30,6 +33,9 @@ public class PaymentController {
 
 	@Autowired
 	private ProductsService productsService;
+
+	@Autowired
+	private PurchasesService purchasesService;
 
 	@PostMapping("/create-paypal-order")
 	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
@@ -60,7 +66,8 @@ public class PaymentController {
 	}
 
 	@PostMapping("/capture-paypal-order")
-	public ResponseEntity<?> capturePayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
+	public ResponseEntity<?> capturePayPalOrder(@RequestBody Map<String, String> request,
+			HttpServletRequest servletRequest, HttpServletResponse servletResponse) {
 		String orderId = request.get("orderId");
 		String productId = request.get("product_id");
 
@@ -69,6 +76,18 @@ public class PaymentController {
 		if (order.isEmpty()) {
 			logger.error("The process to capture a new order failed");
 			return ResponseEntity.internalServerError().build();
+		}
+		if ("COMPLETED".equals(order.get().getStatus())) {
+			logger.debug("Purchase completed. register it in database and set cookie to validate the product download");
+			String token = purchasesService.register(productId, orderId);
+
+			Cookie cookie = new Cookie("product-" + productId, token);
+			cookie.setHttpOnly(true); 								// Prevent access via JavaScript
+			cookie.setSecure(true);									// Send only over HTTPS
+			cookie.setPath("/products/download");						// Path where cookie is valid
+			cookie.setMaxAge(7 * 24 * 60 * 60);								// 7 days
+	
+			servletResponse.addCookie(cookie);
 		}
 		return ResponseEntity.status(HttpStatus.OK.value()).body(PaymentMapping.parseCaptureOrderResponseToDTO(order.get()));
 	}

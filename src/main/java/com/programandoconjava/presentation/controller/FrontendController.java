@@ -30,6 +30,8 @@ import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.programandoconjava.presentation.dto.mapping.ProductMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
 @Controller
@@ -176,6 +178,33 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_WEB_TEMPLATES, ProductMapping.parseListToDTOs(products));
 		
 		return "products_web_templates";
+	}
+
+	@GetMapping("/products/download/{productId}")
+	public String getProductsDownload(Model model, @PathVariable("productId") Long productId, HttpServletRequest servletRequest) {
+		logger.info("Downloading product {}", productId);
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		Optional<Product> product = productsService.getById(productId, true);
+
+		if (product.isEmpty()) {
+			logger.error("Product with id '{}' not found", productId);
+			return "error_not_found";
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
+
+		String cookieName = "product-" + productId;
+		Cookie[] cookies = servletRequest.getCookies();
+		for (Cookie cookie : cookies) {
+			if (cookieName.equals(cookie.getName())) {
+				logger.info("Cookie found: {}", cookie.getValue());
+				// TODO validate the the cookie value is valid checking that exists in purchases table
+			}
+		}
+
+		return "products_download";
 	}
 
 	@GetMapping("/about")

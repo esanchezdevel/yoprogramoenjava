@@ -26,17 +26,22 @@ import org.springframework.http.ResponseEntity;
 
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.service.ProductsService;
+import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
 import com.programandoconjava.presentation.dto.CaptureOrderResponseDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @ExtendWith(MockitoExtension.class)
 public class PaymentControllerTest {
 
 	@Mock
 	private ProductsService productsService;
+
+	@Mock
+	private PurchasesService purchasesService;
 
 	@InjectMocks
 	private PaymentController paymentController;
@@ -155,15 +160,20 @@ public class PaymentControllerTest {
 		request.put("orderId", "1");
 		request.put("product_id", "1");
 
+		String token = "fake-token";
+
 		CaptureOrderResponse captureOrderResponse = new CaptureOrderResponse("", "", "1", null, null, null, "", null, "COMPLETED");
 
 		when(productsService.captureOrder(anyString(), anyString(), anyString(), anyString())).thenReturn(Optional.of(captureOrderResponse));
+		when(purchasesService.register(anyString(), anyString())).thenReturn(token);
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
         when(servletRequest.getRemoteAddr()).thenReturn("127.0.0.1");
+		
+		HttpServletResponse servletResponse = mock(HttpServletResponse.class);
 
-		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest);
+		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest, servletResponse);
 
 		assertNotNull(response);
 		assertTrue(response.getBody() instanceof CaptureOrderResponseDTO);
@@ -186,7 +196,9 @@ public class PaymentControllerTest {
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
         when(servletRequest.getRemoteAddr()).thenReturn("127.0.0.1");
 
-		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest);
+		HttpServletResponse servletResponse = mock(HttpServletResponse.class);
+
+		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest, servletResponse);
 
 		assertNotNull(response);
 		assertEquals(500, response.getStatusCode().value());

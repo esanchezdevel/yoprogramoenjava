@@ -1,5 +1,7 @@
 package com.programandoconjava.infrastructure.payment.service.impl;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +92,13 @@ public class TransactionsServiceImpl implements TransactionsService<TransactionO
 		transaction.setResponse(jsonResponse);
 
 		transactionsRepository.save(transaction);
+	}
+
+	@Override
+	public List<Transaction> getTransactionsByOrderId(String orderId) {
+		List<Transaction> transactions = transactionsRepository.findAllByOrderId(orderId);
+
+		logger.debug("Found '{}' transactions with orderId '{}'", transactions != null ? String.valueOf(transactions.size()) : "0", orderId);
+		return transactions;
 	}
 }
