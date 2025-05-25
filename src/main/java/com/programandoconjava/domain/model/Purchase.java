@@ -11,12 +11,16 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "purchases")
+@Table(name = "purchases", indexes = {
+	@Index(name = "idx_purchase_product", columnList = "product_id"),
+	@Index(name = "idx_purchase_token", columnList = "token")
+})
 @EntityListeners(AuditingEntityListener.class)
 public class Purchase {
 

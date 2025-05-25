@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 @Table(name = "transactions", indexes = {
 	@Index(name = "idx_transaction_operation", columnList = "operation"),
 	@Index(name = "idx_transaction_status", columnList = "status"),
-	@Index(name = "idx_transaction_product", columnList = "product_id"),
+	@Index(name = "idx_transaction_product", columnList = "product_id")
 })
 @EntityListeners(AuditingEntityListener.class)
 public class Transaction {

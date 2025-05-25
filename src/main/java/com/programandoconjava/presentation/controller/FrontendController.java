@@ -31,7 +31,6 @@ import com.programandoconjava.presentation.dto.mapping.ExternalNewsMapping;
 import com.programandoconjava.presentation.dto.mapping.ProductMapping;
 import com.programandoconjava.presentation.dto.mapping.TopicMapping;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 
