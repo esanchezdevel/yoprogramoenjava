@@ -21,10 +21,15 @@ import com.programandoconjava.infrastructure.payment.http.dto.TransactionOperati
 import com.programandoconjava.infrastructure.payment.model.Transaction;
 import com.programandoconjava.infrastructure.payment.service.TransactionsService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+
 @Service
 public class PurchasesServiceImpl implements PurchasesService {
 
 	private static final Logger logger = LogManager.getLogger(PurchasesServiceImpl.class);
+
+	private static final String COOKIE_NAME = "product-%d";
 
 	@Autowired
 	private ProductsService productsService;
@@ -73,5 +78,41 @@ public class PurchasesServiceImpl implements PurchasesService {
 		purchasesRepository.save(purchase);
 
 		return token;
+	}
+
+	@Override
+	public boolean validateDownloadToken(Long productId, HttpServletRequest servletRequest) throws AppException {
+		boolean isValid = false;
+
+		Optional<String> cookieValue = getCookie(productId, servletRequest);
+
+		if (cookieValue.isEmpty()) {
+			logger.info("Cookie with token not found");
+			return isValid;
+		}
+
+		Optional<Purchase> purchase = purchasesRepository.findByProductIdAndToken(productId, cookieValue.get());
+		if (purchase.isPresent()) {
+			logger.info("Purchase found with same productId and Token in database");
+			isValid = true;
+		}
+		return isValid;
+	}
+
+	private Optional<String> getCookie(Long productId, HttpServletRequest servletRequest) {
+		String cookieName = String.format(COOKIE_NAME, productId);
+
+		logger.info("Looking for cookie: {}", cookieName);
+
+		Optional<String> cookieValue = Optional.empty();
+		
+		for (Cookie cookie : servletRequest.getCookies()) {
+			if (cookieName.equals(cookie.getName())) {
+				logger.info("Cookie found");
+				cookieValue = Optional.of(cookie.getValue());
+				break;
+			}
+		}
+		return cookieValue;
 	}
 }

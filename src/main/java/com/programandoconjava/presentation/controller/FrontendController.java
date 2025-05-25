@@ -22,6 +22,7 @@ import com.programandoconjava.domain.service.ArticlesService;
 import com.programandoconjava.domain.service.ExternalNewsService;
 import com.programandoconjava.domain.service.HtmlParserService;
 import com.programandoconjava.domain.service.ProductsService;
+import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.domain.service.TopicsService;
 import com.programandoconjava.infrastructure.payment.config.PaymentConfiguration;
 import com.programandoconjava.presentation.dto.mapping.ArticleMapping;
@@ -56,6 +57,9 @@ public class FrontendController {
 
 	@Autowired
 	private ProductsService productsService;
+
+	@Autowired
+	private PurchasesService purchasesService;
 
 	@GetMapping("/")
 	public String getIndex(Model model) {
@@ -195,15 +199,13 @@ public class FrontendController {
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
 
-		String cookieName = "product-" + productId;
-		Cookie[] cookies = servletRequest.getCookies();
-		for (Cookie cookie : cookies) {
-			if (cookieName.equals(cookie.getName())) {
-				logger.info("Cookie found: {}", cookie.getValue());
-				// TODO validate the the cookie value is valid checking that exists in purchases table
-			}
-		}
+		boolean allowDownload = purchasesService.validateDownloadToken(productId, servletRequest);
 
+		if (!allowDownload) {
+			logger.info("Download of product '{}' NOT allowed", productId);
+			return "error";
+		}
+		logger.info("Download of product '{}' allowed", productId);
 		return "products_download";
 	}
 
