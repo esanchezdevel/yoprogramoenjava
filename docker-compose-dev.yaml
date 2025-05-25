@@ -12,6 +12,8 @@ services:
       - SPRING_PROFILE=dev
       - SPRING_PAYPAL_CLIENT_ID={PAYPAL_CLIENT_ID}
       - SPRING_PAYPAL_CLIENT_SECRET={PAYPAL_CLIENT_SECRET}
+    volumes:
+      - /var/opt/programandoconjava/products:/var/opt/programandoconjava/products
     depends_on:
       - postgres
 
