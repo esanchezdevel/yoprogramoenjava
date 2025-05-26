@@ -65,11 +65,15 @@
 			<br>
 			<input type="text" id="filename" name="filename" placeholder="Nombre del Fichero" class="form-element" required>
 			<br>
-			<input type="number" id="price" name="price" placeholder="Precio en Euros" class="form-element" min="0.00" step="any">
+			<input type="number" id="price" name="price" placeholder="Precio" class="form-element" min="0.00" step="any">
+			<br>
+			<label>Moneda</label>
 			<br>
 			<select id="currency" name="currency" class="form-element">
 				<option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}" th:selected="${currency == 'EUR'}"></option>
 			</select>
+			<br>
+			<label>Porcentaje de Impuestos</label>
 			<br>
 			<select id="tax" name="tax" class="form-element">
 				<option value="10.00">10%</option>
