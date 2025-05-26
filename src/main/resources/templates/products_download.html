@@ -41,7 +41,7 @@
 	<script th:inline="javascript">
 		/*<![CDATA[*/
 		window.onload = function () {
-			var product_id = /*[[${product_id}]]*/ '';
+			var product_id = /*[[${product.id}]]*/ '';
 			window.location.href = '/products/download/file/' + product_id;
 		};
 		/*]]>*/
@@ -59,8 +59,9 @@
 		<h2 th:text="'Descarga - ' + ${product.name}"></h2>
 		<hr>
 		<p>
-			La descarga comenzar&aacute; en unos momentos. Si la descarga no comienza automaticamente, descargue directamente 
-			con el siguiente enlace: <a class="custom-link" th:href="@{/products/download/file/{product_id}(product_id=${product_id})}">Descargar</a>
+			La descarga comenzar&aacute; en unos momentos. <br>
+			Si la descarga no comienza automaticamente, descargue directamente 
+			con el siguiente enlace: <a class="basic-link" th:href="@{/products/download/file/{product_id}(product_id=${product.id})}">Descargar</a>
 		</p>
 	</article>
 </section>
