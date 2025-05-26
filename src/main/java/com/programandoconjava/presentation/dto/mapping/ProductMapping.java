@@ -35,7 +35,7 @@ public class ProductMapping {
 		String metaDescription = entity.getDescription().replace("<br>", " ").replace("\n", "").replace("\r", "");
 		metaDescription = metaDescription.length() > 155 ? metaDescription.substring(0, 154) : metaDescription;
 
-		DecimalFormat df = new DecimalFormat("#.##");
+		DecimalFormat df = new DecimalFormat("#0.00");
 		ProductDTO dto = new ProductDTO(String.valueOf(entity.getId()),
 										entity.getName(),
 										entity.getType().toString(),
@@ -46,7 +46,7 @@ public class ProductMapping {
 										entity.getFilename(),
 										df.format(entity.getPrice()),
 										entity.getCurrency().value(),
-										String.valueOf(entity.getTax()));
+										df.format(entity.getTax()));
 		return dto;
 	}
 

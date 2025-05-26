@@ -345,7 +345,7 @@ public class AdminController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.values());
-		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.values());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.names());
 
 		return "admin/product_form";
 	}
@@ -378,7 +378,7 @@ public class AdminController {
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.names());
-		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.values());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.names());
 
 		return "admin/product_edit_form";
 	}

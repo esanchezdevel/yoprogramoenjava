@@ -15,4 +15,14 @@ public enum Currency {
 	public String value() {
 		return value;
 	}
+
+	public static String[] names() {
+		String[] values = new String[3];
+		int i = 0;
+		for (Currency  currency : Currency.values()) {
+			values[i] = currency.name();
+			i++;
+		}
+		return values;
+	}
 }

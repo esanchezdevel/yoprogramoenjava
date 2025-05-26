@@ -182,6 +182,7 @@ public class ProductsServiceImpl implements ProductsService {
 			productDb.get().setType(product.getType());
 			productDb.get().setPreviewImage(product.getPreviewImage());
 			productDb.get().setPreviewVideo(product.getPreviewVideo());
+			productDb.get().setFilename(product.getFilename());
 			productDb.get().setPrice(product.getPrice());
 			productDb.get().setCurrency(product.getCurrency());
 			productDb.get().setTax(product.getTax());
