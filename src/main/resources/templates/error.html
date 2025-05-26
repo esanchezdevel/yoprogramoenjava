@@ -45,11 +45,9 @@
 </nav>
 <section class="main-section">
 	<article class="main-article">
-		<h2>Uuups!!! Algo Sali&oacute; mal.</h2>
+		<h2>Uuups!!! Algo sali&oacute; mal.</h2>
 		<hr>
-		<p>
-		Algo sali&oacute; mal. Intentalo de nuevo y si el problema persiste por favor, ponte en contacto con el Administrador.
-		</p>
+		<p th:utext="${errorMessage} ?: 'Algo sali&oacute; mal. Intentalo de nuevo y si el problema persiste por favor, ponte en contacto con el Administrador.'"></p>
 	</article>
 </section>
 

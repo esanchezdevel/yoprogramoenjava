@@ -72,7 +72,10 @@ public class ProductsController {
 
 		if (product.isEmpty()) {
 			logger.error("Product with id '{}' not found", productId);
-			return "error_not_found";
+			String errorMsg = "El producto que está intentando descargar no existe. <br>" +
+								"Si creé que ocurrió un error inesperado, por favor, pongase en contacto con nosotros";
+			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
+			return "error";
 		}
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
@@ -81,6 +84,9 @@ public class ProductsController {
 
 		if (!allowDownload) {
 			logger.info("Download of product '{}' NOT allowed", productId);
+			String errorMsg = "ERROR! La descarga no es válida. <br>" +
+								"Si ha realizado una compra y aún así no puede descargar el producto, por favor, pongase en contacto con nosotros";
+			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
 			return "error";
 		}
 		logger.info("Download of product '{}' allowed", productId);
