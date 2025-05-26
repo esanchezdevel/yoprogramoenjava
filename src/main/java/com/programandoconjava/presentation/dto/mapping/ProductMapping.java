@@ -21,6 +21,7 @@ public class ProductMapping {
 		entity.setPreviewImage(dto.imagePreview());
 		if (StringUtils.hasLength(dto.videoPreview()))
 			entity.setPreviewVideo(dto.videoPreview());
+		entity.setFilename(dto.filename());
 		entity.setPrice(Double.parseDouble(dto.price())); 
 		
 		return entity;
@@ -39,6 +40,7 @@ public class ProductMapping {
 										metaDescription,
 										entity.getPreviewImage(),
 										entity.getPreviewVideo(),
+										entity.getFilename(),
 										df.format(entity.getPrice()));
 		return dto;
 	}
