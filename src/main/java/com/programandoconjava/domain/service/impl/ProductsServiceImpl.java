@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.domain.service.HtmlParserService;
@@ -68,7 +67,7 @@ public class ProductsServiceImpl implements ProductsService {
 
 	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, Product product, String clientIp, String userAgent) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
-		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), String.valueOf(product.getId()), product.getName(), String.valueOf(product.getPrice()), Constants.CURRENCY_EUR, clientIp, userAgent);
+		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), String.valueOf(product.getId()), product.getName(), String.valueOf(product.getPrice()), product.getCurrency().value(), clientIp, userAgent);
 		logger.info("Order created: {}", order);
 		return order;
 	}
@@ -112,7 +111,7 @@ public class ProductsServiceImpl implements ProductsService {
 
 	private CaptureOrderResponse executeCaptureOrderRequests(boolean getAuthTokenFromCache, String orderId, Product product, String clientIp, String userAgent) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
-		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId, String.valueOf(product.getId()), String.valueOf(product.getPrice()), Constants.CURRENCY_EUR, clientIp, userAgent);
+		CaptureOrderResponse order = paymentService.captureOrder(authToken.accessToken(), orderId, String.valueOf(product.getId()), String.valueOf(product.getPrice()), product.getCurrency().value(), clientIp, userAgent);
 		logger.info("Order captured: {}", order);
 		return order;
 	}
@@ -184,6 +183,8 @@ public class ProductsServiceImpl implements ProductsService {
 			productDb.get().setPreviewImage(product.getPreviewImage());
 			productDb.get().setPreviewVideo(product.getPreviewVideo());
 			productDb.get().setPrice(product.getPrice());
+			productDb.get().setCurrency(product.getCurrency());
+			productDb.get().setTax(product.getTax());
 		}
 	}
 

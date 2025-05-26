@@ -67,6 +67,15 @@
 			<br>
 			<input type="number" id="price" name="price" placeholder="Precio en Euros" class="form-element" min="0.00" step="any">
 			<br>
+			<select id="currency" name="currency" class="form-element">
+				<option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}" th:attr="selected=${currency == 'EUR'}"></option>
+			</select>
+			<br>
+			<select id="tax" name="tax" class="form-element">
+				<option value="10.00">10%</option>
+				<option value="21.00" selected>21%</option>
+			</select>
+			<br>
 			<button type="submit" class="custom-button">Crear</button>
 			<br>
 		</form>

@@ -29,7 +29,12 @@ public class Product {
 	@Lob
 	private String description;
 
-	private double price;
+	private float price;
+
+	@Enumerated(EnumType.STRING)
+	private Currency currency;
+
+	private float tax;
 
 	@Column(name = "preview_image")
 	private String previewImage;
@@ -74,13 +79,30 @@ public class Product {
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public Currency getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
+
+	public float getTax() {
+		return tax;
+	}
+
+	public void setTax(float tax) {
+		this.tax = tax;
+	}
+
 
 	public String getPreviewImage() {
 		return previewImage;
@@ -117,7 +139,9 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", description=" + description + ", price="
-				+ price + ", previewImage=" + previewImage + ", previewVideo=" + previewVideo + ", filename=" + filename
-				+ ", purchases=" + purchases.size() + "]";
+				+ price + ", currency=" + currency + ", tax=" + tax + ", previewImage=" + previewImage
+				+ ", previewVideo=" + previewVideo + ", filename=" + filename + ", purchases=" + purchases.size() + "]";
 	}
+
+
 }

@@ -8,4 +8,6 @@ public record ProductDTO (String id,
 						String imagePreview, 
 						String videoPreview, 
 						String filename, 
-						String price) {}
+						String price,
+						String currency,
+						String tax) {}

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.util.StringUtils;
 
+import com.programandoconjava.domain.model.Currency;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.ProductType;
 import com.programandoconjava.presentation.dto.ProductDTO;
@@ -22,7 +23,9 @@ public class ProductMapping {
 		if (StringUtils.hasLength(dto.videoPreview()))
 			entity.setPreviewVideo(dto.videoPreview());
 		entity.setFilename(dto.filename());
-		entity.setPrice(Double.parseDouble(dto.price())); 
+		entity.setPrice(Float.parseFloat(dto.price()));
+		entity.setCurrency(Currency.valueOf(dto.currency()));
+		entity.setTax(Float.parseFloat(dto.tax()));
 		
 		return entity;
 	}
@@ -41,7 +44,9 @@ public class ProductMapping {
 										entity.getPreviewImage(),
 										entity.getPreviewVideo(),
 										entity.getFilename(),
-										df.format(entity.getPrice()));
+										df.format(entity.getPrice()),
+										entity.getCurrency().value(),
+										String.valueOf(entity.getTax()));
 		return dto;
 	}
 

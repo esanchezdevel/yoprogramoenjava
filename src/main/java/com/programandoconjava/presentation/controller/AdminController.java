@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Constants;
 import com.programandoconjava.domain.model.Article;
+import com.programandoconjava.domain.model.Currency;
 import com.programandoconjava.domain.model.ExternalNew;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.ProductType;
@@ -344,6 +345,7 @@ public class AdminController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.values());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.values());
 
 		return "admin/product_form";
 	}
@@ -376,6 +378,7 @@ public class AdminController {
 
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCTS_TYPES, ProductType.names());
+		model.addAttribute(Constants.ATTRIBUTE_NAME_CURRENCIES, Currency.values());
 
 		return "admin/product_edit_form";
 	}
