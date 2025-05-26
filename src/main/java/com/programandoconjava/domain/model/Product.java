@@ -37,6 +37,8 @@ public class Product {
 	@Column(name = "preview_video")
 	private String previewVideo;
 
+	private String filename;
+
 	@OneToMany(mappedBy = "product")
 	private List<Purchase> purchases;
 
@@ -96,6 +98,14 @@ public class Product {
 		this.previewVideo = previewVideo;
 	}
 
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
@@ -107,7 +117,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", type=" + type + ", description=" + description + ", price="
-				+ price + ", previewImage=" + previewImage + ", previewVideo=" + previewVideo + ", purchases="
-				+ purchases.size() + "]";
+				+ price + ", previewImage=" + previewImage + ", previewVideo=" + previewVideo + ", filename=" + filename
+				+ ", purchases=" + purchases.size() + "]";
 	}
 }

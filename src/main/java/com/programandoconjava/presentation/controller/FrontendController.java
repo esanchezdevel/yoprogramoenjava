@@ -1,5 +1,9 @@
 package com.programandoconjava.presentation.controller;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -7,6 +11,13 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -205,7 +216,49 @@ public class FrontendController {
 			return "error";
 		}
 		logger.info("Download of product '{}' allowed", productId);
+
 		return "products_download";
+	}
+
+	@GetMapping("/products/download/file/{productId}")
+	public ResponseEntity<?> getProductsDownloadFile(Model model, @PathVariable("productId") Long productId, HttpServletRequest servletRequest) {
+		logger.info("Downloading product file {}", productId);
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+
+		Optional<Product> product = productsService.getById(productId, true);
+
+		if (product.isEmpty()) {
+			logger.error("Product with id '{}' not found", productId);
+			return ResponseEntity.notFound().build();
+		}
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
+
+		boolean allowDownload = purchasesService.validateDownloadToken(productId, servletRequest);
+
+		if (!allowDownload) {
+			logger.info("Download of product file '{}' NOT allowed", productId);
+			return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).build();
+		}
+		logger.info("Download of product file '{}' allowed", productId);
+
+		String productsPath = "/var/opt/programandoconjava/products/";
+		Path filePath = Paths.get(productsPath).resolve(product.get().getFilename()).normalize();
+        File file = filePath.toFile();
+
+		try {
+			Resource resource = new UrlResource(file.toURI());
+
+			return ResponseEntity.ok()
+								.contentType(MediaType.APPLICATION_OCTET_STREAM)
+								.header(HttpHeaders.CONTENT_DISPOSITION,
+								"attachment; filename=\"" + file.getName() + "\"")
+								.body(resource);
+		} catch (MalformedURLException e) {
+			logger.error("Error creating file URL", e);
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 
 	@GetMapping("/about")
