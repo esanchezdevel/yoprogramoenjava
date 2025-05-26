@@ -83,7 +83,6 @@ public class TransactionsServiceTest {
 		String operation = "CAPTURE_ORDER";
 		String orderId = "123";
 		String status = "COMPLETED";
-		String intent = "CAPTURE";
 
 		PurchaseUnit purchaseUnit = new PurchaseUnit(null, null);
 		PurchaseUnit[] purchaseUnits = new PurchaseUnit[1];

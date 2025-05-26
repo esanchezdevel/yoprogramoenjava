@@ -59,7 +59,7 @@ public class PaymentControllerTest {
 		product.setDescription("test-description");
 		product.setPreviewImage("test-image.jpg");
 		product.setPreviewVideo("test-video.mp4");
-		product.setPrice(50.0);
+		product.setPrice(50.0f);
 
 		CreateOrderResponse createOrderResponse = new CreateOrderResponse("1", "CREATED", new ArrayList<>());
 
@@ -137,7 +137,7 @@ public class PaymentControllerTest {
 		product.setDescription("test-description");
 		product.setPreviewImage("test-image.jpg");
 		product.setPreviewVideo("test-video.mp4");
-		product.setPrice(50.0);
+		product.setPrice(50.0f);
 
 		when(productsService.getById(anyLong(), anyBoolean())).thenReturn(Optional.of(product));
 		when(productsService.createOrder(any(Product.class), anyString(), anyString())).thenReturn(Optional.empty());
