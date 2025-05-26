@@ -194,6 +194,14 @@ public class FrontendController {
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PAYPAL_CLIENT_ID, paymentConfiguration.getPaypalClientId());
 		model.addAttribute(Constants.ATTRIBUTE_NAME_PRODUCT, ProductMapping.parseToDTO(product.get()));
 		
-		return "payment-page";
+		return "payment_page";
+	}
+
+	@GetMapping("/payment/canceled")
+	public String getPaymentCanceledPage(Model model) {
+
+		model.addAttribute(Constants.ATTRIBUTE_NAME_TITLE, Constants.ATTRIBUTE_VALUE_TITLE);
+		
+		return "payment_canceled";
 	}
 }
