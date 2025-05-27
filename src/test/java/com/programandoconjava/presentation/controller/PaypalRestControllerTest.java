@@ -35,7 +35,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentControllerTest {
+public class PaypalRestControllerTest {
 
 	@Mock
 	private ProductsService productsService;
@@ -44,7 +44,7 @@ public class PaymentControllerTest {
 	private PurchasesService purchasesService;
 
 	@InjectMocks
-	private PaymentController paymentController;
+	private PaypalRestController paypalRestController;
 
 	// Create Order tests
 	@Test
@@ -70,7 +70,7 @@ public class PaymentControllerTest {
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
         when(servletRequest.getRemoteAddr()).thenReturn("127.0.0.1");
 
-		ResponseEntity<?> response = paymentController.createPayPalOrder(request, servletRequest);
+		ResponseEntity<?> response = paypalRestController.createPayPalOrder(request, servletRequest);
 
 		assertNotNull(response);
 		assertEquals(201, response.getStatusCode().value());
@@ -82,30 +82,30 @@ public class PaymentControllerTest {
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
 
-		ResponseEntity<?> response = paymentController.createPayPalOrder(request, servletRequest);
+		ResponseEntity<?> response = paypalRestController.createPayPalOrder(request, servletRequest);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
 
 		request = null;
-		response = paymentController.createPayPalOrder(request, servletRequest);
+		response = paypalRestController.createPayPalOrder(request, servletRequest);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
 
 		request = new HashMap<>();
 		request.put("product_id", null);
-		response = paymentController.createPayPalOrder(request, servletRequest);
+		response = paypalRestController.createPayPalOrder(request, servletRequest);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
 
 		request = new HashMap<>();
 		request.put("product_id", "");
-		response = paymentController.createPayPalOrder(request, servletRequest);
+		response = paypalRestController.createPayPalOrder(request, servletRequest);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
 
 		request = new HashMap<>();
 		request.put("product_id", "test");
-		response = paymentController.createPayPalOrder(request, servletRequest);
+		response = paypalRestController.createPayPalOrder(request, servletRequest);
 		assertNotNull(response);
 		assertEquals(400, response.getStatusCode().value());
 	}
@@ -119,7 +119,7 @@ public class PaymentControllerTest {
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
 
-		ResponseEntity<?> response = paymentController.createPayPalOrder(request, servletRequest);
+		ResponseEntity<?> response = paypalRestController.createPayPalOrder(request, servletRequest);
 
 		assertNotNull(response);
 		assertEquals(404, response.getStatusCode().value());
@@ -146,7 +146,7 @@ public class PaymentControllerTest {
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
         when(servletRequest.getRemoteAddr()).thenReturn("127.0.0.1");
 
-		ResponseEntity<?> response = paymentController.createPayPalOrder(request, servletRequest);
+		ResponseEntity<?> response = paypalRestController.createPayPalOrder(request, servletRequest);
 
 		assertNotNull(response);
 		assertEquals(500, response.getStatusCode().value());
@@ -173,7 +173,7 @@ public class PaymentControllerTest {
 		
 		HttpServletResponse servletResponse = mock(HttpServletResponse.class);
 
-		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest, servletResponse);
+		ResponseEntity<?> response = paypalRestController.capturePayPalOrder(request, servletRequest, servletResponse);
 
 		assertNotNull(response);
 		assertTrue(response.getBody() instanceof CaptureOrderResponseDTO);
@@ -198,7 +198,7 @@ public class PaymentControllerTest {
 
 		HttpServletResponse servletResponse = mock(HttpServletResponse.class);
 
-		ResponseEntity<?> response = paymentController.capturePayPalOrder(request, servletRequest, servletResponse);
+		ResponseEntity<?> response = paypalRestController.capturePayPalOrder(request, servletRequest, servletResponse);
 
 		assertNotNull(response);
 		assertEquals(500, response.getStatusCode().value());

@@ -13,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Validators;
-import com.programandoconjava.domain.model.Client;
 import com.programandoconjava.domain.model.Product;
-import com.programandoconjava.domain.service.ClientsService;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
-import com.programandoconjava.presentation.dto.ClientDTO;
 import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
 import jakarta.servlet.http.Cookie;
@@ -30,55 +26,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/payment")
-public class PaymentController {
+@RequestMapping("/payment/paypal")
+public class PaypalRestController {
 
-	private static final Logger logger = LogManager.getLogger(PaymentController.class);
+	private static final Logger logger = LogManager.getLogger(PaypalRestController.class);
 
 	@Autowired
 	private ProductsService productsService;
 
 	@Autowired
 	private PurchasesService purchasesService;
-
-	@Autowired
-	private ClientsService clientsService;
-
-	@PostMapping("/client")
-	public ResponseEntity<?> storeClient(@RequestBody Map<String, String> request) {
-		if (request == null || request.isEmpty()) {
-			logger.error("No input parameters received");
-			return ResponseEntity.badRequest().build();
-		}
-		if (request.get("name") == null || request.get("name").isEmpty()) {
-			logger.error("Empty mandatory parameter 'name'");
-			return ResponseEntity.badRequest().build();
-		}
-		if (request.get("surname") == null || request.get("surname").isEmpty()) {
-			logger.error("Empty mandatory parameter 'surname'");
-			return ResponseEntity.badRequest().build();
-		}
-		if (request.get("email") == null || request.get("email").isEmpty()) {
-			logger.error("Empty mandatory parameter 'email'");
-			return ResponseEntity.badRequest().build();
-		}
-
-		String name = request.get("name");
-		String surname = request.get("surname");
-		String email = request.get("email");
-
-		try {
-			Optional<Client> client = clientsService.store(name, surname, email);
-			
-			if (client.isEmpty()) {
-				throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Unexpected error happened. Client not stored in database");	
-			}
-			return ResponseEntity.ok().body(new ClientDTO(String.valueOf(client.get().getId())));
-		} catch (AppException e) {
-			logger.error("Error storing client: name={}, surname={}, email={}", name, surname, email, e);
-			return ResponseEntity.internalServerError().build();
-		}
-	}
 
 	@PostMapping("/create-paypal-order")
 	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {

@@ -58,7 +58,7 @@
 		<p><b>Producto:</b> <span th:utext="${product.name}"></span></p>
 		<p><b>Precio:</b> <span th:utext="${product.price} + ' &euro;'"></span></p>
 		<p><b>Descripci&oacute;n:</b> <span th:utext="${product.description}"></span></p>
-		<form action="/payment/client" method="POST">
+		<form action="/client/create" method="POST">
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="text" id="name" name="name" placeholder="Nombre" class="form-element" required>
 			<br>

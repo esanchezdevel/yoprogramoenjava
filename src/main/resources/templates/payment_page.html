@@ -70,7 +70,7 @@
 
             paypal.Buttons({
                 async createOrder() {
-                    const response = await fetch("/payment/create-paypal-order", {
+                    const response = await fetch("/payment/paypal/create-paypal-order", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -94,7 +94,7 @@
                 },
 
 				async onApprove(data, actions) {
-					const response = await fetch("/payment/capture-paypal-order", {
+					const response = await fetch("/payment/paypal/capture-paypal-order", {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
