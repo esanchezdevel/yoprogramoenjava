@@ -34,8 +34,8 @@ public class Purchase {
     @JoinColumn(name = "product_id")
 	private Product product;
 
-	@Column(name = "client_id")
-	private String clientId;
+	@Column(name = "payment_plaform_email")
+	private String paymentPlatformEmail;
 
 	@Column(name = "total_amount")
 	private float totalAmount;
@@ -84,14 +84,6 @@ public class Purchase {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public String getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
 	}
 
 	public float getTotalAmount() {
@@ -158,11 +150,19 @@ public class Purchase {
 		this.client = client;
 	}
 
+	public String getPaymentPlatformEmail() {
+		return paymentPlatformEmail;
+	}
+
+	public void setPaymentPlatformEmail(String paymentPlatformEmail) {
+		this.paymentPlatformEmail = paymentPlatformEmail;
+	}
+
 	@Override
 	public String toString() {
-		return "Purchase [id=" + id + ", token=" + token + ", product=" + product + ", clientId=" + clientId
-				+ ", totalAmount=" + totalAmount + ", netAmount=" + netAmount + ", taxAmount=" + taxAmount
-				+ ", currency=" + currency + ", createOrderTransactionId=" + createOrderTransactionId
+		return "Purchase [id=" + id + ", token=" + token + ", product=" + product + ", paymentPlatformEmail="
+				+ paymentPlatformEmail + ", totalAmount=" + totalAmount + ", netAmount=" + netAmount + ", taxAmount="
+				+ taxAmount + ", currency=" + currency + ", createOrderTransactionId=" + createOrderTransactionId
 				+ ", captureOrderTransactionId=" + captureOrderTransactionId + ", client=" + client + ", dateCreation="
 				+ dateCreation + "]";
 	}

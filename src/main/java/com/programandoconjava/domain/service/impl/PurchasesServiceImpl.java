@@ -56,7 +56,7 @@ public class PurchasesServiceImpl implements PurchasesService {
 		Optional<Transaction> createOrderTransaction = transactions.stream().filter(t -> "CREATE_ORDER".equals(t.getOperation())).findFirst();
 		Optional<Transaction> captureOrderTransaction = transactions.stream().filter(t -> "CAPTURE_ORDER".equals(t.getOperation())).findFirst();
 
-		String clientId = captureOrderTransaction.isPresent()
+		String paymentPlatformEmail = captureOrderTransaction.isPresent()
 				? captureOrderTransaction.get().getPayerEmail()
 				: Constants.UNKNOWN;
 
@@ -69,7 +69,7 @@ public class PurchasesServiceImpl implements PurchasesService {
 		purchase.setCaptureOrderTransactionId(captureOrderTransaction.isPresent()
 				? captureOrderTransaction.get().getId()
 				: null);
-		purchase.setClientId(clientId);
+		purchase.setPaymentPlatformEmail(paymentPlatformEmail);
 		purchase.setTotalAmount(product.get().getPrice());
 		purchase.setNetAmount(calculateNetAmount(product.get()));
 		purchase.setTaxAmount(calculateTaxAmount(product.get()));

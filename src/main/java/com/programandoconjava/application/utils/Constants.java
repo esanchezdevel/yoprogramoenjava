@@ -21,6 +21,7 @@ public class Constants {
 	public static final String ATTRIBUTE_NAME_WEB_TEMPLATES = "webTemplates";
 	public static final String ATTRIBUTE_NAME_CURRENCIES = "currencies";
 	public static final String ATTRIBUTE_NAME_ERROR_MESSAGE = "errorMessage";
+	public static final String ATTRIBUTE_NAME_CLIENT_ID = "client_id";
 
 	public static final String UNKNOWN = "unknown";
 	public static final String EMPTY = "";

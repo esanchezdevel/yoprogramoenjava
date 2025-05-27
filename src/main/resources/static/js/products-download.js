@@ -3,6 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const product_id = download_button.getAttribute('product-id');
 
     download_button.addEventListener('click', function () {
-        window.location.href = '/payment/' + product_id;
+        window.location.href = '/payment/client/' + product_id;
     });
 });
