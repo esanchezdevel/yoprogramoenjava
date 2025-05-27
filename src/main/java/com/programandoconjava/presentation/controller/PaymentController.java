@@ -84,8 +84,8 @@ public class PaymentController {
 			Cookie cookie = new Cookie("product-" + productId, token);
 			cookie.setHttpOnly(true); 								// Prevent access via JavaScript
 			cookie.setSecure(true);									// Send only over HTTPS
-			cookie.setPath("/products/download");					// Path where cookie is valid
-			cookie.setMaxAge(1 * 24 * 60 * 60);						// 1 day
+			cookie.setPath("/products/download");						// Path where cookie is valid
+			cookie.setMaxAge(1 * 24 * 60 * 60);								// 1 day
 	
 			servletResponse.addCookie(cookie);
 		}
