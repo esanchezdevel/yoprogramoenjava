@@ -34,6 +34,7 @@ public class Purchase {
     @JoinColumn(name = "product_id")
 	private Product product;
 
+	@Column(name = "client_id")
 	private String clientId;
 
 	@Column(name = "total_amount")
@@ -52,6 +53,10 @@ public class Purchase {
 
 	@Column(name = "capture_order_transaction_id")
 	private Long captureOrderTransactionId;
+
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private Client client;
 
 	@CreatedDate
 	@Column(name = "date_creation")
@@ -145,11 +150,20 @@ public class Purchase {
 		this.dateCreation = dateCreation;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 	@Override
 	public String toString() {
 		return "Purchase [id=" + id + ", token=" + token + ", product=" + product + ", clientId=" + clientId
 				+ ", totalAmount=" + totalAmount + ", netAmount=" + netAmount + ", taxAmount=" + taxAmount
 				+ ", currency=" + currency + ", createOrderTransactionId=" + createOrderTransactionId
-				+ ", captureOrderTransactionId=" + captureOrderTransactionId + ", dateCreation=" + dateCreation + "]";
+				+ ", captureOrderTransactionId=" + captureOrderTransactionId + ", client=" + client + ", dateCreation="
+				+ dateCreation + "]";
 	}
 }
