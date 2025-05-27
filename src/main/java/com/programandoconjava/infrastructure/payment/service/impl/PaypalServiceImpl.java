@@ -70,14 +70,14 @@ public class PaypalServiceImpl implements PaymentService {
 
 	@Override
 	public CreateOrderResponse createOrder(String authToken, String productId, String productName, String price,
-			String currency, String clientIp, String userAgent) {
+			String currency, String clientId, String clientIp, String userAgent) {
 		
 		String paypalRequestId = UUID.randomUUID().toString();
 
 		String intent = "CAPTURE";
 
 		Item[] items = new Item[1];
-		items[0] = new Item(productName, "1", new UnitAmount(currency, price));
+		items[0] = new Item(productName, "1", new UnitAmount(currency, price), clientId);
 
 		Amount amount = new Amount(currency, price, new Breakdown(new UnitAmount(currency, price)));
 

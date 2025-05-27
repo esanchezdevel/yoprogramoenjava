@@ -46,7 +46,14 @@ public class PaypalRestController {
 			return ResponseEntity.badRequest().build();
 		}
 
+		if (request == null || request.get("client_id") == null || 
+			request.get("client_id").length() == 0 || !Validators.isValidLong(request.get("client_id"))) {
+			logger.error("Wrong client id received in request. request: {}", request);
+			return ResponseEntity.badRequest().build();
+		}
+
 		Long productId = Long.parseLong(request.get("product_id"));
+		Long clientId = Long.parseLong(request.get("client_id"));
 		logger.info("Create Order with productId: {}", productId);
 
 		Optional<Product> product = productsService.getById(productId, false);
@@ -56,7 +63,7 @@ public class PaypalRestController {
 			return ResponseEntity.notFound().build();
 		}
 
-		Optional<CreateOrderResponse> order = productsService.createOrder(product.get(), servletRequest.getRemoteAddr(), servletRequest.getHeader("User-Agent"));
+		Optional<CreateOrderResponse> order = productsService.createOrder(product.get(), clientId, servletRequest.getRemoteAddr(), servletRequest.getHeader("User-Agent"));
 
 		if (order.isEmpty()) {
 			logger.error("The process to create a new order failed");

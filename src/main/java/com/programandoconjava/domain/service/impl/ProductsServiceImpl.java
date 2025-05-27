@@ -36,17 +36,17 @@ public class ProductsServiceImpl implements ProductsService {
 	private ProductsRepository productsRepository;
 
 	@Override
-	public Optional<CreateOrderResponse> createOrder(Product product, String clientIp, String userAgent) {
-		logger.info("Creating new order for product={}", product.getId());
+	public Optional<CreateOrderResponse> createOrder(Product product, Long clientId, String clientIp, String userAgent) {
+		logger.info("Creating new order for product={} and client={}", product.getId(), clientId);
 		
 		CreateOrderResponse order = null;
 		try {
-			order = executeCreateOrderRequests(true, product, clientIp, userAgent);
+			order = executeCreateOrderRequests(true, product, clientId, clientIp, userAgent);
 		} catch (Exception e) {
 			if (e.getMessage().contains("401 Unauthorized")) {
 				logger.info("Authorization token expired. Requesting new one and retry request");
 				try {
-					order = executeCreateOrderRequests(false, product, clientIp, userAgent);
+					order = executeCreateOrderRequests(false, product, clientId, clientIp, userAgent);
 				} catch (Exception e1) {
 					logger.error("Unexpected error happens retrying to create a new order", e1);
 					return Optional.empty();
@@ -65,9 +65,9 @@ public class ProductsServiceImpl implements ProductsService {
 		return Optional.of(order);
 	}
 
-	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, Product product, String clientIp, String userAgent) throws Exception {
+	private CreateOrderResponse executeCreateOrderRequests(boolean getAuthTokenFromCache, Product product, Long clientId, String clientIp, String userAgent) throws Exception {
 		AuthenticationResponse authToken = paymentService.getAuthToken(getAuthTokenFromCache);
-		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), String.valueOf(product.getId()), product.getName(), String.valueOf(product.getPrice()), product.getCurrency().value(), clientIp, userAgent);
+		CreateOrderResponse order = paymentService.createOrder(authToken.accessToken(), String.valueOf(product.getId()), product.getName(), String.valueOf(product.getPrice()), product.getCurrency().value(), String.valueOf(clientId), clientIp, userAgent);
 		logger.info("Order created: {}", order);
 		return order;
 	}

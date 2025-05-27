@@ -15,7 +15,7 @@ public interface PaymentService {
 	 */
 	AuthenticationResponse getAuthToken(boolean useCache);
 
-	CreateOrderResponse createOrder(String authToken, String productId, String productName, String price, String currency, String clientIp, String userAgent);
+	CreateOrderResponse createOrder(String authToken, String productId, String productName, String price, String currency, String customClientId, String clientIp, String userAgent);
 
 	CaptureOrderResponse captureOrder(String authToken, String orderId, String productId, String price, String currency, String clientIp, String userAgent);
 }

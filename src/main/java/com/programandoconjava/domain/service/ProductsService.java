@@ -14,11 +14,12 @@ public interface ProductsService {
 	 * Create an order into the Payment platform
 	 * 
 	 * @param product The product to be purchased
+	 * @param clientId The client id stored in our database
 	 * @param clientIp The IP of the client
 	 * @param userAgent The User Agent of the client
 	 * @return Optional of CreateOrderResponse that contains the id of the order created. Empty if the process failed
 	 */
-	Optional<CreateOrderResponse> createOrder(Product product, String clientIp, String userAgent);
+	Optional<CreateOrderResponse> createOrder(Product product, Long clientId, String clientIp, String userAgent);
 
 	/**
 	 * Capture an order to complete the transaction in the payment platform
