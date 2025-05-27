@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Constants;
@@ -28,42 +29,33 @@ public class ClientController {
 	private ClientsService clientsService;
 
 	@PostMapping("/create")
-	public String storeClient(@RequestBody Map<String, String> request, Model model) {
-		if (request == null || request.isEmpty()) {
-			String errorMsg = "No input parameters received";
-			logger.error(errorMsg);
-			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
-			return "error";
-		}
-		if (request.get("productId") == null || request.get("productId").isEmpty()) {
+	public String storeClient(@RequestParam Long productId, @RequestParam String name, @RequestParam String surname, @RequestParam String email, Model model) {
+		logger.info("Creating client...");
+
+		if (productId == null) {
 			String errorMsg = "Empty mandatory parameter 'productId'";
 			logger.error(errorMsg);
 			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
 			return "error";
 		}
-		if (request.get("name") == null || request.get("name").isEmpty()) {
+		if (name == null || name.isEmpty()) {
 			String errorMsg = "Empty mandatory parameter 'name'";
 			logger.error(errorMsg);
 			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
 			return "error";
 		}
-		if (request.get("surname") == null || request.get("surname").isEmpty()) {
+		if (surname == null || surname.isEmpty()) {
 			String errorMsg = "Empty mandatory parameter 'surname'";
 			logger.error(errorMsg);
 			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
 			return "error";
 		}
-		if (request.get("email") == null || request.get("email").isEmpty()) {
+		if (email == null || email.isEmpty()) {
 			String errorMsg = "Empty mandatory parameter 'email'";
 			logger.error(errorMsg);
 			model.addAttribute(Constants.ATTRIBUTE_NAME_ERROR_MESSAGE, errorMsg);
 			return "error";
 		}
-
-		String productId = request.get("productId");
-		String name = request.get("name");
-		String surname = request.get("surname");
-		String email = request.get("email");
 
 		try {
 			Optional<Client> client = clientsService.store(name, surname, email);

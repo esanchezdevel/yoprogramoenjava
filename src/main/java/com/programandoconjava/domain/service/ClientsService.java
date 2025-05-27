@@ -2,6 +2,7 @@ package com.programandoconjava.domain.service;
 
 import java.util.Optional;
 
+import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.domain.model.Client;
 
 public interface ClientsService {
@@ -14,6 +15,7 @@ public interface ClientsService {
 	 * @param surname The client surname
 	 * @param email The client email
 	 * @return Optional of the client stored in database.
+	 * @throws AppException
 	 */
-	Optional<Client> store(String name, String surname, String email);
+	Optional<Client> store(String name, String surname, String email) throws AppException;
 }
