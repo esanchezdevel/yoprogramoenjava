@@ -37,6 +37,21 @@ public class PaymentController {
 	@Autowired
 	private PurchasesService purchasesService;
 
+	@PostMapping("/client")
+	public ResponseEntity<?> storeClient(@RequestBody Map<String, String> request) {
+		String name = request.get("name");
+		String surname = request.get("surname");
+		String email = request.get("email");
+
+		// TODO Validate inputs
+
+		// Check if client already exists to get the id
+
+		// Store the new client if not exists and get the id
+
+		return ResponseEntity.ok().build();
+	}
+
 	@PostMapping("/create-paypal-order")
 	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
 
