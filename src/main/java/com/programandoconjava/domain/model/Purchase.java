@@ -36,7 +36,14 @@ public class Purchase {
 
 	private String clientId;
 
-	private float price;
+	@Column(name = "total_amount")
+	private float totalAmount;
+
+	@Column(name = "net_amount")
+	private float netAmount;
+
+	@Column(name = "tax_amount")
+	private float taxAmount;
 
 	private String currency;
 
@@ -82,12 +89,28 @@ public class Purchase {
 		this.clientId = clientId;
 	}
 
-	public float getPrice() {
-		return price;
+	public float getTotalAmount() {
+		return totalAmount;
 	}
 
-	public void setPrice(float price) {
-		this.price = price;
+	public void setTotalAmount(float totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public float getNetAmount() {
+		return netAmount;
+	}
+
+	public void setNetAmount(float netAmount) {
+		this.netAmount = netAmount;
+	}
+
+	public float getTaxAmount() {
+		return taxAmount;
+	}
+
+	public void setTaxAmount(float taxAmount) {
+		this.taxAmount = taxAmount;
 	}
 
 	public String getCurrency() {
@@ -125,8 +148,8 @@ public class Purchase {
 	@Override
 	public String toString() {
 		return "Purchase [id=" + id + ", token=" + token + ", product=" + product + ", clientId=" + clientId
-				+ ", price=" + price + ", currency=" + currency + ", createOrderTransactionId="
-				+ createOrderTransactionId + ", captureOrderTransactionId=" + captureOrderTransactionId
-				+ ", dateCreation=" + dateCreation + "]";
+				+ ", totalAmount=" + totalAmount + ", netAmount=" + netAmount + ", taxAmount=" + taxAmount
+				+ ", currency=" + currency + ", createOrderTransactionId=" + createOrderTransactionId
+				+ ", captureOrderTransactionId=" + captureOrderTransactionId + ", dateCreation=" + dateCreation + "]";
 	}
 }

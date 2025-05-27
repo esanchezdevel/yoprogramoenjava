@@ -70,7 +70,9 @@ public class PurchasesServiceImpl implements PurchasesService {
 				? captureOrderTransaction.get().getId()
 				: null);
 		purchase.setClientId(clientId);
-		purchase.setPrice((float) product.get().getPrice());
+		purchase.setTotalAmount(product.get().getPrice());
+		purchase.setNetAmount(calculateNetAmount(product.get()));
+		purchase.setTaxAmount(calculateTaxAmount(product.get()));
 		purchase.setCurrency(Constants.CURRENCY_EUR);
 		purchase.setProduct(product.get());
 		purchase.setToken(token);
@@ -78,6 +80,14 @@ public class PurchasesServiceImpl implements PurchasesService {
 		purchasesRepository.save(purchase);
 
 		return token;
+	}
+
+	private float calculateTaxAmount(Product product) {
+		return (product.getTax() * product.getPrice()) / 100;
+	}
+
+	private float calculateNetAmount(Product product) {
+		return ((100 - product.getTax()) * product.getPrice()) / 100;
 	}
 
 	@Override
