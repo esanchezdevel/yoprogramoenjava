@@ -18,4 +18,12 @@ public interface ClientsService {
 	 * @throws AppException
 	 */
 	Optional<Client> store(String name, String surname, String email) throws AppException;
+
+	/**
+	 * Get a client looking for the id
+	 * @param id The id of the client
+	 * @return Optional of the client found
+	 * @throws AppException
+	 */
+	Optional<Client> getById(Long id) throws AppException;
 }

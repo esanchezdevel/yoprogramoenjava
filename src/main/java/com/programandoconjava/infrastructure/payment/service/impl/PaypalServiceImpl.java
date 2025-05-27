@@ -77,12 +77,12 @@ public class PaypalServiceImpl implements PaymentService {
 		String intent = "CAPTURE";
 
 		Item[] items = new Item[1];
-		items[0] = new Item(productName, "1", new UnitAmount(currency, price), clientId);
+		items[0] = new Item(productName, "1", new UnitAmount(currency, price));
 
 		Amount amount = new Amount(currency, price, new Breakdown(new UnitAmount(currency, price)));
 
 		PurchaseUnit[] purchaseUnits = new PurchaseUnit[1];
-		purchaseUnits[0] = new PurchaseUnit(items, amount);
+		purchaseUnits[0] = new PurchaseUnit(items, amount, clientId);
 
 		CreateOrderRequest request = new CreateOrderRequest(purchaseUnits, intent);
 		
@@ -99,7 +99,7 @@ public class PaypalServiceImpl implements PaymentService {
 	public CaptureOrderResponse captureOrder(String authToken, String orderId, String productId, String price, String currency, String clientIp, String userAgent) {
 		String paypalRequestId = UUID.randomUUID().toString();
 		
-		CaptureOrderResponse response = paypalRequest.captureOrder("Bearer " + authToken, paypalRequestId, orderId);
+		CaptureOrderResponse response = paypalRequest.captureOrder("Bearer " + authToken, paypalRequestId, "return=representation", orderId);
 
 		logger.info("Order captured: {}", response);
 

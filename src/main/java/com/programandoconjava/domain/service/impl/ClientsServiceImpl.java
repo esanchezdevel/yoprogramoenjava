@@ -50,4 +50,15 @@ public class ClientsServiceImpl implements ClientsService {
 			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
 		}
 	}
+
+	@Override
+	public Optional<Client> getById(Long id) throws AppException {
+		try {
+			return clientsRepository.findById(id);
+		} catch (Exception e) {
+			String errorMsg = "Error getting client from database: " + e.getMessage();
+			logger.error(errorMsg);
+			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
+		}
+	}
 }

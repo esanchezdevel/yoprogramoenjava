@@ -7,6 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record Item(String name, String quantity, @JsonProperty("unit_amount") UnitAmount unitAmount, @JsonProperty("custom_id") String customId) {
+public record Item(String name, String quantity, @JsonProperty("unit_amount") UnitAmount unitAmount) {
 
 }

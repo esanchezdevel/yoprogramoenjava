@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Constants;
+import com.programandoconjava.domain.model.Client;
 import com.programandoconjava.domain.model.Product;
 import com.programandoconjava.domain.model.Purchase;
+import com.programandoconjava.domain.service.ClientsService;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.db.repository.PurchasesRepository;
@@ -35,13 +37,16 @@ public class PurchasesServiceImpl implements PurchasesService {
 	private ProductsService productsService;
 
 	@Autowired
+	private ClientsService clientsService;
+
+	@Autowired
 	private TransactionsService<TransactionOperation> transactionService;
 
 	@Autowired
 	private PurchasesRepository purchasesRepository;
 
 	@Override
-	public String register(String productId, String orderId) throws AppException {
+	public String register(String productId, String orderId, String clientId) throws AppException {
 		
 		Optional<Product> product = productsService.getById(Long.parseLong(productId), false);
 
@@ -55,6 +60,8 @@ public class PurchasesServiceImpl implements PurchasesService {
 
 		Optional<Transaction> createOrderTransaction = transactions.stream().filter(t -> "CREATE_ORDER".equals(t.getOperation())).findFirst();
 		Optional<Transaction> captureOrderTransaction = transactions.stream().filter(t -> "CAPTURE_ORDER".equals(t.getOperation())).findFirst();
+
+		Optional<Client> client = clientsService.getById(Long.parseLong(clientId));
 
 		String paymentPlatformEmail = captureOrderTransaction.isPresent()
 				? captureOrderTransaction.get().getPayerEmail()
@@ -76,6 +83,7 @@ public class PurchasesServiceImpl implements PurchasesService {
 		purchase.setCurrency(Constants.CURRENCY_EUR);
 		purchase.setProduct(product.get());
 		purchase.setToken(token);
+		purchase.setClient(client.orElse(null));
 
 		purchasesRepository.save(purchase);
 

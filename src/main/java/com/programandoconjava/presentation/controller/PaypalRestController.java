@@ -19,6 +19,8 @@ import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
+import com.programandoconjava.infrastructure.payment.http.dto.Item;
+import com.programandoconjava.infrastructure.payment.http.dto.PurchaseUnit;
 import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
 import jakarta.servlet.http.Cookie;
@@ -86,7 +88,7 @@ public class PaypalRestController {
 		}
 		if ("COMPLETED".equals(order.get().getStatus())) {
 			logger.debug("Purchase completed. register it in database and set cookie to validate the product download");
-			String token = purchasesService.register(productId, orderId);
+			String token = purchasesService.register(productId, orderId, order.get().getPurchaseUnits()[0].customId());
 
 			Cookie cookie = new Cookie("product-" + productId, token);
 			cookie.setHttpOnly(true); 								// Prevent access via JavaScript

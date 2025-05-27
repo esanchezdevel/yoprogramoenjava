@@ -66,10 +66,9 @@
 			const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
 			const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
-			const product_id = window.location.pathname.split("/").pop();
-			/*<![CDATA[*/
-			const client_id = /*[[${client_id}]]*/
-    		/*]]>*/
+			const pathSegments = window.location.pathname.split("/");
+			const product_id = pathSegments[pathSegments.length - 2];
+			const client_id = pathSegments[pathSegments.length - 1];
 
             paypal.Buttons({
                 async createOrder() {

@@ -11,10 +11,11 @@ public interface PurchasesService {
 	 * 
 	 * @param productId The id of the product
 	 * @param orderId The order id received from payment platform
+	 * @param clientId The client id of our database
 	 * @return The token generated to validate the purchase
 	 * @throws AppException
 	 */
-	String register(String productId, String orderId) throws AppException;
+	String register(String productId, String orderId, String clientId) throws AppException;
 
 	/**
 	 * Validate if the token stored in cookie is valid checking that the 

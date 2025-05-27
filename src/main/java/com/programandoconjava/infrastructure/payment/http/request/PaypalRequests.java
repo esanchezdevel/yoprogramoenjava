@@ -33,5 +33,6 @@ public interface PaypalRequests {
 	produces = "application/json")
 	CaptureOrderResponse captureOrder(@RequestHeader("Authorization") String authorization, 
 									@RequestHeader("PayPal-Request-Id") String paypalRequestId,
+									@RequestHeader("Prefer") String prefer,
 									@PathVariable("orderId") String orderId);
 }
