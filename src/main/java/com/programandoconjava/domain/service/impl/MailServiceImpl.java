@@ -9,8 +9,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.programandoconjava.application.exception.AppException;
@@ -19,13 +20,15 @@ import com.programandoconjava.domain.model.Purchase;
 import com.programandoconjava.domain.service.ClientsService;
 import com.programandoconjava.domain.service.MailService;
 
+import jakarta.mail.internet.MimeMessage;
+
 @Service
 public class MailServiceImpl implements MailService {
 
 	private static final Logger logger = LogManager.getLogger(MailServiceImpl.class);
 
 	@Autowired
-	private MailSender mailSender;
+	private JavaMailSender mailSender;
 
 	@Autowired
 	private ClientsService clientsService;
@@ -65,6 +68,7 @@ public class MailServiceImpl implements MailService {
 						.append("<b>Datos de la compra:</b><br>")
 						.append("<hr><br>")
 						.append("Identificador: <b>").append(purchaseToken).append("</b><br>")
+						.append("Comprador: <b>").append(client.get().getName()).append(" ").append(client.get().getSurname()).append("</b><br>")
 						.append("Producto: <b>").append(purchase.get().getProduct().getName()).append("</b><br>")
 						.append("Precio: <b>").append(purchase.get().getTotalAmount()).append(purchase.get().getCurrency()).append("</b> IVA del 21% incluido<br>")
 						.append("Fecha de compra: <b>").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))).append("</b><br>")
@@ -75,19 +79,20 @@ public class MailServiceImpl implements MailService {
 						.append("El equipo de <b>programandoconjava.com</b>")
 						.toString();
 
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom(from);
-		message.setTo(client.get().getEmail());
-		message.setSubject(subject);
-		message.setText(text);
-
 		try {
-			mailSender.send(message);
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+			helper.setFrom(from);
+			helper.setTo(client.get().getEmail());
+			helper.setSubject(subject);
+			helper.setText(text, true);
+
+			mailSender.send(mimeMessage);
 		} catch (Exception e) {
 			String errorMsg = String.format("Error sending confirmation mail: %s", e.getMessage());
 			logger.error(errorMsg);
 			throw new AppException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMsg);
 		}
-		
 	}
 }
