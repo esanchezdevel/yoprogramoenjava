@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.programandoconjava.application.exception.AppException;
 import com.programandoconjava.application.utils.Validators;
 import com.programandoconjava.domain.model.Product;
+import com.programandoconjava.domain.service.MailService;
 import com.programandoconjava.domain.service.ProductsService;
 import com.programandoconjava.domain.service.PurchasesService;
 import com.programandoconjava.infrastructure.payment.http.dto.CaptureOrderResponse;
 import com.programandoconjava.infrastructure.payment.http.dto.CreateOrderResponse;
-import com.programandoconjava.infrastructure.payment.http.dto.Item;
-import com.programandoconjava.infrastructure.payment.http.dto.PurchaseUnit;
 import com.programandoconjava.presentation.dto.mapping.PaymentMapping;
 
 import jakarta.servlet.http.Cookie;
@@ -38,6 +38,9 @@ public class PaypalRestController {
 
 	@Autowired
 	private PurchasesService purchasesService;
+
+	@Autowired
+	private MailService mailService;
 
 	@PostMapping("/create-paypal-order")
 	public ResponseEntity<?> createPayPalOrder(@RequestBody Map<String, String> request, HttpServletRequest servletRequest) {
@@ -88,7 +91,8 @@ public class PaypalRestController {
 		}
 		if ("COMPLETED".equals(order.get().getStatus())) {
 			logger.debug("Purchase completed. register it in database and set cookie to validate the product download");
-			String token = purchasesService.register(productId, orderId, order.get().getPurchaseUnits()[0].customId());
+			String customId = order.get().getPurchaseUnits()[0].customId();
+			String token = purchasesService.register(productId, orderId, customId);
 
 			Cookie cookie = new Cookie("product-" + productId, token);
 			cookie.setHttpOnly(true); 								// Prevent access via JavaScript
@@ -97,6 +101,12 @@ public class PaypalRestController {
 			cookie.setMaxAge(1 * 24 * 60 * 60);								// 1 day
 	
 			servletResponse.addCookie(cookie);
+
+			try {
+				mailService.sendConfirmationEmail(customId, token);
+			} catch (AppException e) {
+				logger.warn("Confirmation mail not sent: {}", e);
+			}
 		}
 		return ResponseEntity.status(HttpStatus.OK.value()).body(PaymentMapping.parseCaptureOrderResponseToDTO(order.get()));
 	}

@@ -44,8 +44,9 @@ public class TransactionsServiceTest {
 		String orderId = "123";
 		String status = "CREATED";
 		String intent = "CAPTURE";
+		String clientId = "123456";
 
-		PurchaseUnit purchaseUnit = new PurchaseUnit(null, null);
+		PurchaseUnit purchaseUnit = new PurchaseUnit(null, null, clientId);
 		PurchaseUnit[] purchaseUnits = new PurchaseUnit[1];
 		purchaseUnits[0] = purchaseUnit;
 
@@ -83,8 +84,9 @@ public class TransactionsServiceTest {
 		String operation = "CAPTURE_ORDER";
 		String orderId = "123";
 		String status = "COMPLETED";
+		String clientId = "123456";
 
-		PurchaseUnit purchaseUnit = new PurchaseUnit(null, null);
+		PurchaseUnit purchaseUnit = new PurchaseUnit(null, null, clientId);
 		PurchaseUnit[] purchaseUnits = new PurchaseUnit[1];
 		purchaseUnits[0] = purchaseUnit;
 

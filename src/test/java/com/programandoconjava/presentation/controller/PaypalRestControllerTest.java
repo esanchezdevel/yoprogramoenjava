@@ -64,7 +64,7 @@ public class PaypalRestControllerTest {
 		CreateOrderResponse createOrderResponse = new CreateOrderResponse("1", "CREATED", new ArrayList<>());
 
 		when(productsService.getById(anyLong(), anyBoolean())).thenReturn(Optional.of(product));
-		when(productsService.createOrder(any(Product.class), anyString(), anyString())).thenReturn(Optional.of(createOrderResponse));
+		when(productsService.createOrder(any(Product.class), anyLong(), anyString(), anyString())).thenReturn(Optional.of(createOrderResponse));
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
@@ -123,7 +123,7 @@ public class PaypalRestControllerTest {
 
 		assertNotNull(response);
 		assertEquals(404, response.getStatusCode().value());
-		verify(productsService, times(0)).createOrder(any(Product.class), anyString(), anyString());
+		verify(productsService, times(0)).createOrder(any(Product.class), anyLong(), anyString(), anyString());
 	}
 
 	@Test
@@ -140,7 +140,7 @@ public class PaypalRestControllerTest {
 		product.setPrice(50.0f);
 
 		when(productsService.getById(anyLong(), anyBoolean())).thenReturn(Optional.of(product));
-		when(productsService.createOrder(any(Product.class), anyString(), anyString())).thenReturn(Optional.empty());
+		when(productsService.createOrder(any(Product.class), anyLong(), anyString(), anyString())).thenReturn(Optional.empty());
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
@@ -165,7 +165,7 @@ public class PaypalRestControllerTest {
 		CaptureOrderResponse captureOrderResponse = new CaptureOrderResponse("", "", "1", null, null, null, "", null, "COMPLETED");
 
 		when(productsService.captureOrder(anyString(), anyString(), anyString(), anyString())).thenReturn(Optional.of(captureOrderResponse));
-		when(purchasesService.register(anyString(), anyString())).thenReturn(token);
+		when(purchasesService.register(anyString(), anyString(), anyString())).thenReturn(token);
 
 		HttpServletRequest servletRequest = mock(HttpServletRequest.class);
         when(servletRequest.getHeader("User-Agent")).thenReturn("JUnit-Test-Agent");
