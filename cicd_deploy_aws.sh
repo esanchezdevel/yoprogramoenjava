@@ -7,6 +7,10 @@ aws_ssh_key=$4  # Full path to the AWS SSH .pem Key
 https_key_password=$5   # Password used by the HTTPS certificate
 paypal_client_id=$6     # Paypal client id
 paypal_client_secret=$7 # Paypal client secret
+mail_host=$8
+mail_port=$9
+mail_user=$10
+mail_pass=$11
 
 version=v1.0.3  # Version of Docker image to push in Docker HUB
 
@@ -37,6 +41,12 @@ ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{BLOG_VERSION}/$version/g' d
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{HTTPS_KEYSTORE_PASSWORD}/$https_key_password/g' docker-compose.yaml"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{PAYPAL_CLIENT_ID}/$paypal_client_id/g' docker-compose.yaml"
 ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{PAYPAL_CLIENT_SECRET}/$paypal_client_secret/g' docker-compose.yaml"
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{MAIL_HOST}/$mail_host/g' docker-compose.yaml"
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{MAIL_PORT}/$mail_port/g' docker-compose.yaml"
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{MAIL_USER}/$mail_user/g' docker-compose.yaml"
+safe_mail_pass=$(printf '%s' "$mail_pass" | sed 's/&/\\&/g')
+ssh -i $aws_ssh_key ec2-user@$aws_ssh_ip "sed -i 's/{MAIL_PASS}/"$safe_mail_pass"/g' docker-compose.yaml"
+
 
 echo
 echo "6. Clean environment"
