@@ -18,6 +18,7 @@ services:
       - SPRING_MAIL_PASSWORD={MAIL_PASS}
     volumes:
       - /var/opt/programandoconjava/products:/var/opt/programandoconjava/products
+      - /var/opt/programandoconjava/logs:/var/opt/programandoconjava/logs
     depends_on:
       - postgres
 
